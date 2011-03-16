@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		54E513C01330858B00A4E8DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513BF1330858B00A4E8DA /* UIKit.framework */; };
+		54E513C21330858B00A4E8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C11330858B00A4E8DA /* Foundation.framework */; };
+		54E513C41330858B00A4E8DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C31330858B00A4E8DA /* CoreGraphics.framework */; };
+		54E513CA1330858B00A4E8DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54E513C81330858B00A4E8DA /* InfoPlist.strings */; };
+		54E513CD1330858B00A4E8DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E513CC1330858B00A4E8DA /* main.m */; };
+		54E513D01330858B00A4E8DA /* BlackoutAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */; };
+		54E513D31330858B00A4E8DA /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54E513D11330858B00A4E8DA /* MainWindow.xib */; };
+		54E513D61330858B00A4E8DA /* BlackoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E513D51330858B00A4E8DA /* BlackoutViewController.m */; };
+		54E513D91330858C00A4E8DA /* BlackoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54E513D71330858C00A4E8DA /* BlackoutViewController.xib */; };
+		54E513E01330858C00A4E8DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513BF1330858B00A4E8DA /* UIKit.framework */; };
+		54E513E11330858C00A4E8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C11330858B00A4E8DA /* Foundation.framework */; };
+		54E513E21330858C00A4E8DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C31330858B00A4E8DA /* CoreGraphics.framework */; };
+		54E513EA1330858C00A4E8DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54E513E81330858C00A4E8DA /* InfoPlist.strings */; };
+		54E513ED1330858C00A4E8DA /* BlackoutTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 54E513EC1330858C00A4E8DA /* BlackoutTests.h */; };
+		54E513EF1330858C00A4E8DA /* BlackoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E513EE1330858C00A4E8DA /* BlackoutTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		54E513E31330858C00A4E8DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54E513B21330858B00A4E8DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 54E513BA1330858B00A4E8DA;
+			remoteInfo = Blackout;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		54E513BB1330858B00A4E8DA /* Blackout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		54E513BF1330858B00A4E8DA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		54E513C11330858B00A4E8DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		54E513C31330858B00A4E8DA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		54E513C71330858B00A4E8DA /* Blackout-Info.plist */ = {isa = PBXFileReference; path = "Blackout-Info.plist"; sourceTree = "<group>"; };
+		54E513C91330858B00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		54E513CB1330858B00A4E8DA /* Blackout-Prefix.pch */ = {isa = PBXFileReference; path = "Blackout-Prefix.pch"; sourceTree = "<group>"; };
+		54E513CC1330858B00A4E8DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		54E513CE1330858B00A4E8DA /* BlackoutAppDelegate.h */ = {isa = PBXFileReference; path = BlackoutAppDelegate.h; sourceTree = "<group>"; };
+		54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutAppDelegate.m; sourceTree = "<group>"; };
+		54E513D21330858B00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		54E513D41330858B00A4E8DA /* BlackoutViewController.h */ = {isa = PBXFileReference; path = BlackoutViewController.h; sourceTree = "<group>"; };
+		54E513D51330858B00A4E8DA /* BlackoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutViewController.m; sourceTree = "<group>"; };
+		54E513D81330858C00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BlackoutViewController.xib; sourceTree = "<group>"; };
+		54E513DF1330858C00A4E8DA /* BlackoutTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlackoutTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		54E513E71330858C00A4E8DA /* BlackoutTests-Info.plist */ = {isa = PBXFileReference; path = "BlackoutTests-Info.plist"; sourceTree = "<group>"; };
+		54E513E91330858C00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		54E513EB1330858C00A4E8DA /* BlackoutTests-Prefix.pch */ = {isa = PBXFileReference; path = "BlackoutTests-Prefix.pch"; sourceTree = "<group>"; };
+		54E513EC1330858C00A4E8DA /* BlackoutTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackoutTests.h; sourceTree = "<group>"; };
+		54E513EE1330858C00A4E8DA /* BlackoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		54E513B81330858B00A4E8DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E513C01330858B00A4E8DA /* UIKit.framework in Frameworks */,
+				54E513C21330858B00A4E8DA /* Foundation.framework in Frameworks */,
+				54E513C41330858B00A4E8DA /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54E513DB1330858C00A4E8DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E513E01330858C00A4E8DA /* UIKit.framework in Frameworks */,
+				54E513E11330858C00A4E8DA /* Foundation.framework in Frameworks */,
+				54E513E21330858C00A4E8DA /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		54E513B01330858B00A4E8DA = {
+			isa = PBXGroup;
+			children = (
+				54E513C51330858B00A4E8DA /* Blackout */,
+				54E513E51330858C00A4E8DA /* BlackoutTests */,
+				54E513BE1330858B00A4E8DA /* Frameworks */,
+				54E513BC1330858B00A4E8DA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		54E513BC1330858B00A4E8DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				54E513BB1330858B00A4E8DA /* Blackout.app */,
+				54E513DF1330858C00A4E8DA /* BlackoutTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		54E513BE1330858B00A4E8DA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				54E513BF1330858B00A4E8DA /* UIKit.framework */,
+				54E513C11330858B00A4E8DA /* Foundation.framework */,
+				54E513C31330858B00A4E8DA /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		54E513C51330858B00A4E8DA /* Blackout */ = {
+			isa = PBXGroup;
+			children = (
+				54E513CE1330858B00A4E8DA /* BlackoutAppDelegate.h */,
+				54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */,
+				54E513D11330858B00A4E8DA /* MainWindow.xib */,
+				54E513D41330858B00A4E8DA /* BlackoutViewController.h */,
+				54E513D51330858B00A4E8DA /* BlackoutViewController.m */,
+				54E513D71330858C00A4E8DA /* BlackoutViewController.xib */,
+				54E513C61330858B00A4E8DA /* Supporting Files */,
+			);
+			path = Blackout;
+			sourceTree = "<group>";
+		};
+		54E513C61330858B00A4E8DA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				54E513C71330858B00A4E8DA /* Blackout-Info.plist */,
+				54E513C81330858B00A4E8DA /* InfoPlist.strings */,
+				54E513CB1330858B00A4E8DA /* Blackout-Prefix.pch */,
+				54E513CC1330858B00A4E8DA /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		54E513E51330858C00A4E8DA /* BlackoutTests */ = {
+			isa = PBXGroup;
+			children = (
+				54E513EC1330858C00A4E8DA /* BlackoutTests.h */,
+				54E513EE1330858C00A4E8DA /* BlackoutTests.m */,
+				54E513E61330858C00A4E8DA /* Supporting Files */,
+			);
+			path = BlackoutTests;
+			sourceTree = "<group>";
+		};
+		54E513E61330858C00A4E8DA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				54E513E71330858C00A4E8DA /* BlackoutTests-Info.plist */,
+				54E513E81330858C00A4E8DA /* InfoPlist.strings */,
+				54E513EB1330858C00A4E8DA /* BlackoutTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		54E513BA1330858B00A4E8DA /* Blackout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 54E513F21330858C00A4E8DA /* Build configuration list for PBXNativeTarget "Blackout" */;
+			buildPhases = (
+				54E513B71330858B00A4E8DA /* Sources */,
+				54E513B81330858B00A4E8DA /* Frameworks */,
+				54E513B91330858B00A4E8DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Blackout;
+			productName = Blackout;
+			productReference = 54E513BB1330858B00A4E8DA /* Blackout.app */;
+			productType = "com.apple.product-type.application";
+		};
+		54E513DE1330858C00A4E8DA /* BlackoutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 54E513F51330858C00A4E8DA /* Build configuration list for PBXNativeTarget "BlackoutTests" */;
+			buildPhases = (
+				54E513DA1330858C00A4E8DA /* Sources */,
+				54E513DB1330858C00A4E8DA /* Frameworks */,
+				54E513DC1330858C00A4E8DA /* Resources */,
+				54E513DD1330858C00A4E8DA /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				54E513E41330858C00A4E8DA /* PBXTargetDependency */,
+			);
+			name = BlackoutTests;
+			productName = BlackoutTests;
+			productReference = 54E513DF1330858C00A4E8DA /* BlackoutTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		54E513B21330858B00A4E8DA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Ignition Soft Limited";
+			};
+			buildConfigurationList = 54E513B51330858B00A4E8DA /* Build configuration list for PBXProject "Blackout" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 54E513B01330858B00A4E8DA;
+			productRefGroup = 54E513BC1330858B00A4E8DA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				54E513BA1330858B00A4E8DA /* Blackout */,
+				54E513DE1330858C00A4E8DA /* BlackoutTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		54E513B91330858B00A4E8DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E513CA1330858B00A4E8DA /* InfoPlist.strings in Resources */,
+				54E513D31330858B00A4E8DA /* MainWindow.xib in Resources */,
+				54E513D91330858C00A4E8DA /* BlackoutViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54E513DC1330858C00A4E8DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E513EA1330858C00A4E8DA /* InfoPlist.strings in Resources */,
+				54E513ED1330858C00A4E8DA /* BlackoutTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		54E513DD1330858C00A4E8DA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		54E513B71330858B00A4E8DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E513CD1330858B00A4E8DA /* main.m in Sources */,
+				54E513D01330858B00A4E8DA /* BlackoutAppDelegate.m in Sources */,
+				54E513D61330858B00A4E8DA /* BlackoutViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54E513DA1330858C00A4E8DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E513EF1330858C00A4E8DA /* BlackoutTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		54E513E41330858C00A4E8DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 54E513BA1330858B00A4E8DA /* Blackout */;
+			targetProxy = 54E513E31330858C00A4E8DA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		54E513C81330858B00A4E8DA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				54E513C91330858B00A4E8DA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		54E513D11330858B00A4E8DA /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				54E513D21330858B00A4E8DA /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		54E513D71330858C00A4E8DA /* BlackoutViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				54E513D81330858C00A4E8DA /* en */,
+			);
+			name = BlackoutViewController.xib;
+			sourceTree = "<group>";
+		};
+		54E513E81330858C00A4E8DA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				54E513E91330858C00A4E8DA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		54E513F01330858C00A4E8DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		54E513F11330858C00A4E8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		54E513F31330858C00A4E8DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Blackout/Blackout-Prefix.pch";
+				INFOPLIST_FILE = "Blackout/Blackout-Info.plist";
+				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		54E513F41330858C00A4E8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Blackout/Blackout-Prefix.pch";
+				INFOPLIST_FILE = "Blackout/Blackout-Info.plist";
+				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		54E513F61330858C00A4E8DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Blackout.app/Blackout";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BlackoutTests/BlackoutTests-Prefix.pch";
+				INFOPLIST_FILE = "BlackoutTests/BlackoutTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		54E513F71330858C00A4E8DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Blackout.app/Blackout";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BlackoutTests/BlackoutTests-Prefix.pch";
+				INFOPLIST_FILE = "BlackoutTests/BlackoutTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		54E513B51330858B00A4E8DA /* Build configuration list for PBXProject "Blackout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				54E513F01330858C00A4E8DA /* Debug */,
+				54E513F11330858C00A4E8DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		54E513F21330858C00A4E8DA /* Build configuration list for PBXNativeTarget "Blackout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				54E513F31330858C00A4E8DA /* Debug */,
+				54E513F41330858C00A4E8DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		54E513F51330858C00A4E8DA /* Build configuration list for PBXNativeTarget "BlackoutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				54E513F61330858C00A4E8DA /* Debug */,
+				54E513F71330858C00A4E8DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 54E513B21330858B00A4E8DA /* Project object */;
+}

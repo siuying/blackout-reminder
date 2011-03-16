@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'BlackoutTests' target in the 'BlackoutTests' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif
