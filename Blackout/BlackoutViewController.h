@@ -16,17 +16,34 @@
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate> {
     LocationService* locationService;
 
-    IBOutlet UILabel* lblPrefecture;
-    IBOutlet UILabel* lblCity;
-    IBOutlet UILabel* lblStreet;
+    IBOutlet UIButton* btnPrefecture;
+    IBOutlet UIButton* btnCity;
+    IBOutlet UIButton* btnStreet;
+    
+    IBOutlet UILabel* lblTimeTitle;
+    IBOutlet UILabel* lblTimeRemaining;
+    IBOutlet UILabel* lblTimeDetail;
+
+    IBOutlet UIButton* buttonWarning;
+    IBOutlet UIButton* buttonHomepage;
+
+    IBOutlet UINavigationBar* navigationBar;
 }
 
 
 @property (nonatomic, retain) LocationService* locationService;
 
-@property (nonatomic, retain) IBOutlet UILabel* lblPrefecture;
-@property (nonatomic, retain) IBOutlet UILabel* lblCity;
-@property (nonatomic, retain) IBOutlet UILabel* lblStreet;
+@property (nonatomic, retain) IBOutlet UIButton* btnPrefecture;
+@property (nonatomic, retain) IBOutlet UIButton* btnCity;
+@property (nonatomic, retain) IBOutlet UIButton* btnStreet;
+
+@property (nonatomic, retain) IBOutlet UILabel* lblTimeTitle;
+@property (nonatomic, retain) IBOutlet UILabel* lblTimeRemaining;
+@property (nonatomic, retain) IBOutlet UILabel* lblTimeDetail;
+
+@property (nonatomic, retain) IBOutlet UIButton* buttonWarning;
+@property (nonatomic, retain) IBOutlet UIButton* buttonHomepage;
+@property (nonatomic, retain) IBOutlet UINavigationBar* navigationBar;
 
 // popup list of prefecture for user select
 // when complete, invoke popupCityListWithPrefecture:
@@ -55,6 +72,7 @@
 -(IBAction) clickCity:(id)sender;
 -(IBAction) clickStreet:(id)sender;
 
+-(IBAction) openWarning:(id)sender;
 -(IBAction) openTepcoUrl:(id)sender;
 
 @end

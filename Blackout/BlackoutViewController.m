@@ -11,7 +11,9 @@
 
 @implementation BlackoutViewController
 
-@synthesize lblPrefecture, lblCity, lblStreet;
+@synthesize btnPrefecture, btnCity, btnStreet;
+@synthesize lblTimeTitle, lblTimeRemaining, lblTimeDetail;
+@synthesize buttonWarning, buttonHomepage, navigationBar;
 @synthesize locationService;
 
 - (void)dealloc
@@ -55,9 +57,16 @@
 {
     [super viewDidUnload];
 
-    self.lblPrefecture = nil;
-    self.lblCity = nil;
-    self.lblStreet = nil;
+    self.btnPrefecture = nil;
+    self.btnCity = nil;
+    self.btnStreet = nil;
+    
+    self.lblTimeDetail = nil;
+    self.lblTimeRemaining = nil;
+    self.lblTimeTitle = nil;
+    self.buttonWarning = nil;
+    self.buttonHomepage = nil;
+    self.navigationBar = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -72,9 +81,9 @@
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
     if (names && [names count] == 3) {
         NSLog(@" location found: %@", names);
-        self.lblPrefecture.text     = [names objectAtIndex:0];
-        self.lblCity.text           = [names objectAtIndex:1];
-        self.lblStreet.text         = [names objectAtIndex:2];
+        [self.btnPrefecture setTitle:[names objectAtIndex:0] forState:UIControlStateNormal];
+        [self.btnCity setTitle:[names objectAtIndex:1] forState:UIControlStateNormal];
+        [self.btnStreet setTitle:[names objectAtIndex:2] forState:UIControlStateNormal];
         
         // query the prefecture, city and street for next hour
     }
@@ -88,15 +97,23 @@
 #pragma mark - User Actions
 
 -(IBAction) clickPrefecture:(id)sender {
+    NSLog(@" clicked prefecture");
 }
 
 -(IBAction) clickCity:(id)sender {
+    NSLog(@" clicked city");
 }
 
 -(IBAction) clickStreet:(id)sender {
+    NSLog(@" clicked street");
+}
+
+-(IBAction) openWarning:(id)sender {
+    NSLog(@" clicked warning button");
 }
 
 -(IBAction) openTepcoUrl:(id)sender{
+    NSLog(@" clicked TEPCO web button");
 }
 
 #pragma mark - Public
