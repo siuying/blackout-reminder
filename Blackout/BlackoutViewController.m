@@ -87,11 +87,9 @@
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
     if (names && [names count] == 3) {
         NSLog(@" location found: %@", names);
-        [self.btnPrefecture setTitle:[names objectAtIndex:0] forState:UIControlStateNormal];
-        [self.btnCity setTitle:[names objectAtIndex:1] forState:UIControlStateNormal];
-        [self.btnStreet setTitle:[names objectAtIndex:2] forState:UIControlStateNormal];
-        
-        // query the prefecture, city and street for next hour
+        [self locationDidSelectedWithPrefecture:[names objectAtIndex:0]
+                                           city:[names objectAtIndex:1]
+                                         street:[names objectAtIndex:2]];
     }
 }
 
