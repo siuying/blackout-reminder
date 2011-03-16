@@ -19,6 +19,6 @@
                                         period:(NSArray*)periods;
 
 +(BOOL) isBlackout:(NSDate*)currentTime
-          blackout:(BlackoutPeriod*)period;
+           periods:(BlackoutPeriod*)period;
 
 @end

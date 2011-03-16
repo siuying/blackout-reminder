@@ -162,7 +162,7 @@
         BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
                                                                      period:blackoutPeriods];
         
-        BOOL isBlackout = [BlackoutUtils isBlackout:currentTime blackout:period];
+        BOOL isBlackout = [BlackoutUtils isBlackout:currentTime periods:period];
 
         // use isBlackout, period.fromTime and period.toTime to determine the display text
         
