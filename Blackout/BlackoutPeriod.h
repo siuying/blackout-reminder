@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface BlackoutPeriod : NSObject {
-    NSDate* fromTime;
-    NSDate* toTime;
+    NSDateComponents* fromTime;
+    NSDateComponents* toTime;
 }
 
-@property (nonatomic, retain) NSDate* fromTime;
-@property (nonatomic, retain) NSDate* toTime;
+@property (nonatomic, retain) NSDateComponents* fromTime;
+@property (nonatomic, retain) NSDateComponents* toTime;
 
 @end
