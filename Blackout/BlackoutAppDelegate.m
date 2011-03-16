@@ -14,13 +14,18 @@
 
 
 @synthesize window=_window;
-
 @synthesize viewController=_viewController;
+@synthesize locationService;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-     
+    self.locationService = [[[LocationService alloc] init] autorelease];
+    self.locationService.locationDelegate = self;
+
+    // http://maps.google.com/?ie=UTF8&hq=&hnear=Hong+Kong&ll=35.715159,139.660435&spn=0.148436,0.161362&z=13&iwloc=lyrftr:m,0x6018ed6268296633:0xe455635896e1cf9d,35.719479,139.663696
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.715159, 139.660435);
+    [self.locationService findLocationName:location];
+
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -67,9 +72,20 @@
 
 - (void)dealloc
 {
+    self.locationService = nil;
+
     [_window release];
     [_viewController release];
     [super dealloc];
+}
+
+#pragma LocationServiceDelegate
+
+-(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
+    NSLog(@"location found: %@", names);
+}
+
+-(void) findLocationName:(CLLocationCoordinate2D)location didFailedWithError:(NSError*)error {
 }
 
 @end

@@ -22,6 +22,10 @@
 		54E513EA1330858C00A4E8DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54E513E81330858C00A4E8DA /* InfoPlist.strings */; };
 		54E513ED1330858C00A4E8DA /* BlackoutTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 54E513EC1330858C00A4E8DA /* BlackoutTests.h */; };
 		54E513EF1330858C00A4E8DA /* BlackoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E513EE1330858C00A4E8DA /* BlackoutTests.m */; };
+		54E513FD133086E200A4E8DA /* BlackoutPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E513FC133086E200A4E8DA /* BlackoutPeriod.m */; };
+		54E514011330884800A4E8DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E514001330884800A4E8DA /* CoreLocation.framework */; };
+		54E51405133091A000A4E8DA /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E51404133091A000A4E8DA /* LocationService.m */; };
+		54E514071330932700A4E8DA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E514061330932600A4E8DA /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,22 +43,29 @@
 		54E513BF1330858B00A4E8DA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54E513C11330858B00A4E8DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		54E513C31330858B00A4E8DA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		54E513C71330858B00A4E8DA /* Blackout-Info.plist */ = {isa = PBXFileReference; path = "Blackout-Info.plist"; sourceTree = "<group>"; };
+		54E513C71330858B00A4E8DA /* Blackout-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Blackout-Info.plist"; sourceTree = "<group>"; };
 		54E513C91330858B00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		54E513CB1330858B00A4E8DA /* Blackout-Prefix.pch */ = {isa = PBXFileReference; path = "Blackout-Prefix.pch"; sourceTree = "<group>"; };
+		54E513CB1330858B00A4E8DA /* Blackout-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blackout-Prefix.pch"; sourceTree = "<group>"; };
 		54E513CC1330858B00A4E8DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		54E513CE1330858B00A4E8DA /* BlackoutAppDelegate.h */ = {isa = PBXFileReference; path = BlackoutAppDelegate.h; sourceTree = "<group>"; };
+		54E513CE1330858B00A4E8DA /* BlackoutAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackoutAppDelegate.h; sourceTree = "<group>"; };
 		54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutAppDelegate.m; sourceTree = "<group>"; };
 		54E513D21330858B00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		54E513D41330858B00A4E8DA /* BlackoutViewController.h */ = {isa = PBXFileReference; path = BlackoutViewController.h; sourceTree = "<group>"; };
+		54E513D41330858B00A4E8DA /* BlackoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackoutViewController.h; sourceTree = "<group>"; };
 		54E513D51330858B00A4E8DA /* BlackoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutViewController.m; sourceTree = "<group>"; };
 		54E513D81330858C00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BlackoutViewController.xib; sourceTree = "<group>"; };
 		54E513DF1330858C00A4E8DA /* BlackoutTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlackoutTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		54E513E71330858C00A4E8DA /* BlackoutTests-Info.plist */ = {isa = PBXFileReference; path = "BlackoutTests-Info.plist"; sourceTree = "<group>"; };
+		54E513E71330858C00A4E8DA /* BlackoutTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlackoutTests-Info.plist"; sourceTree = "<group>"; };
 		54E513E91330858C00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		54E513EB1330858C00A4E8DA /* BlackoutTests-Prefix.pch */ = {isa = PBXFileReference; path = "BlackoutTests-Prefix.pch"; sourceTree = "<group>"; };
+		54E513EB1330858C00A4E8DA /* BlackoutTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlackoutTests-Prefix.pch"; sourceTree = "<group>"; };
 		54E513EC1330858C00A4E8DA /* BlackoutTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackoutTests.h; sourceTree = "<group>"; };
 		54E513EE1330858C00A4E8DA /* BlackoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutTests.m; sourceTree = "<group>"; };
+		54E513FA1330861E00A4E8DA /* BlackoutService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackoutService.h; sourceTree = "<group>"; };
+		54E513FB133086E200A4E8DA /* BlackoutPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackoutPeriod.h; sourceTree = "<group>"; };
+		54E513FC133086E200A4E8DA /* BlackoutPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackoutPeriod.m; sourceTree = "<group>"; };
+		54E514001330884800A4E8DA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		54E51403133091A000A4E8DA /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
+		54E51404133091A000A4E8DA /* LocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
+		54E514061330932600A4E8DA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54E514071330932700A4E8DA /* MapKit.framework in Frameworks */,
+				54E514011330884800A4E8DA /* CoreLocation.framework in Frameworks */,
 				54E513C01330858B00A4E8DA /* UIKit.framework in Frameworks */,
 				54E513C21330858B00A4E8DA /* Foundation.framework in Frameworks */,
 				54E513C41330858B00A4E8DA /* CoreGraphics.framework in Frameworks */,
@@ -103,6 +116,8 @@
 		54E513BE1330858B00A4E8DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				54E514061330932600A4E8DA /* MapKit.framework */,
+				54E514001330884800A4E8DA /* CoreLocation.framework */,
 				54E513BF1330858B00A4E8DA /* UIKit.framework */,
 				54E513C11330858B00A4E8DA /* Foundation.framework */,
 				54E513C31330858B00A4E8DA /* CoreGraphics.framework */,
@@ -113,6 +128,8 @@
 		54E513C51330858B00A4E8DA /* Blackout */ = {
 			isa = PBXGroup;
 			children = (
+				54E513F9133085D500A4E8DA /* View */,
+				54E513F8133085C700A4E8DA /* Model */,
 				54E513CE1330858B00A4E8DA /* BlackoutAppDelegate.h */,
 				54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */,
 				54E513D11330858B00A4E8DA /* MainWindow.xib */,
@@ -153,6 +170,33 @@
 				54E513EB1330858C00A4E8DA /* BlackoutTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		54E513F8133085C700A4E8DA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				54E513FE1330881600A4E8DA /* Services */,
+				54E513FB133086E200A4E8DA /* BlackoutPeriod.h */,
+				54E513FC133086E200A4E8DA /* BlackoutPeriod.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		54E513F9133085D500A4E8DA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		54E513FE1330881600A4E8DA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				54E513FA1330861E00A4E8DA /* BlackoutService.h */,
+				54E51403133091A000A4E8DA /* LocationService.h */,
+				54E51404133091A000A4E8DA /* LocationService.m */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +310,8 @@
 				54E513CD1330858B00A4E8DA /* main.m in Sources */,
 				54E513D01330858B00A4E8DA /* BlackoutAppDelegate.m in Sources */,
 				54E513D61330858B00A4E8DA /* BlackoutViewController.m in Sources */,
+				54E513FD133086E200A4E8DA /* BlackoutPeriod.m in Sources */,
+				54E51405133091A000A4E8DA /* LocationService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
