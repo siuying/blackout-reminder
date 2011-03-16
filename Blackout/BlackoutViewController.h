@@ -13,8 +13,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface BlackoutViewController : UIViewController <LocationServiceDelegate> {
+#import "BlackoutService.h"
+#import "DummyBlackoutService.h"
+
+@interface BlackoutViewController : UIViewController <LocationServiceDelegate> {   
+    // UI
     LocationService* locationService;
+    id<BlackoutService> blackoutService;
 
     IBOutlet UIButton* btnPrefecture;
     IBOutlet UIButton* btnCity;
@@ -28,10 +33,16 @@
     IBOutlet UIButton* buttonHomepage;
 
     IBOutlet UINavigationBar* navigationBar;
+    
+    // Model
+    NSString* selectedPrefecture;
+    NSString* selectedCity;
+    NSString* selectedStreet;
 }
 
 
 @property (nonatomic, retain) LocationService* locationService;
+@property (nonatomic, retain) id<BlackoutService> blackoutService;
 
 @property (nonatomic, retain) IBOutlet UIButton* btnPrefecture;
 @property (nonatomic, retain) IBOutlet UIButton* btnCity;
@@ -44,6 +55,10 @@
 @property (nonatomic, retain) IBOutlet UIButton* buttonWarning;
 @property (nonatomic, retain) IBOutlet UIButton* buttonHomepage;
 @property (nonatomic, retain) IBOutlet UINavigationBar* navigationBar;
+
+@property (nonatomic, retain) NSString* selectedPrefecture;
+@property (nonatomic, retain) NSString* selectedCity;
+@property (nonatomic, retain) NSString* selectedStreet;
 
 // popup list of prefecture for user select
 // when complete, invoke popupCityListWithPrefecture:

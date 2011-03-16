@@ -14,11 +14,16 @@
 @synthesize btnPrefecture, btnCity, btnStreet;
 @synthesize lblTimeTitle, lblTimeRemaining, lblTimeDetail;
 @synthesize buttonWarning, buttonHomepage, navigationBar;
-@synthesize locationService;
+@synthesize locationService, blackoutService;
+@synthesize selectedPrefecture, selectedCity, selectedStreet;
 
 - (void)dealloc
 {
     self.locationService = nil;
+    self.blackoutService = nil;
+    self.selectedCity = nil;
+    self.selectedPrefecture = nil;
+    self.selectedStreet = nil;
     [super dealloc];
 }
 
@@ -35,7 +40,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
     
@@ -98,14 +104,19 @@
 
 -(IBAction) clickPrefecture:(id)sender {
     NSLog(@" clicked prefecture");
+    [self popupPrefectureList];
+
 }
 
 -(IBAction) clickCity:(id)sender {
     NSLog(@" clicked city");
+    [self popupCityListWithPrefecture:self.selectedPrefecture];
 }
 
 -(IBAction) clickStreet:(id)sender {
     NSLog(@" clicked street");
+    [self popupStreetListWithPrefecture:self.selectedPrefecture 
+                                 street:self.selectedCity];
 }
 
 -(IBAction) openWarning:(id)sender {
@@ -121,16 +132,22 @@
 // popup list of prefecture for user select
 // when complete, invoke popupCityListWithPrefecture:
 -(void) popupPrefectureList{
+    NSArray* prefectures = [self.blackoutService prefectures];
 }
 
 // popup list of city for user select
 // when complete, invoke popupStreetListWithPrefecture:street:
 -(void) popupCityListWithPrefecture:(NSString*)prefecture{
+    NSArray* cities = [self.blackoutService cities:prefecture];
+
 }
 
 // popup list of street for user select
 // when complete, invoke refreshReminder
 -(void) popupStreetListWithPrefecture:(NSString*)prefecture street:(NSString*)street{
+    NSArray* streets = [self.blackoutService streetsWithPrefecture:prefecture
+                                                              city:street];
+    
 }
 
 // asynchronously find current location, then set the prefecture, city and street

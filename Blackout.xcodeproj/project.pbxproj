@@ -27,6 +27,7 @@
 		54E51405133091A000A4E8DA /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E51404133091A000A4E8DA /* LocationService.m */; };
 		54E514071330932700A4E8DA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E514061330932600A4E8DA /* MapKit.framework */; };
 		54E5140B1330A7BD00A4E8DA /* BlackoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */; };
+		54E5140E1330B64400A4E8DA /* DummyBlackoutService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		54E514081330A50700A4E8DA /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		54E514091330A7BC00A4E8DA /* BlackoutUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackoutUtils.h; sourceTree = "<group>"; };
 		54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackoutUtils.m; sourceTree = "<group>"; };
+		54E5140C1330B63E00A4E8DA /* DummyBlackoutService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DummyBlackoutService.h; sourceTree = "<group>"; };
+		54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DummyBlackoutService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +205,8 @@
 				54E51404133091A000A4E8DA /* LocationService.m */,
 				54E514091330A7BC00A4E8DA /* BlackoutUtils.h */,
 				54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */,
+				54E5140C1330B63E00A4E8DA /* DummyBlackoutService.h */,
+				54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				54E513FD133086E200A4E8DA /* BlackoutPeriod.m in Sources */,
 				54E51405133091A000A4E8DA /* LocationService.m in Sources */,
 				54E5140B1330A7BD00A4E8DA /* BlackoutUtils.m in Sources */,
+				54E5140E1330B64400A4E8DA /* DummyBlackoutService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
