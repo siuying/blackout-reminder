@@ -18,8 +18,9 @@
 
 #import "BlackoutUtils.h"
 #import "PrefectureTableViewController.h"
+#import "LocationTableViewController.h"
 
-@interface BlackoutViewController : UIViewController <LocationServiceDelegate> {   
+@interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate> {   
     // UI
     LocationService* locationService;
     id<BlackoutService> blackoutService;

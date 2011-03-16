@@ -13,10 +13,12 @@
 
 @synthesize locations;
 @synthesize blackoutServices;
+@synthesize locationDelegate;
 
-- (id)initWithBlackoutServices:(id<BlackoutService>)theService locations:(NSArray*)theLocations {
+- (id)initWithBlackoutServices:(id<BlackoutService>)theService locations:(NSArray*)theLocations delegate:(id<LocationTableViewControllerDelegate>) delegate{
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
+        self.locationDelegate = delegate;
         self.blackoutServices = theService;
         self.locations = theLocations;
     }

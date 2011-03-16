@@ -139,7 +139,7 @@
         // otherwise, prompt for select prefecture
     }
     
-    PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService];
+    PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService delegate:self];
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:pController];
     [self presentModalViewController:navController animated:YES];
     [pController release];
@@ -174,6 +174,20 @@
         
         // update the display
     }
+}
+
+#pragma mark LocationTableViewControllerDelegate
+
+-(void) locationDidSelectedWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {    
+    [self.btnPrefecture setTitle:prefecture forState:UIControlStateNormal];
+    [self.btnCity setTitle:city forState:UIControlStateNormal];
+    [self.btnStreet setTitle:street forState:UIControlStateNormal];
+    [self refreshReminder];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+-(void) locationDidCancelled {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

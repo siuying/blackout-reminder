@@ -14,6 +14,6 @@
 @interface PrefectureTableViewController : LocationTableViewController {
 }
 
--(id)initWithBlackoutServices:(id<BlackoutService>)service;
+-(id)initWithBlackoutServices:(id<BlackoutService>)service delegate:(id<LocationTableViewControllerDelegate>) delegate;
 -(void) cancel;
 @end

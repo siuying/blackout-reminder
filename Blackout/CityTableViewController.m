@@ -13,9 +13,9 @@
 
 @synthesize prefecture;
 
-- (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)thePrefecture {
+- (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)thePrefecture delegate:(id<LocationTableViewControllerDelegate>) delegate{
     NSArray* cities = [service cities:thePrefecture];
-    self = [super initWithBlackoutServices:service locations:cities];
+    self = [super initWithBlackoutServices:service locations:cities delegate:delegate];
     self.title = @"市区郡";
     self.prefecture = thePrefecture;
     return self;
@@ -23,6 +23,7 @@
 
 - (void)dealloc
 {
+    self.prefecture = nil;
     [super dealloc];
 }
 
@@ -44,7 +45,8 @@
 
     StreetTableViewController* cityController = [[StreetTableViewController alloc] initWithBlackoutServices:self.blackoutServices
                                                                                                  prefecture:self.prefecture
-                                                                                                       city:selected];
+                                                                                                       city:selected
+                                                                                                   delegate:self.locationDelegate];
     [self.navigationController pushViewController:cityController animated:YES];
     [cityController release];
 }

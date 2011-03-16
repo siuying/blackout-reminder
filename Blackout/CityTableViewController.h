@@ -16,6 +16,6 @@
 }
 @property (nonatomic, retain)     NSString* prefecture;
 
-- (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)prefecture;
+- (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)prefecture delegate:(id<LocationTableViewControllerDelegate>) delegate;
 
 @end

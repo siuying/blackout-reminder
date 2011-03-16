@@ -10,16 +10,16 @@
 
 @implementation PrefectureTableViewController
 
-- (id)initWithBlackoutServices:(id<BlackoutService>)theService
+- (id)initWithBlackoutServices:(id<BlackoutService>)theService delegate:(id<LocationTableViewControllerDelegate>) delegate
 {
     NSArray* prefectures = [theService prefectures];
-    self = [super initWithBlackoutServices:theService locations:prefectures];
+    self = [super initWithBlackoutServices:theService locations:prefectures delegate:delegate];
     self.title = @"都県";
     return self;
 }
 
 -(void) cancel {
-    [self.parentViewController dismissModalViewControllerAnimated:YES];
+    [self.locationDelegate locationDidCancelled];
 }
 
 #pragma mark - View lifecycle
@@ -39,7 +39,7 @@
     NSString* selected = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
     NSLog(@" selected: %@", selected);
 
-    CityTableViewController* cityController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutServices prefecture:selected];
+    CityTableViewController* cityController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutServices prefecture:selected delegate:self.locationDelegate];
     [self.navigationController pushViewController:cityController animated:YES];
     [cityController release];
 }
