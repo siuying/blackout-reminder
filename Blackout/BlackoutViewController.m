@@ -67,7 +67,7 @@
 }
 
 
-#pragma LocationServiceDelegate
+#pragma mark - LocationServiceDelegate
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
     if (names && [names count] == 3) {
@@ -85,21 +85,7 @@
     // ask for retry
 }
 
-#pragma Public
-
--(void) selectPrefecture {
-}
-
-
--(void) selectCity {
-}
-
--(void) selectStreet{
-   
-}
-
--(void) selectCurrentLocation {
-}
+#pragma mark - User Actions
 
 -(IBAction) clickPrefecture:(id)sender {
 }
@@ -111,6 +97,32 @@
 }
 
 -(IBAction) openTepcoUrl:(id)sender{
+}
+
+#pragma mark - Public
+
+// popup list of prefecture for user select
+// when complete, invoke popupCityListWithPrefecture:
+-(void) popupPrefectureList{
+}
+
+// popup list of city for user select
+// when complete, invoke popupStreetListWithPrefecture:street:
+-(void) popupCityListWithPrefecture:(NSString*)prefecture{
+}
+
+// popup list of street for user select
+// when complete, invoke refreshReminder
+-(void) popupStreetListWithPrefecture:(NSString*)prefecture street:(NSString*)street{
+}
+
+// asynchronously find current location, then set the prefecture, city and street
+// if failed, as for retry or manual override
+-(void) selectCurrentLocation {
+}
+
+// update reminder time based on next currently input prefecture, city and street
+-(void) refreshReminder {
 }
 
 @end

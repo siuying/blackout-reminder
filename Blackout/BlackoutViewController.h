@@ -28,28 +28,24 @@
 @property (nonatomic, retain) IBOutlet UILabel* lblCity;
 @property (nonatomic, retain) IBOutlet UILabel* lblStreet;
 
-// popup prefecture list
-// once selected will set the prefecture and select city
--(void) selectPrefecture;
+// popup list of prefecture for user select
+// when complete, invoke popupCityListWithPrefecture:
+-(void) popupPrefectureList;
 
-// popup city list for currently selected prefecture
-// once selected will set the city and select street
-// if prefecture not set, no effect
--(void) selectCity;
+// popup list of city for user select
+// when complete, invoke popupStreetListWithPrefecture:street:
+-(void) popupCityListWithPrefecture:(NSString*)prefecture;
 
-// popup street list for currently selected prefecture and city
-// once selected will set the street and call find location
-// if prefecture or city not set, no effect
--(void) selectStreet;
+// popup list of street for user select
+// when complete, invoke refreshReminder
+-(void) popupStreetListWithPrefecture:(NSString*)prefecture street:(NSString*)street;
 
-
-// find current location, and populate the prefecture, city and street.
-// if location cannot be found, show error and ask for retry or manual selection
-// if one or more "period" match the "prefecture, city and street", use the period
-// if one or more street match the "prefecture and city", show find street
-// if one or more street match the "prefecture", show find city
-// if no match for prefecture, show error and ask for retry or manual selection
+// asynchronously find current location, then set the prefecture, city and street
+// if failed, as for retry or manual override
 -(void) selectCurrentLocation;
+
+// update reminder time based on next currently input prefecture, city and street
+-(void) refreshReminder;
 
 @end
 
