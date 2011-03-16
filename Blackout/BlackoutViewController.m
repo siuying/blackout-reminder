@@ -131,13 +131,7 @@
 
 // prompt for user to input
 -(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
-    if (!street) {
-        // if street is not selected, prompt for select street
-    } else if (!city) {
-        // if city is not selected, prompt for select city
-    } else {
-        // otherwise, prompt for select prefecture
-    }
+    // TODO if user clicked city/street, should keep selected prefecture/city
     
     PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService delegate:self];
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:pController];
