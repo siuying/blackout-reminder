@@ -11,9 +11,13 @@
 
 @implementation BlackoutUtils
 
-+(NSDate*) nextBlackoutWithCurrentTime:(NSDate*)currentTime
-                                period:(NSArray*)periods {
++(BlackoutPeriod*) nextBlackoutWithCurrentTime:(NSDate*)currentTime
+                                        period:(NSArray*)periods {
     return [NSDate dateWithTimeIntervalSinceNow:3600];
 }
 
++(BOOL) isBlackout:(NSDate*)currentTime
+          blackout:(BlackoutPeriod*)period {
+    return NO;
+}
 @end

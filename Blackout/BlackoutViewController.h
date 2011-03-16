@@ -16,6 +16,8 @@
 #import "BlackoutService.h"
 #import "DummyBlackoutService.h"
 
+#import "BlackoutUtils.h"
+
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate> {   
     // UI
     LocationService* locationService;
@@ -60,17 +62,7 @@
 @property (nonatomic, retain) NSString* selectedCity;
 @property (nonatomic, retain) NSString* selectedStreet;
 
-// popup list of prefecture for user select
-// when complete, invoke popupCityListWithPrefecture:
--(void) popupPrefectureList;
-
-// popup list of city for user select
-// when complete, invoke popupStreetListWithPrefecture:street:
--(void) popupCityListWithPrefecture:(NSString*)prefecture;
-
-// popup list of street for user select
-// when complete, invoke refreshReminder
--(void) popupStreetListWithPrefecture:(NSString*)prefecture street:(NSString*)street;
+-(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
 
 // asynchronously find current location, then set the prefecture, city and street
 // if failed, as for retry or manual override

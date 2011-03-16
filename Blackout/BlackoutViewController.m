@@ -104,59 +104,70 @@
 
 -(IBAction) clickPrefecture:(id)sender {
     NSLog(@" clicked prefecture");
-    [self popupPrefectureList];
-
+    [self promptInputWithSelectedPrefecture:nil city:nil street:nil];
 }
 
 -(IBAction) clickCity:(id)sender {
     NSLog(@" clicked city");
-    [self popupCityListWithPrefecture:self.selectedPrefecture];
+    [self promptInputWithSelectedPrefecture:self.selectedPrefecture city:nil street:nil];
 }
 
 -(IBAction) clickStreet:(id)sender {
     NSLog(@" clicked street");
-    [self popupStreetListWithPrefecture:self.selectedPrefecture 
-                                 street:self.selectedCity];
+    [self promptInputWithSelectedPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
 }
 
 -(IBAction) openWarning:(id)sender {
     NSLog(@" clicked warning button");
+    // TODO open html for warning page
 }
 
 -(IBAction) openTepcoUrl:(id)sender{
     NSLog(@" clicked TEPCO web button");
+    // TODO open URL for tepco page
 }
 
 #pragma mark - Public
 
-// popup list of prefecture for user select
-// when complete, invoke popupCityListWithPrefecture:
--(void) popupPrefectureList{
-    NSArray* prefectures = [self.blackoutService prefectures];
-}
-
-// popup list of city for user select
-// when complete, invoke popupStreetListWithPrefecture:street:
--(void) popupCityListWithPrefecture:(NSString*)prefecture{
-    NSArray* cities = [self.blackoutService cities:prefecture];
-
-}
-
-// popup list of street for user select
-// when complete, invoke refreshReminder
--(void) popupStreetListWithPrefecture:(NSString*)prefecture street:(NSString*)street{
-    NSArray* streets = [self.blackoutService streetsWithPrefecture:prefecture
-                                                              city:street];
-    
+// prompt for user to input
+-(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+    if (!street) {
+        // if street is not selected, prompt for select street
+    } else if (!city) {
+        // if city is not selected, prompt for select city
+    } else {
+        // otherwise, prompt for select prefecture
+    }
 }
 
 // asynchronously find current location, then set the prefecture, city and street
 // if failed, as for retry or manual override
 -(void) selectCurrentLocation {
+    // TODO
+    // Use CoreLocation to find current location
+    // Find if there are matched Prefecture/City/Street
 }
 
 // update reminder time based on next currently input prefecture, city and street
 -(void) refreshReminder {
+    NSArray* blackoutPeriods = [self.blackoutService periodWithPrefecture:self.selectedPrefecture 
+                                                                     city:self.selectedCity
+                                                                   street:self.selectedStreet];
+    if ([blackoutPeriods count] == 0) {
+        // TODO show alert dialog for error finding period, ask user to select another prefecture
+    } else {
+        // more than one period, should find the next period
+        NSDate* currentTime = [NSDate date];
+
+        BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
+                                                                     period:blackoutPeriods];
+        
+        BOOL isBlackout = [BlackoutUtils isBlackout:currentTime blackout:period];
+
+        // use isBlackout, period.fromTime and period.toTime to determine the display text
+        
+        // update the display
+    }
 }
 
 @end

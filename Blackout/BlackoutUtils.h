@@ -8,12 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BlackoutPeriod.h"
 
 @interface BlackoutUtils : NSObject {
 }
 
-// find next blackout time with current time and array of blackout period
-+(NSDate*) nextBlackoutWithCurrentTime:(NSDate*)currentTime
-                                period:(NSArray*)periods;
+// if currently inside blackout time, return the blackout period
+// if currently NOT inside blackout time, find next blackout
++(BlackoutPeriod*) nextBlackoutWithCurrentTime:(NSDate*)currentTime
+                                        period:(NSArray*)periods;
+
++(BOOL) isBlackout:(NSDate*)currentTime
+          blackout:(BlackoutPeriod*)period;
 
 @end
