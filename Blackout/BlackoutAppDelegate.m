@@ -22,8 +22,7 @@
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
 
-    // http://maps.google.com/?ie=UTF8&hq=&hnear=Hong+Kong&ll=35.715159,139.660435&spn=0.148436,0.161362&z=13&iwloc=lyrftr:m,0x6018ed6268296633:0xe455635896e1cf9d,35.719479,139.663696
-    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.715159, 139.660435);
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
     [self.locationService findLocationName:location];
 
     self.window.rootViewController = self.viewController;
@@ -82,7 +81,12 @@
 #pragma LocationServiceDelegate
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
-    NSLog(@"location found: %@", names);
+    if (names && [names count] == 3) {
+        NSLog(@"location found: %@", names);
+        self.viewController.lblPrefecture.text = [names objectAtIndex:0];
+        self.viewController.lblCity.text = [names objectAtIndex:1];
+        self.viewController.lblStreet.text = [names objectAtIndex:2];
+    }
 }
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFailedWithError:(NSError*)error {

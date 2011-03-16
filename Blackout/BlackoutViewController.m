@@ -10,8 +10,13 @@
 
 @implementation BlackoutViewController
 
+@synthesize lblPrefecture, lblCity, lblStreet;
+
 - (void)dealloc
 {
+    self.lblPrefecture = nil;
+    self.lblCity = nil;
+    self.lblStreet = nil;
     [super dealloc];
 }
 

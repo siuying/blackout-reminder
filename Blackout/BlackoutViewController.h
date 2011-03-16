@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface BlackoutViewController : UIViewController {
-    
+    IBOutlet UILabel* lblPrefecture;
+    IBOutlet UILabel* lblCity;
+    IBOutlet UILabel* lblStreet;
 }
+
+
+@property (nonatomic, retain) IBOutlet UILabel* lblPrefecture;
+@property (nonatomic, retain) IBOutlet UILabel* lblCity;
+@property (nonatomic, retain) IBOutlet UILabel* lblStreet;
 
 @end

@@ -11,12 +11,19 @@
 
 @protocol BlackoutService <NSObject>
 
+// when this blackout service being updated
 -(NSDate*) lastUpdated;
 
+// Find list of prefectures
 -(NSArray*) prefectures;
--(NSArray*) cities:(NSString*)prefecture;
--(NSArray*) streets:(NSString*)city;
 
--(BlackoutPeriod*) periodWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+// Find list of cities by prefecture
+-(NSArray*) cities:(NSString*)prefecture;
+
+// Find list of street by prefecture and city
+-(NSArray*) streetsWithPrefecture:(NSString*)prefecture city:(NSString*)city;
+
+// Array of BlackoutPeriod that match the street
+-(NSArray*) periodWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
 
 @end
