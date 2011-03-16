@@ -138,6 +138,12 @@
     } else {
         // otherwise, prompt for select prefecture
     }
+    
+    PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService];
+    UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:pController];
+    [self presentModalViewController:navController animated:YES];
+    [pController release];
+    [navController release];
 }
 
 // asynchronously find current location, then set the prefecture, city and street

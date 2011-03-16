@@ -28,6 +28,10 @@
 		54E514071330932700A4E8DA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E514061330932600A4E8DA /* MapKit.framework */; };
 		54E5140B1330A7BD00A4E8DA /* BlackoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */; };
 		54E5140E1330B64400A4E8DA /* DummyBlackoutService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */; };
+		54E514111330C2AF00A4E8DA /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E514101330C2A200A4E8DA /* LocationTableViewController.m */; };
+		54E514151330C3FD00A4E8DA /* PrefectureTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E514141330C3FD00A4E8DA /* PrefectureTableViewController.m */; };
+		54E514181330C4A400A4E8DA /* CityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E514171330C4A300A4E8DA /* CityTableViewController.m */; };
+		54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,14 @@
 		54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackoutUtils.m; sourceTree = "<group>"; };
 		54E5140C1330B63E00A4E8DA /* DummyBlackoutService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DummyBlackoutService.h; sourceTree = "<group>"; };
 		54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DummyBlackoutService.m; sourceTree = "<group>"; };
+		54E5140F1330C29D00A4E8DA /* LocationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTableViewController.h; sourceTree = "<group>"; };
+		54E514101330C2A200A4E8DA /* LocationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTableViewController.m; sourceTree = "<group>"; };
+		54E514131330C3FD00A4E8DA /* PrefectureTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefectureTableViewController.h; sourceTree = "<group>"; };
+		54E514141330C3FD00A4E8DA /* PrefectureTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefectureTableViewController.m; sourceTree = "<group>"; };
+		54E514161330C4A200A4E8DA /* CityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityTableViewController.h; sourceTree = "<group>"; };
+		54E514171330C4A300A4E8DA /* CityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityTableViewController.m; sourceTree = "<group>"; };
+		54E514191330C5A100A4E8DA /* StreetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreetTableViewController.h; sourceTree = "<group>"; };
+		54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +149,7 @@
 			children = (
 				54E513F9133085D500A4E8DA /* View */,
 				54E513F8133085C700A4E8DA /* Model */,
+				54E514121330C3CE00A4E8DA /* Controllers */,
 				54E513CE1330858B00A4E8DA /* BlackoutAppDelegate.h */,
 				54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */,
 				54E513D11330858B00A4E8DA /* MainWindow.xib */,
@@ -209,6 +222,21 @@
 				54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		54E514121330C3CE00A4E8DA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				54E5140F1330C29D00A4E8DA /* LocationTableViewController.h */,
+				54E514101330C2A200A4E8DA /* LocationTableViewController.m */,
+				54E514131330C3FD00A4E8DA /* PrefectureTableViewController.h */,
+				54E514141330C3FD00A4E8DA /* PrefectureTableViewController.m */,
+				54E514161330C4A200A4E8DA /* CityTableViewController.h */,
+				54E514171330C4A300A4E8DA /* CityTableViewController.m */,
+				54E514191330C5A100A4E8DA /* StreetTableViewController.h */,
+				54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,6 +354,10 @@
 				54E51405133091A000A4E8DA /* LocationService.m in Sources */,
 				54E5140B1330A7BD00A4E8DA /* BlackoutUtils.m in Sources */,
 				54E5140E1330B64400A4E8DA /* DummyBlackoutService.m in Sources */,
+				54E514111330C2AF00A4E8DA /* LocationTableViewController.m in Sources */,
+				54E514151330C3FD00A4E8DA /* PrefectureTableViewController.m in Sources */,
+				54E514181330C4A400A4E8DA /* CityTableViewController.m in Sources */,
+				54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

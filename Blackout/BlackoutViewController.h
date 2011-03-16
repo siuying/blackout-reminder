@@ -17,6 +17,7 @@
 #import "DummyBlackoutService.h"
 
 #import "BlackoutUtils.h"
+#import "PrefectureTableViewController.h"
 
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate> {   
     // UI
