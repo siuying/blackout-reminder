@@ -7,17 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LocationService.h"
 
 @class BlackoutViewController;
 
-@interface BlackoutAppDelegate : NSObject <UIApplicationDelegate, LocationServiceDelegate> {
-    LocationService* locationService;
+@interface BlackoutAppDelegate : NSObject <UIApplicationDelegate> {
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet BlackoutViewController *viewController;
-
-@property (nonatomic, retain) LocationService* locationService;
 
 @end

@@ -26,6 +26,7 @@
 		54E514011330884800A4E8DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E514001330884800A4E8DA /* CoreLocation.framework */; };
 		54E51405133091A000A4E8DA /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E51404133091A000A4E8DA /* LocationService.m */; };
 		54E514071330932700A4E8DA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E514061330932600A4E8DA /* MapKit.framework */; };
+		54E5140B1330A7BD00A4E8DA /* BlackoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,9 @@
 		54E51403133091A000A4E8DA /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
 		54E51404133091A000A4E8DA /* LocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
 		54E514061330932600A4E8DA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		54E514081330A50700A4E8DA /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		54E514091330A7BC00A4E8DA /* BlackoutUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackoutUtils.h; sourceTree = "<group>"; };
+		54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackoutUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,7 @@
 				54E513D41330858B00A4E8DA /* BlackoutViewController.h */,
 				54E513D51330858B00A4E8DA /* BlackoutViewController.m */,
 				54E513D71330858C00A4E8DA /* BlackoutViewController.xib */,
+				54E514081330A50700A4E8DA /* Constants.h */,
 				54E513C61330858B00A4E8DA /* Supporting Files */,
 			);
 			path = Blackout;
@@ -195,6 +200,8 @@
 				54E513FA1330861E00A4E8DA /* BlackoutService.h */,
 				54E51403133091A000A4E8DA /* LocationService.h */,
 				54E51404133091A000A4E8DA /* LocationService.m */,
+				54E514091330A7BC00A4E8DA /* BlackoutUtils.h */,
+				54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -312,6 +319,7 @@
 				54E513D61330858B00A4E8DA /* BlackoutViewController.m in Sources */,
 				54E513FD133086E200A4E8DA /* BlackoutPeriod.m in Sources */,
 				54E51405133091A000A4E8DA /* LocationService.m in Sources */,
+				54E5140B1330A7BD00A4E8DA /* BlackoutUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

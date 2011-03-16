@@ -15,16 +15,9 @@
 
 @synthesize window=_window;
 @synthesize viewController=_viewController;
-@synthesize locationService;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.locationService = [[[LocationService alloc] init] autorelease];
-    self.locationService.locationDelegate = self;
-
-    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
-    [self.locationService findLocationName:location];
-
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -71,25 +64,10 @@
 
 - (void)dealloc
 {
-    self.locationService = nil;
-
+    
     [_window release];
     [_viewController release];
     [super dealloc];
-}
-
-#pragma LocationServiceDelegate
-
--(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
-    if (names && [names count] == 3) {
-        NSLog(@"location found: %@", names);
-        self.viewController.lblPrefecture.text = [names objectAtIndex:0];
-        self.viewController.lblCity.text = [names objectAtIndex:1];
-        self.viewController.lblStreet.text = [names objectAtIndex:2];
-    }
-}
-
--(void) findLocationName:(CLLocationCoordinate2D)location didFailedWithError:(NSError*)error {
 }
 
 @end
