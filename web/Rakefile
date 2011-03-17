@@ -1,0 +1,21 @@
+require 'rubygems'
+
+require "bundler"
+Bundler.require(:default)
+
+require 'lib/blackout'
+require 'rspec/core/rake_task'
+
+desc "Run all spec"
+RSpec::Core::RakeTask.new do |t|
+  t.pattern = 'spec/**/*_spec.rb'
+end
+
+task :import do
+  data = { 
+    :area => Blackout::Utils.blackout_data, 
+    :time => Blackout::Utils.blackout_time,
+    :updated_at => Time.now
+  }
+  File.open("output/blackout.json", 'w') {|f| f.write(data) }
+end
