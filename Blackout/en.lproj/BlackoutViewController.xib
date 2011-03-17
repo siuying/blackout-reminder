@@ -52,9 +52,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="868678333"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSArray" key="IBUIItems">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-						</object>
+						<reference key="IBUIItems" ref="0"/>
 					</object>
 					<object class="IBUILabel" id="421088681">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -269,7 +267,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">計画停電</string>
+						<string key="IBUIText"/>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">22</double>

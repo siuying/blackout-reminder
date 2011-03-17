@@ -39,6 +39,7 @@
 		54E514151330C3FD00A4E8DA /* PrefectureTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E514141330C3FD00A4E8DA /* PrefectureTableViewController.m */; };
 		54E514181330C4A400A4E8DA /* CityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E514171330C4A300A4E8DA /* CityTableViewController.m */; };
 		54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */; };
+		A0E642D61332301F00E36CFF /* RemaingTimeTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		54E514171330C4A300A4E8DA /* CityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityTableViewController.m; sourceTree = "<group>"; };
 		54E514191330C5A100A4E8DA /* StreetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreetTableViewController.h; sourceTree = "<group>"; };
 		54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetTableViewController.m; sourceTree = "<group>"; };
+		A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemaingTimeTitleView.h; sourceTree = "<group>"; };
+		A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemaingTimeTitleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,8 @@
 				54E514171330C4A300A4E8DA /* CityTableViewController.m */,
 				54E514191330C5A100A4E8DA /* StreetTableViewController.h */,
 				54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */,
+				A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */,
+				A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				54E514151330C3FD00A4E8DA /* PrefectureTableViewController.m in Sources */,
 				54E514181330C4A400A4E8DA /* CityTableViewController.m in Sources */,
 				54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */,
+				A0E642D61332301F00E36CFF /* RemaingTimeTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

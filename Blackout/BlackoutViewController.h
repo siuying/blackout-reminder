@@ -20,11 +20,13 @@
 #import "PrefectureTableViewController.h"
 #import "LocationTableViewController.h"
 
+#import "RemaingTimeTitleView.h"
+
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate> {   
     // UI
     LocationService* locationService;
     id<BlackoutService> blackoutService;
-
+    
     IBOutlet UIButton* btnPrefecture;
     IBOutlet UIButton* btnCity;
     IBOutlet UIButton* btnStreet;
@@ -38,6 +40,7 @@
     IBOutlet UIButton* buttonHomepage;
 
     IBOutlet UINavigationBar* navigationBar;
+    RemaingTimeTitleView* timeTitle;
     
     // Model
     NSString* selectedPrefecture;
@@ -61,6 +64,7 @@
 @property (nonatomic, retain) IBOutlet UIButton* buttonWarning;
 @property (nonatomic, retain) IBOutlet UIButton* buttonHomepage;
 @property (nonatomic, retain) IBOutlet UINavigationBar* navigationBar;
+@property (nonatomic, retain) RemaingTimeTitleView* timeTitle;
 
 @property (nonatomic, retain) NSString* selectedPrefecture;
 @property (nonatomic, retain) NSString* selectedCity;

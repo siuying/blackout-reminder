@@ -16,6 +16,7 @@
 @synthesize buttonWarning, buttonHomepage, navigationBar;
 @synthesize locationService, blackoutService;
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
+@synthesize timeTitle;
 
 - (void)dealloc
 {
@@ -43,6 +44,7 @@
 
     self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
+    self.timeTitle = [[[RemaingTimeTitleView alloc]init]autorelease];
     self.locationService.locationDelegate = self;
     
     if (USE_MOCK_LOCATION) {
@@ -200,12 +202,22 @@
                                   [period.toTime hour],[period.toTime minute] ];
         }
 
+        /*
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
        // [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
         [dateFormatter setDateFormat:@"MMM dd, HH:mm"];
         NSString *lastUpdatedString = [dateFormatter stringFromDate:blackoutService.lastUpdated];
         //NSString *formattedDateString = [dateFormatter stringFromDate:currentTime];
         lblLastUpdate.text = [NSString stringWithFormat:@"更新時間：%@", lastUpdatedString];
+         */
+        
+        UINavigationItem *barItem = [[UINavigationItem alloc]init];
+        [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
+        barItem.titleView = timeTitle;
+        [navigationBar pushNavigationItem:barItem animated:YES];
+        [barItem release];
+        
+        
     }
 }
 
