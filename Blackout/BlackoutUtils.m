@@ -16,21 +16,30 @@
     if ([periods count] > 0) {
         
         NSInteger numberOfPeriods = [periods count];
-        NSCalendar *gregorian = [[NSCalendar alloc]
-                                 initWithCalendarIdentifier:NSGregorianCalendar];
+
+        NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *current = [gregorian components:(NSHourCalendarUnit|NSMinuteCalendarUnit) fromDate:currentTime];
+        //Calculate the total number of minutes of current time in the day.
+        int currentHour = [current hour];
+        int currentMin = [current minute];
+        int currentTotalMin = (currentHour * 60)+ currentMin;
         
         int nextPeriod = 0;
         
         for (int i=0; i <numberOfPeriods; i++) {
             
-            
             BlackoutPeriod *period = [periods objectAtIndex:i];
-            NSDate *blackoutStart = [gregorian dateFromComponents:period.fromTime];
-            NSComparisonResult startResult = [currentTime compare:blackoutStart];
+            int fromTimeHour = [period.fromTime hour];
+            int fromTimeMin = [period.fromTime minute];
+            int fromTimeTotalMin = (fromTimeHour * 60) + fromTimeMin;
             
-            //As long as start time of the period in the array is before current time, it is not the next blackout, so nextPeriod +1
-            if (startResult == NSOrderedDescending) {
+            //As long as end time of the period in the array is yet to come, it is not the next blackout, so nextPeriod +1
+            if (currentTotalMin > fromTimeTotalMin && ![self isBlackout:currentTime period:period]) {
                 nextPeriod += 1;
+                
+                if (nextPeriod == [periods count]) {
+                    nextPeriod = 0;
+                }
             }
         }
         
@@ -45,21 +54,27 @@
 +(BOOL) isBlackout:(NSDate*)currentTime
             period:(BlackoutPeriod*)period {
     
-    currentTime = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
     
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *current = [gregorian components:(NSHourCalendarUnit|NSMinuteCalendarUnit) fromDate:currentTime];
     
-    //Convert NSDateComponent to NSDate for comparison
-    NSDate *blackoutStart = [gregorian dateFromComponents:period.fromTime];
-    NSDate *blackoutEnd = [gregorian dateFromComponents:period.toTime];
+    //Calculate the total number of minutes of current time in the day.
+    int currentHour = [current hour];
+    int currentMin = [current minute];
+    int currentTotalMin = (currentHour * 60)+ currentMin;
     
-    //To compare whether currentTime is within the blackout period.
-    NSComparisonResult startResult = [currentTime compare:blackoutStart];
-    NSComparisonResult endResult = [currentTime compare:blackoutEnd];
+    //Calculate the total number of minutes of fromTime of the period in the day.
+    int fromTimeHour = [period.fromTime hour];
+    int fromTimeMin = [period.fromTime minute];
+    int fromTimeTotalMin = (fromTimeHour * 60) + fromTimeMin;
+
+    //Calculate the total number of minutes of toTime of the period in the day.
+    int toTimeHour = [period.toTime hour];
+    int toTimeMin = [period.toTime minute];
+    int toTimeTotalMin = (toTimeHour * 60) + toTimeMin;
     
     //Return YES if currentTime is within the blackout period. Otherwise return NO
-    if (startResult == NSOrderedDescending && endResult == NSOrderedAscending) {
+    if (currentTotalMin > fromTimeTotalMin && currentTotalMin < toTimeTotalMin) {
         
         return YES;
         
