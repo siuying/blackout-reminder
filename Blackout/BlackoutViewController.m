@@ -158,9 +158,9 @@
         NSDate* currentTime = [NSDate date];
 
         BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
-                                                                     period:blackoutPeriods];
+                                                                    periods:blackoutPeriods];
         
-        BOOL isBlackout = [BlackoutUtils isBlackout:currentTime periods:period];
+        BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
 
         // use isBlackout, period.fromTime and period.toTime to determine the display text
         
