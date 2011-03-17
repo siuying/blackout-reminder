@@ -6,6 +6,12 @@ Bundler.require(:default)
 require 'lib/blackout'
 require 'rspec/core/rake_task'
 
+require 'typhoeus'
+require 'json'
+require 'cgi'
+
+JSON_BLACKOUT_FILE = "output/blackout.json"
+
 desc "Run all spec"
 RSpec::Core::RakeTask.new do |t|
   t.pattern = 'spec/**/*_spec.rb'
@@ -14,5 +20,61 @@ end
 # import data from excel file
 task :import do
   blackout_data = Blackout::Utils.blackout_data
-  File.open("output/blackout.json", 'w') {|f| f.write(blackout_data.to_json) }
+  File.open(JSON_BLACKOUT_FILE, 'w') {|f| f.write(blackout_data.to_json) }
+end
+
+# export data to couchdb
+task :export do
+  source_urls   = Blackout::Utils.file_urls
+  time_data     = Blackout::Utils.blackout_time
+
+  config        = YAML.parse_file("config/couch.yml").transform["config"]
+  url           = "#{config["url"]}#{config["database"]}"
+
+  source_urls.each do |source|
+    uploads       = {}
+
+    puts "downloading from #{source}"
+    data =     Blackout::Utils.blackout_data_from_url(source)
+
+    # create unique record for prefecture-city-street
+    puts "  preprocess data"
+    data.each do |d|
+      id = "#{d[0]}-#{d[1]}-#{d[2]}"
+      time = Array.new(time_data[d[3].to_i.to_s.to_sym])
+
+      if uploads[id]
+        uploads[id][:time] = uploads[id][:time].concat(time).uniq
+      else
+        type = "blackout"
+        prefecture = d[0].strip
+        city = d[1].strip
+        street = d[2].strip
+
+        uploads[id] = {
+          :id => id,
+          :type => type,
+          :prefecture => prefecture,
+          :city => city,
+          :street => street,
+          :time => time
+        }
+      end
+    end
+
+    puts "  storing temp records to disk"
+    File.open("output/blackout_#{CGI.escape(source)}.json", 'w') {|f| f.write(uploads.to_json) }
+
+    # upload data to CouchDB    
+    puts "  uploading records to db"
+    uploads.values.each do |record|
+      Typhoeus::Request.put("#{url}/#{CGI.escape(record[:id])}", 
+        :body => record.to_json,
+        :username => config["username"],
+        :password => config["password"],
+        :auth_method => :basic)
+    end
+  end
+  
+
 end
