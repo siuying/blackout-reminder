@@ -23,17 +23,8 @@
         appTitle.textAlignment = UITextAlignmentCenter;
         appTitle.backgroundColor = [UIColor clearColor];
         appTitle.text = [NSString stringWithFormat:@"計画停電"];
-    
-        /*
-        remainingTime = [self newLabelWithPrimaryColor:[UIColor whiteColor] selectedColor:[UIColor whiteColor] fontSize:13.0 bold:YES];
-        remainingTime.frame = CGRectMake(0, 28, 250, 15);
-        remainingTime.textAlignment = UITextAlignmentCenter;
-        remainingTime.backgroundColor = [UIColor clearColor];
-        remainingTime.text = [NSString stringWithFormat:@"計画"];
-        */
         
         [self addSubview:appTitle];
-        
         
     }
     return self;
@@ -71,20 +62,14 @@
     remainingTime.text = [NSString stringWithFormat:@"更新時間：%@", lastUpdatedString];
     
     [self addSubview:remainingTime];
+    [dateFormatter release];
     
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 - (void)dealloc
 {
+    [remainingTime release];
+    [appTitle release];
     [super dealloc];
 }
 

@@ -204,7 +204,7 @@
                 lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%02d分", hourToBlackout, minuteToBlackOut];
             } else {
                 
-                int currentTotalMinute2 = (24 * 60) + 60 - [currentComponent minute] - ([currentComponent hour] *60);
+                int currentTotalMinute2 = (24 * 60) - [currentComponent minute] - ([currentComponent hour] *60);
                 int blackoutFromMinute2 = ([period.fromTime hour] * 60) + [period.fromTime minute];
                                                 
                 int remainMinuteToBlackout2 = currentTotalMinute2 + blackoutFromMinute2;
@@ -217,15 +217,6 @@
             }
 
         }
-
-        /*
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-       // [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-        [dateFormatter setDateFormat:@"MMM dd, HH:mm"];
-        NSString *lastUpdatedString = [dateFormatter stringFromDate:blackoutService.lastUpdated];
-        //NSString *formattedDateString = [dateFormatter stringFromDate:currentTime];
-        lblLastUpdate.text = [NSString stringWithFormat:@"更新時間：%@", lastUpdatedString];
-         */
         
         UINavigationItem *barItem = [[UINavigationItem alloc]init];
         [timeTitle lastUpdatedTime:blackoutService.lastUpdated];

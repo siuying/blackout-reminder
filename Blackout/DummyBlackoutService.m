@@ -12,7 +12,7 @@
 
 // when this blackout service being updated
 -(NSDate*) lastUpdated {
-    return [NSDate dateWithTimeIntervalSinceNow:-3600];
+    return [NSDate date];
 }
 
 // Find list of prefectures
