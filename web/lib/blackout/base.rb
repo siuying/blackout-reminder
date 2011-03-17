@@ -39,8 +39,8 @@ module Blackout
       begin
         File.open(file.path, 'w') {|f| f.write(open(url).read) }
         wb = Spreadsheet::ParseExcel.parse(file.path)
-        rows = wb.worksheet(0).map() { |r| r }.compact
-        data = rows.map() { |r| r.map() { |c| c.to_s('UTF-8') }.compact rescue nil }
+        rows = wb.worksheet(0).map() {|r| r unless r.nil?}.compact
+        data = rows.map() { |r| r.map() { |c| c.to_s('UTF-8') unless c.nil? }.compact rescue nil }
         return data.select { |item| item.class == Array && item.length == 4 && item[3].to_i > 0 }
       ensure
         file.close
