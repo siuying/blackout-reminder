@@ -124,7 +124,10 @@
 
 -(IBAction) openTepcoUrl:(id)sender{
     NSLog(@" clicked TEPCO web button");
-    // TODO open URL for tepco page
+    TepcoURLViewController *controller = [[TepcoURLViewController alloc]init];
+    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentModalViewController:controller animated:NO];
+    [controller release];
 }
 
 #pragma mark - Public

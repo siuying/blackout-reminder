@@ -40,6 +40,8 @@
 		54E514181330C4A400A4E8DA /* CityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E514171330C4A300A4E8DA /* CityTableViewController.m */; };
 		54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */; };
 		A0E642D61332301F00E36CFF /* RemaingTimeTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */; };
+		A0E642E7133266C900E36CFF /* TepcoURLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E642E5133266C900E36CFF /* TepcoURLViewController.m */; };
+		A0E642E8133266C900E36CFF /* TepcoURLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0E642E6133266C900E36CFF /* TepcoURLViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,9 @@
 		54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetTableViewController.m; sourceTree = "<group>"; };
 		A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemaingTimeTitleView.h; sourceTree = "<group>"; };
 		A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemaingTimeTitleView.m; sourceTree = "<group>"; };
+		A0E642E4133266C900E36CFF /* TepcoURLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TepcoURLViewController.h; sourceTree = "<group>"; };
+		A0E642E5133266C900E36CFF /* TepcoURLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TepcoURLViewController.m; sourceTree = "<group>"; };
+		A0E642E6133266C900E36CFF /* TepcoURLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TepcoURLViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +252,9 @@
 				54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */,
 				A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */,
 				A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */,
+				A0E642E4133266C900E36CFF /* TepcoURLViewController.h */,
+				A0E642E5133266C900E36CFF /* TepcoURLViewController.m */,
+				A0E642E6133266C900E36CFF /* TepcoURLViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -324,6 +332,7 @@
 				54E513CA1330858B00A4E8DA /* InfoPlist.strings in Resources */,
 				54E513D31330858B00A4E8DA /* MainWindow.xib in Resources */,
 				54E513D91330858C00A4E8DA /* BlackoutViewController.xib in Resources */,
+				A0E642E8133266C900E36CFF /* TepcoURLViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +380,7 @@
 				54E514181330C4A400A4E8DA /* CityTableViewController.m in Sources */,
 				54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */,
 				A0E642D61332301F00E36CFF /* RemaingTimeTitleView.m in Sources */,
+				A0E642E7133266C900E36CFF /* TepcoURLViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
