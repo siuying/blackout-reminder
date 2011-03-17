@@ -9,6 +9,7 @@ require 'rspec/core/rake_task'
 require 'typhoeus'
 require 'json'
 require 'cgi'
+require 'digest/sha1'
 
 JSON_BLACKOUT_FILE = "output/blackout.json"
 
@@ -52,7 +53,7 @@ task :export do
         street = d[2].strip
 
         uploads[id] = {
-          :id => id,
+          :"_id" => id,
           :type => type,
           :prefecture => prefecture,
           :city => city,
@@ -63,18 +64,29 @@ task :export do
     end
 
     puts "  storing temp records to disk"
-    File.open("output/blackout_#{CGI.escape(source)}.json", 'w') {|f| f.write(uploads.to_json) }
+    File.open("output/blackout_#{CGI.escape(source)}.json", 'w') {|f| f.write(uploads.values.to_json) }
 
     # upload data to CouchDB    
     puts "  uploading records to db"
-    uploads.values.each do |record|
-      Typhoeus::Request.put("#{url}/#{CGI.escape(record[:id])}", 
-        :body => record.to_json,
-        :username => config["username"],
-        :password => config["password"],
-        :auth_method => :basic)
+    response = Typhoeus::Request.post("#{url}/_bulk_docs", 
+          :body => {"docs" => uploads.values }.to_json,
+          :headers => {:"Content-Type" => "application/json"},
+          :username => config["username"],
+          :password => config["password"],
+          :auth_method => :basic
+        )
+    if response
+      result = JSON(response.body)
+      result.each do |r|
+        if r["error"]
+          puts "ERROR,#{r["id"]},#{r["error"]},#{r["reason"]}"
+        else
+          puts "OK,#{r["id"]},#{r["rev"]}"
+        end
+      end
     end
-  end
-  
+    
+    sleep(30)
+  end 
 
 end

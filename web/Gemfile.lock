@@ -3,6 +3,7 @@ GEM
   specs:
     diff-lcs (1.1.2)
     json (1.4.6)
+    mime-types (1.16)
     nokogiri (1.4.4)
     parseexcel (0.5.2)
     rake (0.8.7)
@@ -16,6 +17,9 @@ GEM
     rspec-mocks (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
+    typhoeus (0.2.4)
+      mime-types
+      mime-types
 
 PLATFORMS
   ruby
@@ -26,3 +30,4 @@ DEPENDENCIES
   parseexcel
   rake
   rspec
+  typhoeus
