@@ -2,3 +2,4 @@
 /Blackout.xcodeproj/xcuserdata/
 blackout.json
 .DS_Store
+/web/config/couch.yml
