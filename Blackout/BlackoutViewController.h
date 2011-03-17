@@ -32,6 +32,7 @@
     IBOutlet UILabel* lblTimeTitle;
     IBOutlet UILabel* lblTimeRemaining;
     IBOutlet UILabel* lblTimeDetail;
+    IBOutlet UILabel* lblLastUpdate;
 
     IBOutlet UIButton* buttonWarning;
     IBOutlet UIButton* buttonHomepage;
@@ -55,6 +56,7 @@
 @property (nonatomic, retain) IBOutlet UILabel* lblTimeTitle;
 @property (nonatomic, retain) IBOutlet UILabel* lblTimeRemaining;
 @property (nonatomic, retain) IBOutlet UILabel* lblTimeDetail;
+@property (nonatomic, retain) IBOutlet UILabel* lblLastUpdate;
 
 @property (nonatomic, retain) IBOutlet UIButton* buttonWarning;
 @property (nonatomic, retain) IBOutlet UIButton* buttonHomepage;

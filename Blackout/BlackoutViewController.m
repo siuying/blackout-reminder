@@ -2,8 +2,8 @@
 //  BlackoutViewController.m
 //  Blackout
 //
-//  Created by Francis Chong on 11年3月16日.
-//  Copyright 2011年 Ignition Soft Limited. All rights reserved.
+//  Created by Francis Chong on 11Âπ¥3Êúà16Êó•.
+//  Copyright 2011Âπ¥ Ignition Soft Limited. All rights reserved.
 //
 
 #import "BlackoutViewController.h"
@@ -12,7 +12,7 @@
 @implementation BlackoutViewController
 
 @synthesize btnPrefecture, btnCity, btnStreet;
-@synthesize lblTimeTitle, lblTimeRemaining, lblTimeDetail;
+@synthesize lblTimeTitle, lblTimeRemaining, lblTimeDetail, lblLastUpdate;
 @synthesize buttonWarning, buttonHomepage, navigationBar;
 @synthesize locationService, blackoutService;
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
@@ -176,9 +176,11 @@
             int hourEndBlackout = remainMinuteForBlackout / 60;
             int minuteEndBlackOut = remainMinuteForBlackout % 60;
             
-            lblTimeRemaining.text = [NSString stringWithFormat:@"%02d:%02d", hourEndBlackout, minuteEndBlackOut];
+            lblTimeTitle.text = [NSString stringWithFormat:@"停電が終わるまで"];
             
-            lblTimeDetail.text = [NSString stringWithFormat:@"%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
+            lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%02d分", hourEndBlackout, minuteEndBlackOut];
+            
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
                                                                                      [period.toTime hour],[period.toTime minute] ];
         } else {
 
@@ -190,12 +192,20 @@
             int hourToBlackout = remainMinuteToBlackout / 60;
             int minuteToBlackOut = remainMinuteToBlackout % 60;
             
-            lblTimeRemaining.text = [NSString stringWithFormat:@"%02d:%02d", hourToBlackout, minuteToBlackOut];
+            lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
+            
+            lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%02d分", hourToBlackout, minuteToBlackOut];
+            
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
+                                  [period.toTime hour],[period.toTime minute] ];
         }
 
-        // use isBlackout, period.fromTime and period.toTime to determine the display text
-        
-        // update the display
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+       // [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setDateFormat:@"MMM dd, HH:mm"];
+        NSString *lastUpdatedString = [dateFormatter stringFromDate:blackoutService.lastUpdated];
+        //NSString *formattedDateString = [dateFormatter stringFromDate:currentTime];
+        lblLastUpdate.text = [NSString stringWithFormat:@"更新時間：%@", lastUpdatedString];
     }
 }
 

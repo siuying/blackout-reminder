@@ -64,7 +64,7 @@
 		54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutAppDelegate.m; sourceTree = "<group>"; };
 		54E513D21330858B00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		54E513D41330858B00A4E8DA /* BlackoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackoutViewController.h; sourceTree = "<group>"; };
-		54E513D51330858B00A4E8DA /* BlackoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutViewController.m; sourceTree = "<group>"; };
+		54E513D51330858B00A4E8DA /* BlackoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackoutViewController.m; sourceTree = "<group>"; };
 		54E513D81330858C00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BlackoutViewController.xib; sourceTree = "<group>"; };
 		54E513DF1330858C00A4E8DA /* BlackoutTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlackoutTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E513E71330858C00A4E8DA /* BlackoutTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlackoutTests-Info.plist"; sourceTree = "<group>"; };
