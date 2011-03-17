@@ -11,11 +11,8 @@ RSpec::Core::RakeTask.new do |t|
   t.pattern = 'spec/**/*_spec.rb'
 end
 
+# import data from excel file
 task :import do
-  data = { 
-    :area => Blackout::Utils.blackout_data, 
-    :time => Blackout::Utils.blackout_time,
-    :updated_at => Time.now
-  }
-  File.open("output/blackout.json", 'w') {|f| f.write(data) }
+  blackout_data = Blackout::Utils.blackout_data
+  File.open("output/blackout.json", 'w') {|f| f.write(blackout_data.to_json) }
 end
