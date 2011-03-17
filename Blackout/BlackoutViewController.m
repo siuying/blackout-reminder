@@ -186,20 +186,36 @@
                                                                                      [period.toTime hour],[period.toTime minute] ];
         } else {
 
+            lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
+            
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
+                                  [period.toTime hour],[period.toTime minute] ];
+            
             int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
             int blackoutFromMinute = ([period.fromTime hour] * 60) + [period.fromTime minute];
             
             int remainMinuteToBlackout = blackoutFromMinute - currentTotalMinute;
             
-            int hourToBlackout = remainMinuteToBlackout / 60;
-            int minuteToBlackOut = remainMinuteToBlackout % 60;
-            
-            lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
-            
-            lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%02d分", hourToBlackout, minuteToBlackOut];
-            
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
-                                  [period.toTime hour],[period.toTime minute] ];
+            if (remainMinuteToBlackout >= 0) {
+                
+                int hourToBlackout = remainMinuteToBlackout / 60;
+                int minuteToBlackOut = remainMinuteToBlackout % 60;
+                
+                lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%02d分", hourToBlackout, minuteToBlackOut];
+            } else {
+                
+                int currentTotalMinute2 = (24 * 60) + 60 - [currentComponent minute] - ([currentComponent hour] *60);
+                int blackoutFromMinute2 = ([period.fromTime hour] * 60) + [period.fromTime minute];
+                                                
+                int remainMinuteToBlackout2 = currentTotalMinute2 + blackoutFromMinute2;
+                
+                int hourToBlackout = remainMinuteToBlackout2 / 60;
+                int minuteToBlackOut = remainMinuteToBlackout2 % 60;
+                
+                lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%02d分", hourToBlackout, minuteToBlackOut];
+                
+            }
+
         }
 
         /*
