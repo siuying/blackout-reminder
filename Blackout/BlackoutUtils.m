@@ -12,7 +12,7 @@
 @implementation BlackoutUtils
 
 +(BlackoutPeriod*) nextBlackoutWithCurrentTime:(NSDate*)currentTime
-                                        period:(NSArray*)periods {
+                                       periods:(NSArray*)periods {
     if ([periods count] > 0) {
         // TODO really find out the next blackout
         return [periods objectAtIndex:0];
@@ -22,7 +22,7 @@
 }
 
 +(BOOL) isBlackout:(NSDate*)currentTime
-           periods:(BlackoutPeriod*)period {
+            period:(BlackoutPeriod*)period {
     // TODO find if currently is blackout
     return NO;
 }

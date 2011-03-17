@@ -16,9 +16,9 @@
 // if currently inside blackout time, return the blackout period
 // if currently NOT inside blackout time, find next blackout
 +(BlackoutPeriod*) nextBlackoutWithCurrentTime:(NSDate*)currentTime
-                                        period:(NSArray*)periods;
+                                       periods:(NSArray*)periods;
 
 +(BOOL) isBlackout:(NSDate*)currentTime
-           periods:(BlackoutPeriod*)period;
+            period:(BlackoutPeriod*)period;
 
 @end
