@@ -5,9 +5,9 @@
 //  Created by Francis Chong on 11年3月16日.
 //  Copyright 2011年 Ignition Soft Limited. All rights reserved.
 //
+// Reference: http://developer.apple.com/library/mac/#documentation/cocoa/Conceptual/DatesAndTimes/Articles/dtCalendars.html
 
 #import <Foundation/Foundation.h>
-
 #import "BlackoutPeriod.h"
 
 @interface BlackoutUtils : NSObject {

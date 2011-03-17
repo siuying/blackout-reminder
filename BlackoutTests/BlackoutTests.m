@@ -67,8 +67,8 @@
     period.toTime = to;
     
     STAssertTrue([BlackoutUtils isBlackout:[gregorian dateFromComponents:time1] period:period], @"9:50 should be in blackout");
-    STAssertTrue([BlackoutUtils isBlackout:[gregorian dateFromComponents:time2] period:period], @"6:00 should NOT be in blackout");
-    STAssertTrue([BlackoutUtils isBlackout:[gregorian dateFromComponents:time3] period:period], @"12:00 should NOT be in blackout");
+    STAssertTrue(![BlackoutUtils isBlackout:[gregorian dateFromComponents:time2] period:period], @"6:00 should NOT be in blackout");
+    STAssertTrue(![BlackoutUtils isBlackout:[gregorian dateFromComponents:time3] period:period], @"12:00 should NOT be in blackout");
 }
 
 
