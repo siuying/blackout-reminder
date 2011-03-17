@@ -156,11 +156,42 @@
     } else {
         // more than one period, should find the next period
         NSDate* currentTime = [NSDate date];
-
+        NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *currentComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) fromDate:currentTime];
+        
         BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
                                                                     periods:blackoutPeriods];
         
+
+        
         BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
+        
+        if (isBlackout) {
+            
+            int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
+            int blackoutFromMinute = ([period.toTime hour] * 60) + [period.toTime minute];
+            
+            int remainMinuteForBlackout = blackoutFromMinute - currentTotalMinute;
+            
+            int hourEndBlackout = remainMinuteForBlackout / 60;
+            int minuteEndBlackOut = remainMinuteForBlackout % 60;
+            
+            lblTimeRemaining.text = [NSString stringWithFormat:@"%02d:%02d", hourEndBlackout, minuteEndBlackOut];
+            
+            lblTimeDetail.text = [NSString stringWithFormat:@"%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
+                                                                                     [period.toTime hour],[period.toTime minute] ];
+        } else {
+
+            int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
+            int blackoutFromMinute = ([period.fromTime hour] * 60) + [period.fromTime minute];
+            
+            int remainMinuteToBlackout = blackoutFromMinute - currentTotalMinute;
+            
+            int hourToBlackout = remainMinuteToBlackout / 60;
+            int minuteToBlackOut = remainMinuteToBlackout % 60;
+            
+            lblTimeRemaining.text = [NSString stringWithFormat:@"%02d:%02d", hourToBlackout, minuteToBlackOut];
+        }
 
         // use isBlackout, period.fromTime and period.toTime to determine the display text
         
