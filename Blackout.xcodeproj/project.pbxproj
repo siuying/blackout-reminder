@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54A2A7541331B0E300490370 /* BlackoutService.h in Sources */ = {isa = PBXBuildFile; fileRef = 54E513FA1330861E00A4E8DA /* BlackoutService.h */; };
+		54A2A7571331B0E300490370 /* BlackoutUtils.h in Sources */ = {isa = PBXBuildFile; fileRef = 54E514091330A7BC00A4E8DA /* BlackoutUtils.h */; };
+		54A2A7581331B0E300490370 /* BlackoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */; };
+		54A2A7591331B0E300490370 /* DummyBlackoutService.h in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140C1330B63E00A4E8DA /* DummyBlackoutService.h */; };
+		54A2A75A1331B0E300490370 /* DummyBlackoutService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */; };
+		54A2A75B1331B0E300490370 /* BlackoutPeriod.h in Sources */ = {isa = PBXBuildFile; fileRef = 54E513FB133086E200A4E8DA /* BlackoutPeriod.h */; };
+		54A2A75C1331B0E300490370 /* BlackoutPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E513FC133086E200A4E8DA /* BlackoutPeriod.m */; };
 		54E513C01330858B00A4E8DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513BF1330858B00A4E8DA /* UIKit.framework */; };
 		54E513C21330858B00A4E8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C11330858B00A4E8DA /* Foundation.framework */; };
 		54E513C41330858B00A4E8DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C31330858B00A4E8DA /* CoreGraphics.framework */; };
@@ -365,6 +372,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54A2A7541331B0E300490370 /* BlackoutService.h in Sources */,
+				54A2A7571331B0E300490370 /* BlackoutUtils.h in Sources */,
+				54A2A7581331B0E300490370 /* BlackoutUtils.m in Sources */,
+				54A2A7591331B0E300490370 /* DummyBlackoutService.h in Sources */,
+				54A2A75A1331B0E300490370 /* DummyBlackoutService.m in Sources */,
+				54A2A75B1331B0E300490370 /* BlackoutPeriod.h in Sources */,
+				54A2A75C1331B0E300490370 /* BlackoutPeriod.m in Sources */,
 				54E513EF1330858C00A4E8DA /* BlackoutTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,6 +553,7 @@
 				54E513F41330858C00A4E8DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		54E513F51330858C00A4E8DA /* Build configuration list for PBXNativeTarget "BlackoutTests" */ = {
 			isa = XCConfigurationList;
@@ -547,6 +562,7 @@
 				54E513F71330858C00A4E8DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
