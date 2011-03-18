@@ -29,6 +29,19 @@
 		545A622113338661009475A1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545A622013338661009475A1 /* MobileCoreServices.framework */; };
 		545A62231333867D009475A1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545A62221333867D009475A1 /* CFNetwork.framework */; };
 		545A6225133386FA009475A1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545A6224133386FA009475A1 /* SystemConfiguration.framework */; };
+		545A62281333909F009475A1 /* RemoteBlackoutService.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62271333909E009475A1 /* RemoteBlackoutService.m */; };
+		545A62391333A2D0009475A1 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A622B1333A2D0009475A1 /* CDataScanner.m */; };
+		545A623A1333A2D0009475A1 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A622B1333A2D0009475A1 /* CDataScanner.m */; };
+		545A623B1333A2D0009475A1 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A622E1333A2D0009475A1 /* CDataScanner_Extensions.m */; };
+		545A623C1333A2D0009475A1 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A622E1333A2D0009475A1 /* CDataScanner_Extensions.m */; };
+		545A623D1333A2D0009475A1 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62301333A2D0009475A1 /* NSDictionary_JSONExtensions.m */; };
+		545A623E1333A2D0009475A1 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62301333A2D0009475A1 /* NSDictionary_JSONExtensions.m */; };
+		545A623F1333A2D0009475A1 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62331333A2D0009475A1 /* CJSONDeserializer.m */; };
+		545A62401333A2D0009475A1 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62331333A2D0009475A1 /* CJSONDeserializer.m */; };
+		545A62411333A2D0009475A1 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62351333A2D0009475A1 /* CJSONScanner.m */; };
+		545A62421333A2D0009475A1 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62351333A2D0009475A1 /* CJSONScanner.m */; };
+		545A62431333A2D0009475A1 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62371333A2D0009475A1 /* CJSONSerializer.m */; };
+		545A62441333A2D0009475A1 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62371333A2D0009475A1 /* CJSONSerializer.m */; };
 		54A2A7541331B0E300490370 /* BlackoutService.h in Sources */ = {isa = PBXBuildFile; fileRef = 54E513FA1330861E00A4E8DA /* BlackoutService.h */; };
 		54A2A7571331B0E300490370 /* BlackoutUtils.h in Sources */ = {isa = PBXBuildFile; fileRef = 54E514091330A7BC00A4E8DA /* BlackoutUtils.h */; };
 		54A2A7581331B0E300490370 /* BlackoutUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */; };
@@ -104,6 +117,21 @@
 		545A622013338661009475A1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		545A62221333867D009475A1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		545A6224133386FA009475A1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		545A62261333909E009475A1 /* RemoteBlackoutService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteBlackoutService.h; sourceTree = "<group>"; };
+		545A62271333909E009475A1 /* RemoteBlackoutService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteBlackoutService.m; sourceTree = "<group>"; };
+		545A622A1333A2D0009475A1 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDataScanner.h; path = External/TouchJSON/Source/CDataScanner.h; sourceTree = "<group>"; };
+		545A622B1333A2D0009475A1 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDataScanner.m; path = External/TouchJSON/Source/CDataScanner.m; sourceTree = "<group>"; };
+		545A622D1333A2D0009475A1 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
+		545A622E1333A2D0009475A1 /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner_Extensions.m; sourceTree = "<group>"; };
+		545A622F1333A2D0009475A1 /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
+		545A62301333A2D0009475A1 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
+		545A62321333A2D0009475A1 /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
+		545A62331333A2D0009475A1 /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
+		545A62341333A2D0009475A1 /* CJSONScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONScanner.h; sourceTree = "<group>"; };
+		545A62351333A2D0009475A1 /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
+		545A62361333A2D0009475A1 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
+		545A62371333A2D0009475A1 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
+		545A62381333A2D0009475A1 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		54A2A7671333641200490370 /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressView.h; sourceTree = "<group>"; };
 		54A2A7681333641200490370 /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressView.m; sourceTree = "<group>"; };
 		54E513BB1330858B00A4E8DA /* Blackout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackout.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +214,7 @@
 		545A61D813338572009475A1 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				545A62291333A2C4009475A1 /* TouchJSON */,
 				545A61D91333861A009475A1 /* ASIHttpRequest */,
 			);
 			name = External;
@@ -218,6 +247,44 @@
 				545A621B1333863E009475A1 /* Reachability.m */,
 			);
 			name = ASIHttpRequest;
+			sourceTree = "<group>";
+		};
+		545A62291333A2C4009475A1 /* TouchJSON */ = {
+			isa = PBXGroup;
+			children = (
+				545A622A1333A2D0009475A1 /* CDataScanner.h */,
+				545A622B1333A2D0009475A1 /* CDataScanner.m */,
+				545A622C1333A2D0009475A1 /* Extensions */,
+				545A62311333A2D0009475A1 /* JSON */,
+			);
+			name = TouchJSON;
+			sourceTree = "<group>";
+		};
+		545A622C1333A2D0009475A1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				545A622D1333A2D0009475A1 /* CDataScanner_Extensions.h */,
+				545A622E1333A2D0009475A1 /* CDataScanner_Extensions.m */,
+				545A622F1333A2D0009475A1 /* NSDictionary_JSONExtensions.h */,
+				545A62301333A2D0009475A1 /* NSDictionary_JSONExtensions.m */,
+			);
+			name = Extensions;
+			path = External/TouchJSON/Source/Extensions;
+			sourceTree = "<group>";
+		};
+		545A62311333A2D0009475A1 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				545A62321333A2D0009475A1 /* CJSONDeserializer.h */,
+				545A62331333A2D0009475A1 /* CJSONDeserializer.m */,
+				545A62341333A2D0009475A1 /* CJSONScanner.h */,
+				545A62351333A2D0009475A1 /* CJSONScanner.m */,
+				545A62361333A2D0009475A1 /* CJSONSerializer.h */,
+				545A62371333A2D0009475A1 /* CJSONSerializer.m */,
+				545A62381333A2D0009475A1 /* JSONRepresentation.h */,
+			);
+			name = JSON;
+			path = External/TouchJSON/Source/JSON;
 			sourceTree = "<group>";
 		};
 		54E513B01330858B00A4E8DA = {
@@ -336,6 +403,8 @@
 				54E5140A1330A7BC00A4E8DA /* BlackoutUtils.m */,
 				54E5140C1330B63E00A4E8DA /* DummyBlackoutService.h */,
 				54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */,
+				545A62261333909E009475A1 /* RemoteBlackoutService.h */,
+				545A62271333909E009475A1 /* RemoteBlackoutService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -490,6 +559,13 @@
 				545A621613338635009475A1 /* ASIDataDecompressor.m in Sources */,
 				545A621813338635009475A1 /* ASIDataCompressor.m in Sources */,
 				545A621C1333863E009475A1 /* Reachability.m in Sources */,
+				545A62281333909F009475A1 /* RemoteBlackoutService.m in Sources */,
+				545A62391333A2D0009475A1 /* CDataScanner.m in Sources */,
+				545A623B1333A2D0009475A1 /* CDataScanner_Extensions.m in Sources */,
+				545A623D1333A2D0009475A1 /* NSDictionary_JSONExtensions.m in Sources */,
+				545A623F1333A2D0009475A1 /* CJSONDeserializer.m in Sources */,
+				545A62411333A2D0009475A1 /* CJSONScanner.m in Sources */,
+				545A62431333A2D0009475A1 /* CJSONSerializer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +590,12 @@
 				545A621713338635009475A1 /* ASIDataDecompressor.m in Sources */,
 				545A621913338635009475A1 /* ASIDataCompressor.m in Sources */,
 				545A621D1333863E009475A1 /* Reachability.m in Sources */,
+				545A623A1333A2D0009475A1 /* CDataScanner.m in Sources */,
+				545A623C1333A2D0009475A1 /* CDataScanner_Extensions.m in Sources */,
+				545A623E1333A2D0009475A1 /* NSDictionary_JSONExtensions.m in Sources */,
+				545A62401333A2D0009475A1 /* CJSONDeserializer.m in Sources */,
+				545A62421333A2D0009475A1 /* CJSONScanner.m in Sources */,
+				545A62441333A2D0009475A1 /* CJSONSerializer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

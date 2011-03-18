@@ -9,6 +9,8 @@
 #import "BlackoutAppDelegate.h"
 
 #import "BlackoutViewController.h"
+#import "ASIHTTPRequest.h"
+#import "ASIDownloadCache.h"
 
 @implementation BlackoutAppDelegate
 
@@ -18,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

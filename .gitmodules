@@ -1,3 +1,6 @@
 [submodule "Blackout/External/ASIHttpRequest"]
 	path = Blackout/External/ASIHttpRequest
 	url = https://github.com/pokeb/asi-http-request.git
+[submodule "Blackout/External/TouchJSON"]
+	path = Blackout/External/TouchJSON
+	url = https://github.com/TouchCode/TouchJSON.git
