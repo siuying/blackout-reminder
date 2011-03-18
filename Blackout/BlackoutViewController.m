@@ -12,8 +12,8 @@
 @implementation BlackoutViewController
 
 @synthesize btnPrefecture, btnCity, btnStreet;
-@synthesize lblTimeTitle, lblTimeRemaining, lblTimeDetail, lblLastUpdate;
-@synthesize buttonWarning, buttonHomepage, navigationBar;
+@synthesize lblTimeTitle, lblTimeRemaining, lblTimeDetail;
+@synthesize buttonWarning, buttonHomepage, boNavigationBar;
 @synthesize locationService, blackoutService;
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
 @synthesize timeTitle;
@@ -44,11 +44,20 @@
 {
     [super viewDidLoad];
 
+    // initialize services
     self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
-    self.timeTitle = [[[RemaingTimeTitleView alloc]init]autorelease];
     self.locationService.locationDelegate = self;
-   
+    
+    // setup navigation bar
+    self.timeTitle = [[[RemaingTimeTitleView alloc]init]autorelease];
+    UINavigationItem *barItem = [[UINavigationItem alloc]init];
+    [self.timeTitle lastUpdatedTime:blackoutService.lastUpdated];
+    barItem.titleView = self.timeTitle;
+    [boNavigationBar pushNavigationItem:barItem animated:NO];
+    [barItem release];
+
+    // begin finding location
     if (USE_MOCK_LOCATION) {
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
         [self.locationService findLocationName:location];
@@ -81,7 +90,7 @@
     self.lblTimeTitle = nil;
     self.buttonWarning = nil;
     self.buttonHomepage = nil;
-    self.navigationBar = nil;
+    self.boNavigationBar = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -91,12 +100,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    
-    UINavigationItem *barItem = [[UINavigationItem alloc]init];
-    [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
-    barItem.titleView = timeTitle;
-    [navigationBar pushNavigationItem:barItem animated:NO];
-    [barItem release];
+
 }
 
 
@@ -278,13 +282,6 @@
             }
 
         }
-        
-//        UINavigationItem *barItem = [[UINavigationItem alloc]init];
-//        [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
-//        barItem.titleView = timeTitle;
-//        [navigationBar pushNavigationItem:barItem animated:NO];
-//        [barItem release];
-        
     }
 
 }

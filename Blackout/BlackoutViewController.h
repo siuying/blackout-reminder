@@ -37,12 +37,11 @@
     IBOutlet UILabel* lblTimeTitle;
     IBOutlet UILabel* lblTimeRemaining;
     IBOutlet UILabel* lblTimeDetail;
-    IBOutlet UILabel* lblLastUpdate;
 
     IBOutlet UIButton* buttonWarning;
     IBOutlet UIButton* buttonHomepage;
 
-    IBOutlet UINavigationBar* navigationBar;
+    IBOutlet UINavigationBar* boNavigationBar;
     RemaingTimeTitleView* timeTitle;
     
     // Model
@@ -63,11 +62,10 @@
 @property (nonatomic, retain) IBOutlet UILabel* lblTimeTitle;
 @property (nonatomic, retain) IBOutlet UILabel* lblTimeRemaining;
 @property (nonatomic, retain) IBOutlet UILabel* lblTimeDetail;
-@property (nonatomic, retain) IBOutlet UILabel* lblLastUpdate;
 
 @property (nonatomic, retain) IBOutlet UIButton* buttonWarning;
 @property (nonatomic, retain) IBOutlet UIButton* buttonHomepage;
-@property (nonatomic, retain) IBOutlet UINavigationBar* navigationBar;
+@property (nonatomic, retain) IBOutlet UINavigationBar* boNavigationBar;
 @property (nonatomic, retain) RemaingTimeTitleView* timeTitle;
 
 @property (nonatomic, retain) NSString* selectedPrefecture;
