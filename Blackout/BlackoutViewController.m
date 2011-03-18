@@ -48,18 +48,19 @@
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.timeTitle = [[[RemaingTimeTitleView alloc]init]autorelease];
     self.locationService.locationDelegate = self;
-    
-    [self selectCurrentLocation];
-    
+   
     if (USE_MOCK_LOCATION) {
-        // TODO Change hardcode logic to use more sources
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
         [self.locationService findLocationName:location];
         
 
     } else {
         // TODO
-        // * check if CoreLocation service is enabled
+        // * check if CoreLocation service is enabled    
+        [self selectCurrentLocation];
+        
+        // TODO Disable UI
+        
         // * if not enabled, show alert and ask for Prefecture input
         // * if enabled, use CoreLocation service to find location
     }
@@ -107,8 +108,10 @@
                                            city:[names objectAtIndex:1]
                                          street:[names objectAtIndex:2]];
         
-        [locationController.locationManager stopUpdatingLocation];
+        
     }
+    
+    [locationController.locationManager stopUpdatingLocation];
 }
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFailedWithError:(NSError*)error {
@@ -164,11 +167,13 @@
     [navController release];
 }
 
+#pragma mark - CoreLocationController
+
 // asynchronously find current location, then set the prefecture, city and street
 // if failed, as for retry or manual override
 -(void) selectCurrentLocation {
     
-    locationController = [[CoreLocationController alloc] init];
+    self.locationController = [[[CoreLocationController alloc] init] autorelease];
 	locationController.delegate = self;
 	[locationController.locationManager startUpdatingLocation];
     
@@ -177,11 +182,22 @@
 
 - (void)locationUpdate:(CLLocation *)location {
 	NSLog(@"My current location: %@", [location description]);
+    // TODO Enable UI
     
+    // Update location
+    
+    // Disable location manager
+    [self.locationController.locationManager stopUpdatingLocation];
+    self.locationController = nil;
 }
 
 - (void)locationError:(NSError *)error {
-	
+	// show error message
+    
+    
+    // Disable location manager
+    [self.locationController.locationManager stopUpdatingLocation];
+    self.locationController = nil;    
 }
 
 // update reminder time based on next currently input prefecture, city and street
