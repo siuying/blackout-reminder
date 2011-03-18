@@ -3,6 +3,8 @@ require 'nokogiri'
 require 'spreadsheet'
 require 'open-uri'
 
+$KCODE = "u"
+
 module Blackout
   class Utils
     BASE_URL = "http://www.tepco.co.jp/index-j.html"
@@ -15,15 +17,24 @@ module Blackout
       end
       return result
     end
-    
+
     def self.blackout_time
-      {
-        :"1" => [["09:20", "13:00"], ["16:50", "20:30"]],
-        :"2" => [["12:20", "16:00"]],
-        :"3" => [["15:20", "19:00"]],
-        :"4" => [["18:20", "22:00"]],
-        :"5" => [["06:20", "10:00"], ["13:50", "17:30"]]
-      }
+      doc = Nokogiri::HTML(open(BASE_URL))
+      number_map = {"１" => "1", "２" => "2", "３" => "3", "４" => "4", "５" => "5"}
+      para = doc.css("#urgency p").select do |p|
+        p.text =~ /停電時間は表中の数字（グループ）をご覧ください。/
+      end.first
+      puts para.inner_text
+
+      time = {}
+      para.inner_text.scan(/第([１２３４５])グループ.([0-9]+:[0-9]+).([0-9]+:[0-9]+)/) do |group, from, to|
+        group_number = number_map[group]
+        if !time[group_number]
+          time[group_number] = []
+        end
+        time[group_number] << [from, to]
+      end
+      time
     end
 
     # return Blackout excel file url
@@ -36,7 +47,6 @@ module Blackout
     def self.blackout_data_from_url(url)
       Spreadsheet.client_encoding = 'UTF-8'
       file          = Tempfile.new('blackout')
-      time_data     = Blackout::Utils.blackout_time
   
       begin
         File.open(file.path, 'w') {|f| f.write(open(url).read) }
@@ -60,10 +70,10 @@ module Blackout
         data.each do |d|
           begin
             id = "#{d[0]}-#{d[1]}-#{d[2]}"
-            time = Array.new(time_data[d[3].to_i.to_s.to_sym])
+            time = d[3].to_i.to_s
 
             if uploads[id]
-              uploads[id][:time] = uploads[id][:time].concat(time).uniq
+              uploads[id][:time] << time
             else
               type = "blackout"
               prefecture = d[0].strip
@@ -76,7 +86,7 @@ module Blackout
                 :prefecture => prefecture,
                 :city => city,
                 :street => street,
-                :time => time
+                :time => [time]
               }
             end
           rescue StandardError => e
