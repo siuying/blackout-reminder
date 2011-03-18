@@ -83,6 +83,15 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void) viewWillAppear:(BOOL)animated {
+    
+    UINavigationItem *barItem = [[UINavigationItem alloc]init];
+    [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
+    barItem.titleView = timeTitle;
+    [navigationBar pushNavigationItem:barItem animated:NO];
+    [barItem release];
+}
+
 
 #pragma mark - LocationServiceDelegate
 
@@ -119,15 +128,20 @@
 
 -(IBAction) openWarning:(id)sender {
     NSLog(@" clicked warning button");
-    // TODO open html for warning page
+    RemarksViewController *controller = [[RemarksViewController alloc]init];
+    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentModalViewController:navController animated:NO];
+    [controller release];
 }
 
 -(IBAction) openTepcoUrl:(id)sender{
     NSLog(@" clicked TEPCO web button");
-    TepcoURLViewController *controller = [[TepcoURLViewController alloc]init];
-    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [self presentModalViewController:controller animated:NO];
-    [controller release];
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Safariを起動します" message:@"東京電力のページに移動します。宜しいですか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"はい", nil];
+    
+    [alert show];
+    [alert release];
 }
 
 #pragma mark - Public
@@ -221,14 +235,14 @@
 
         }
         
-        UINavigationItem *barItem = [[UINavigationItem alloc]init];
-        [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
-        barItem.titleView = timeTitle;
-        [navigationBar pushNavigationItem:barItem animated:YES];
-        [barItem release];
-        
+//        UINavigationItem *barItem = [[UINavigationItem alloc]init];
+//        [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
+//        barItem.titleView = timeTitle;
+//        [navigationBar pushNavigationItem:barItem animated:NO];
+//        [barItem release];
         
     }
+
 }
 
 #pragma mark LocationTableViewControllerDelegate
@@ -243,6 +257,19 @@
 
 -(void) locationDidCancelled {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark UIAlertViewDelegate 
+
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 1) {
+        
+        NSLog(@"Open url in Safari");
+        NSString* launchUrl = @"http://www.tepco.co.jp";
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: launchUrl]];
+    }
+    
 }
 
 @end

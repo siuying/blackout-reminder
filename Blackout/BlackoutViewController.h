@@ -19,11 +19,11 @@
 #import "BlackoutUtils.h"
 #import "PrefectureTableViewController.h"
 #import "LocationTableViewController.h"
-#import "TepcoURLViewController.h"
+#import "RemarksViewController.h"
 
 #import "RemaingTimeTitleView.h"
 
-@interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate> {   
+@interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {   
     // UI
     LocationService* locationService;
     id<BlackoutService> blackoutService;

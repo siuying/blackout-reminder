@@ -1,30 +1,37 @@
 //
-//  TepcoURLViewController.m
+//  RemarksViewController.m
 //  Blackout
 //
-//  Created by Alex Hui on 17/03/2011.
+//  Created by Alex Hui on 18/03/2011.
 //  Copyright 2011 Ignition Soft Limited. All rights reserved.
 //
 
-#import "TepcoURLViewController.h"
+#import "RemarksViewController.h"
 
 
-@implementation TepcoURLViewController
-@synthesize webView, navigationBar;
+@implementation RemarksViewController
+@synthesize remarksWebView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
+        self.title = @"東京電力";
+
     }
     return self;
 }
 
+-(void) cancelEdit {
+    
+    [self dismissModalViewControllerAnimated:NO];
+}
+
 - (void)dealloc
 {
-    [webView release];
-    [navigationBar release];
+    [remarksWebView release];
     [super dealloc];
 }
 
@@ -41,17 +48,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSString *urlAddress = @"http://www.tepco.co.jp";
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [webView loadRequest:requestObj];
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
