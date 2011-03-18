@@ -1,6 +1,6 @@
 require 'tempfile'
 require 'nokogiri'
-require 'parseexcel'
+require 'spreadsheet'
 require 'open-uri'
 
 module Blackout
@@ -34,14 +34,23 @@ module Blackout
     
     # download and parse excel, and return only relevant records
     def self.blackout_data_from_url(url)
+      Spreadsheet.client_encoding = 'UTF-8'
       file = Tempfile.new('blackout')
       
       begin
         File.open(file.path, 'w') {|f| f.write(open(url).read) }
-        wb = Spreadsheet::ParseExcel.parse(file.path)
-        rows = wb.worksheet(0).map() {|r| r unless r.nil?}.compact
-        data = rows.map() { |r| r.map() { |c| c.to_s('UTF-8') unless c.nil? }.compact rescue nil }
-        return data.select { |item| item.class == Array && item.length == 4 && item[3].to_i > 0 }
+        wb = Spreadsheet.open(file.path)
+        sheet1 = wb.worksheet(0)
+        
+        data = []
+        for idx in (0..(sheet1.row_count-1)) do
+          row = sheet1.row(idx)
+          unless row.hidden
+            data << row.to_a
+          end
+        end
+
+        return data
       ensure
         file.close
         file.unlink
