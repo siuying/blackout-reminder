@@ -13,21 +13,30 @@
 @protocol LocationServiceDelegate
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names;
 -(void) findLocationName:(CLLocationCoordinate2D)location didFailedWithError:(NSError*)error;
+-(void) findLocationDidFailedWithError:(NSError*)error;
 @end
 
-@interface LocationService : NSObject <MKReverseGeocoderDelegate> { 
+@interface LocationService : NSObject <MKReverseGeocoderDelegate, CLLocationManagerDelegate> { 
     id<LocationServiceDelegate> locationDelegate;
+
+    CLLocationManager *locationManager;
     MKReverseGeocoder* reverseGeocoder;
 }
 
 @property (nonatomic,assign) id<LocationServiceDelegate>    locationDelegate;
+
+@property (nonatomic, retain) CLLocationManager*            locationManager;
 @property (nonatomic,retain) MKReverseGeocoder*             reverseGeocoder;
 
 // Discard currently working location service
 -(void) stop;
 
+// Find current location
+-(void) findLocation;
+
 // use MKReverseGeocoder to find the prefecture, city and street of the specified location
 // return array of strings of prefecture, city and street
 -(void) findLocationName:(CLLocationCoordinate2D)coord;
+
 
 @end

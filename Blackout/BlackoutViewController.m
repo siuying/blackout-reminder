@@ -17,7 +17,6 @@
 @synthesize locationService, blackoutService;
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
 @synthesize timeTitleView, progressView;
-@synthesize locationController;
 
 - (void)dealloc
 {
@@ -27,7 +26,7 @@
     self.selectedCity = nil;
     self.selectedPrefecture = nil;
     self.selectedStreet = nil;
-    self.locationController = nil;
+
     [super dealloc];
 }
 
@@ -49,9 +48,7 @@
     self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
-    self.locationController = [[[CoreLocationController alloc] init] autorelease];
-	self.locationController.delegate = self;
-    
+
     // setup navigation bar
     self.timeTitleView = [[[RemaingTimeTitleView alloc]init]autorelease];
     UINavigationItem *barItem = [[UINavigationItem alloc]init];
@@ -70,7 +67,8 @@
     } else {
         if ([CLLocationManager locationServicesEnabled]) {
             // location service is enabled
-            [self selectCurrentLocation];
+            // find current location
+            [self.locationService findLocation];
             [self setLoading:YES];
             
         } else {
@@ -126,15 +124,31 @@
         NSLog(@" unexpected: %@", names);
         // TODO
         // no location found, show error message and ask user manual intervention
+        [self locationDidSelectedWithPrefecture:nil
+                                           city:nil
+                                         street:nil];
     }
 
+    [self.locationService stop];
     [self setLoading:NO];
 }
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFailedWithError:(NSError*)error {
     NSLog(@" error finding location name: %@", error);
+    [self.locationService stop];
     [self setLoading:NO];
 
+    // report error
+    // ask for retry
+}
+
+
+
+-(void) findLocationDidFailedWithError:(NSError*)error {
+    NSLog(@" error finding location name: %@", error);
+    [self.locationService stop];
+    [self setLoading:NO];
+    
     // report error
     // ask for retry
 }
@@ -203,40 +217,14 @@
     }
 }
 
-#pragma mark - CoreLocationController
-
-// asynchronously find current location, then set the prefecture, city and street
-// if failed, as for retry or manual override
--(void) selectCurrentLocation {
-	[locationController.locationManager startUpdatingLocation];   
-
-}
-
-- (void)locationUpdate:(CLLocation *)location {
-	NSLog(@" location: %@", [location description]);
-   
-    // Disable location manager
-    [self.locationController.locationManager stopUpdatingLocation];
-    [self.locationService findLocationName:location.coordinate];
-}
-
-- (void)locationError:(NSError *)error {
-    NSLog(@" error aquire location: %@", error);
-    [self setLoading:NO];
-
-	// show error message, ask if user would like to retry, or manual select
-
-    // Disable location manager
-    [self.locationController.locationManager stopUpdatingLocation];
-}
-
 // update reminder time based on next currently input prefecture, city and street
 -(void) refreshReminder {
     NSArray* blackoutPeriods = [self.blackoutService periodWithPrefecture:self.selectedPrefecture 
                                                                      city:self.selectedCity
                                                                    street:self.selectedStreet];
-    if ([blackoutPeriods count] == 0) {
+    if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture
+
     } else {
         // more than one period, should find the next period
         NSDate* currentTime = [NSDate date];
@@ -306,10 +294,28 @@
 #pragma mark LocationTableViewControllerDelegate
 
 -(void) locationDidSelectedWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {    
-    [self.btnPrefecture setTitle:prefecture forState:UIControlStateNormal];
-    [self.btnCity setTitle:city forState:UIControlStateNormal];
-    [self.btnStreet setTitle:street forState:UIControlStateNormal];
-    [self refreshReminder];
+    if (prefecture) {
+        [self.btnPrefecture setTitle:prefecture forState:UIControlStateNormal];
+    } else {
+        [self.btnPrefecture setTitle:@"--" forState:UIControlStateNormal];
+    }
+    
+    if (city) {
+        [self.btnCity setTitle:city forState:UIControlStateNormal];
+    } else {
+        [self.btnCity setTitle:@"" forState:UIControlStateNormal];
+    }
+    
+    if (street) {
+        [self.btnStreet setTitle:street forState:UIControlStateNormal];
+    } else {
+        [self.btnStreet setTitle:@"" forState:UIControlStateNormal];
+    }
+    
+    if (prefecture && city && street) {
+        [self refreshReminder];
+    }
+
     [self dismissModalViewControllerAnimated:YES];
 }
 

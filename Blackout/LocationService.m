@@ -11,7 +11,7 @@
 
 @implementation LocationService
 
-@synthesize locationDelegate, reverseGeocoder;
+@synthesize locationDelegate, locationManager, reverseGeocoder;
 
 -(id) init {
     self = [super init];
@@ -23,23 +23,30 @@
 -(void) dealloc {
     [self stop];
 
+    self.locationManager = nil;
     self.reverseGeocoder = nil;
     [super dealloc];
 }
 
 -(void) stop {
     [self.reverseGeocoder cancel];
+    [self.locationManager stopUpdatingLocation];
 }
 
 #pragma Public
 
+-(void) findLocation {
+    self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+}
 
 -(void) findLocationName:(CLLocationCoordinate2D)coord {
     if (self.reverseGeocoder) {
         [self.reverseGeocoder cancel];
     }
     
-    self.reverseGeocoder = [[MKReverseGeocoder alloc] initWithCoordinate:coord];    
+    self.reverseGeocoder = [[[MKReverseGeocoder alloc] initWithCoordinate:coord] autorelease];    
     self.reverseGeocoder.delegate = self;
     [self.reverseGeocoder start];
 }
@@ -63,5 +70,14 @@
                          didFailedWithError:error];
 }
 
+#pragma CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    [self findLocationName:newLocation.coordinate];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    [self.locationDelegate findLocationDidFailedWithError:error];
+}
 
 @end
