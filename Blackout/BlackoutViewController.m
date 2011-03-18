@@ -62,6 +62,8 @@
 
     // begin finding location
     if (USE_MOCK_LOCATION) {
+        [self setLoading:YES];
+
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
         [self.locationService findLocationName:location];
 
@@ -110,18 +112,29 @@
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
     if (names && [names count] == 3) {
-        NSLog(@" location found: %@", names);
+        // TODO
+        // Try to match the received location name
+        // If the location name no match, show error and ask user manual intervention
+
+        NSLog(@" location name found: %@", names);
         [self locationDidSelectedWithPrefecture:[names objectAtIndex:0]
                                            city:[names objectAtIndex:1]
                                          street:[names objectAtIndex:2]];
         
         
+    } else {
+        NSLog(@" unexpected: %@", names);
+        // TODO
+        // no location found, show error message and ask user manual intervention
     }
-    
-    [locationController.locationManager stopUpdatingLocation];
+
+    [self setLoading:NO];
 }
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFailedWithError:(NSError*)error {
+    NSLog(@" error finding location name: %@", error);
+    [self setLoading:NO];
+
     // report error
     // ask for retry
 }
@@ -201,12 +214,10 @@
 
 - (void)locationUpdate:(CLLocation *)location {
 	NSLog(@" location: %@", [location description]);
-    [self setLoading:NO];
-    
-    // Update location
-    
+   
     // Disable location manager
     [self.locationController.locationManager stopUpdatingLocation];
+    [self.locationService findLocationName:location.coordinate];
 }
 
 - (void)locationError:(NSError *)error {
