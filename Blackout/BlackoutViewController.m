@@ -126,7 +126,8 @@
     NSLog(@" clicked TEPCO web button");
     TepcoURLViewController *controller = [[TepcoURLViewController alloc]init];
     controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [self presentModalViewController:controller animated:NO];
+    UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentModalViewController:navController animated:NO];
     [controller release];
 }
 

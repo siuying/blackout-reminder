@@ -17,8 +17,16 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
+        self.title = @"東京電力";
+
     }
     return self;
+}
+
+-(void) cancelEdit {
+    
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 - (void)dealloc
@@ -46,6 +54,7 @@
     NSURL *url = [NSURL URLWithString:urlAddress];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [webView loadRequest:requestObj];
+
 }
 
 - (void)viewDidUnload
