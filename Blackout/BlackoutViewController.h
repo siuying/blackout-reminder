@@ -12,6 +12,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "CoreLocationController.h"
 
 #import "BlackoutService.h"
 #import "DummyBlackoutService.h"
@@ -23,11 +24,12 @@
 
 #import "RemaingTimeTitleView.h"
 
-@interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {   
+@interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, CoreLocationControllerDelegate> {   
     // UI
     LocationService* locationService;
     id<BlackoutService> blackoutService;
     
+    CoreLocationController* locationController;
     IBOutlet UIButton* btnPrefecture;
     IBOutlet UIButton* btnCity;
     IBOutlet UIButton* btnStreet;
@@ -53,6 +55,7 @@
 @property (nonatomic, retain) LocationService* locationService;
 @property (nonatomic, retain) id<BlackoutService> blackoutService;
 
+@property (nonatomic, retain) CoreLocationController *locationController;
 @property (nonatomic, retain) IBOutlet UIButton* btnPrefecture;
 @property (nonatomic, retain) IBOutlet UIButton* btnCity;
 @property (nonatomic, retain) IBOutlet UIButton* btnStreet;
@@ -76,6 +79,8 @@
 // asynchronously find current location, then set the prefecture, city and street
 // if failed, as for retry or manual override
 -(void) selectCurrentLocation;
+-(void)locationUpdate:(CLLocation *)location;
+-(void)locationError:(NSError *)error;
 
 // update reminder time based on next currently input prefecture, city and street
 -(void) refreshReminder;
