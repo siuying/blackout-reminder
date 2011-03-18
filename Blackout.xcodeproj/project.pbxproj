@@ -224,6 +224,8 @@
 		54E513F9133085D500A4E8DA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */,
+				A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -253,8 +255,6 @@
 				54E514171330C4A300A4E8DA /* CityTableViewController.m */,
 				54E514191330C5A100A4E8DA /* StreetTableViewController.h */,
 				54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */,
-				A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */,
-				A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */,
 				A04BA3661333353C00D124BC /* RemarksViewController.h */,
 				A04BA3671333353D00D124BC /* RemarksViewController.m */,
 				A04BA3681333353F00D124BC /* RemarksViewController.xib */,

@@ -18,7 +18,6 @@
 @property(nonatomic,retain) UILabel* appTitle;
 @property(nonatomic,retain) UILabel* remainingTime;
 
-- (UILabel *)newLabelWithPrimaryColor:(UIColor *)primaryColor selectedColor:(UIColor *)selectedColor fontSize:(CGFloat)fontSize bold:(BOOL)bold;
 - (void) lastUpdatedTime: (NSDate*) update;
 
 @end
