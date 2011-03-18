@@ -152,6 +152,7 @@
 						<string key="NSFrame">{{20, 370}, {280, 37}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -200,7 +201,7 @@
 					<object class="IBUIButton" id="184040708">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 80}, {159, 59}}</string>
+						<string key="NSFrame">{{15, 80}, {153, 59}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="421088681"/>
@@ -261,7 +262,7 @@
 						<string key="NSFrame">{{75, 0}, {170, 31}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="184040708"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -649,7 +650,6 @@
 							<string>btnStreet</string>
 							<string>buttonHomepage</string>
 							<string>buttonWarning</string>
-							<string>lblLastUpdate</string>
 							<string>lblTimeDetail</string>
 							<string>lblTimeRemaining</string>
 							<string>lblTimeTitle</string>
@@ -665,7 +665,6 @@
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
-							<string>UILabel</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -678,7 +677,6 @@
 							<string>btnStreet</string>
 							<string>buttonHomepage</string>
 							<string>buttonWarning</string>
-							<string>lblLastUpdate</string>
 							<string>lblTimeDetail</string>
 							<string>lblTimeRemaining</string>
 							<string>lblTimeTitle</string>
@@ -708,10 +706,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">buttonWarning</string>
 								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">lblLastUpdate</string>
-								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">lblTimeDetail</string>

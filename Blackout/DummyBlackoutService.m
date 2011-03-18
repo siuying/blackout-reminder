@@ -52,6 +52,10 @@
 // Array of BlackoutPeriod that match the street
 // dummy method always return preset values
 -(NSArray*) periodWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+    if (!prefecture || !city || !street) {
+        return [NSArray array];
+    }
+
     BlackoutPeriod* p = [[[BlackoutPeriod alloc] init] autorelease];
     
     NSDateComponents* from = [[[NSDateComponents alloc] init] autorelease];

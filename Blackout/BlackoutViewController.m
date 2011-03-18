@@ -111,8 +111,7 @@
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
     if (names && [names count] == 3) {
         // TODO
-        // Try to match the received location name
-        // If the location name no match, show error and ask user manual intervention
+        // If the location name is not in area affected of japan, show error and ask for manual selection
 
         NSLog(@" location name found: %@", names);
         [self locationDidSelectedWithPrefecture:[names objectAtIndex:0]
@@ -123,7 +122,7 @@
     } else {
         NSLog(@" unexpected: %@", names);
         // TODO
-        // no location found, show error message and ask user manual intervention
+        // no location found, show error message and ask user manual selection
         [self locationDidSelectedWithPrefecture:nil
                                            city:nil
                                          street:nil];
@@ -225,6 +224,9 @@
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture
 
+        lblTimeTitle.text = @"";
+        lblTimeRemaining.text = @"";
+        lblTimeDetail.text = @"";
     } else {
         // more than one period, should find the next period
         NSDate* currentTime = [NSDate date];
@@ -297,6 +299,7 @@
     if (prefecture) {
         [self.btnPrefecture setTitle:prefecture forState:UIControlStateNormal];
     } else {
+        // show message when location not found
         [self.btnPrefecture setTitle:@"--" forState:UIControlStateNormal];
     }
     
