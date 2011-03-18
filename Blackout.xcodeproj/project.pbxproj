@@ -41,6 +41,7 @@
 		54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */; };
 		A04BA3691333354300D124BC /* RemarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04BA3671333353D00D124BC /* RemarksViewController.m */; };
 		A04BA36A1333354300D124BC /* RemarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A04BA3681333353F00D124BC /* RemarksViewController.xib */; };
+		A04BA375133338AE00D124BC /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04BA374133338AC00D124BC /* CoreLocationController.m */; };
 		A0E642D61332301F00E36CFF /* RemaingTimeTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +99,8 @@
 		A04BA3661333353C00D124BC /* RemarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemarksViewController.h; sourceTree = "<group>"; };
 		A04BA3671333353D00D124BC /* RemarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemarksViewController.m; sourceTree = "<group>"; };
 		A04BA3681333353F00D124BC /* RemarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemarksViewController.xib; sourceTree = "<group>"; };
+		A04BA373133338AB00D124BC /* CoreLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationController.h; sourceTree = "<group>"; };
+		A04BA374133338AC00D124BC /* CoreLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreLocationController.m; sourceTree = "<group>"; };
 		A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemaingTimeTitleView.h; sourceTree = "<group>"; };
 		A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemaingTimeTitleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -255,6 +258,8 @@
 				A04BA3661333353C00D124BC /* RemarksViewController.h */,
 				A04BA3671333353D00D124BC /* RemarksViewController.m */,
 				A04BA3681333353F00D124BC /* RemarksViewController.xib */,
+				A04BA373133338AB00D124BC /* CoreLocationController.h */,
+				A04BA374133338AC00D124BC /* CoreLocationController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 				54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */,
 				A0E642D61332301F00E36CFF /* RemaingTimeTitleView.m in Sources */,
 				A04BA3691333354300D124BC /* RemarksViewController.m in Sources */,
+				A04BA375133338AE00D124BC /* CoreLocationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
