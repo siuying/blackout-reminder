@@ -48,7 +48,7 @@ module Blackout
           row = sheet1.row(idx)
           unless row.hidden
             row_data = row.to_a
-            if row_data.size == 4 && row_data[3].class == Float && (row_data[0] && row_data[1] && row_data[2] && row_data[3])
+            if row_data.size >= 4 && row_data[0] && row_data[1] && row_data[2] && row_data[3]
               data << row_data
             end
           end
@@ -58,26 +58,30 @@ module Blackout
         uploads = {}
 
         data.each do |d|
-          id = "#{d[0]}-#{d[1]}-#{d[2]}"
-          time = Array.new(time_data[d[3].to_i.to_s.to_sym])
+          begin
+            id = "#{d[0]}-#{d[1]}-#{d[2]}"
+            time = Array.new(time_data[d[3].to_i.to_s.to_sym])
 
-          if uploads[id]
-            uploads[id][:time] = uploads[id][:time].concat(time).uniq
-          else
-            type = "blackout"
-            prefecture = d[0].strip
-            city = d[1].strip
-            street = d[2].strip
+            if uploads[id]
+              uploads[id][:time] = uploads[id][:time].concat(time).uniq
+            else
+              type = "blackout"
+              prefecture = d[0].strip
+              city = d[1].strip
+              street = d[2].strip
 
-            uploads[id] = {
-              :"_id" => id,
-              :type => type,
-              :prefecture => prefecture,
-              :city => city,
-              :street => street,
-              :time => time
-            }
-          end      
+              uploads[id] = {
+                :"_id" => id,
+                :type => type,
+                :prefecture => prefecture,
+                :city => city,
+                :street => street,
+                :time => time
+              }
+            end
+          rescue StandardError => e
+            puts "ERORR #{d.inspect} => #{e}"
+          end
         end
 
         return uploads.values
