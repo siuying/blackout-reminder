@@ -23,6 +23,7 @@
 #import "RemarksViewController.h"
 
 #import "RemaingTimeTitleView.h"
+#import "ProgressView.h"
 
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, CoreLocationControllerDelegate> {   
     // UI
@@ -42,7 +43,8 @@
     IBOutlet UIButton* buttonHomepage;
 
     IBOutlet UINavigationBar* boNavigationBar;
-    RemaingTimeTitleView* timeTitle;
+    RemaingTimeTitleView* timeTitleView;
+    ProgressView* progressView;
     
     // Model
     NSString* selectedPrefecture;
@@ -66,7 +68,8 @@
 @property (nonatomic, retain) IBOutlet UIButton* buttonWarning;
 @property (nonatomic, retain) IBOutlet UIButton* buttonHomepage;
 @property (nonatomic, retain) IBOutlet UINavigationBar* boNavigationBar;
-@property (nonatomic, retain) RemaingTimeTitleView* timeTitle;
+@property (nonatomic, retain) RemaingTimeTitleView* timeTitleView;
+@property (nonatomic, retain) ProgressView* progressView;
 
 @property (nonatomic, retain) NSString* selectedPrefecture;
 @property (nonatomic, retain) NSString* selectedCity;

@@ -14,6 +14,7 @@
 		54A2A75A1331B0E300490370 /* DummyBlackoutService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5140D1330B63F00A4E8DA /* DummyBlackoutService.m */; };
 		54A2A75B1331B0E300490370 /* BlackoutPeriod.h in Sources */ = {isa = PBXBuildFile; fileRef = 54E513FB133086E200A4E8DA /* BlackoutPeriod.h */; };
 		54A2A75C1331B0E300490370 /* BlackoutPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E513FC133086E200A4E8DA /* BlackoutPeriod.m */; };
+		54A2A7691333641200490370 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A2A7681333641200490370 /* ProgressView.m */; };
 		54E513C01330858B00A4E8DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513BF1330858B00A4E8DA /* UIKit.framework */; };
 		54E513C21330858B00A4E8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C11330858B00A4E8DA /* Foundation.framework */; };
 		54E513C41330858B00A4E8DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C31330858B00A4E8DA /* CoreGraphics.framework */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		54A2A7671333641200490370 /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressView.h; sourceTree = "<group>"; };
+		54A2A7681333641200490370 /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressView.m; sourceTree = "<group>"; };
 		54E513BB1330858B00A4E8DA /* Blackout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E513BF1330858B00A4E8DA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54E513C11330858B00A4E8DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -226,6 +229,8 @@
 			children = (
 				A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */,
 				A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */,
+				54A2A7671333641200490370 /* ProgressView.h */,
+				54A2A7681333641200490370 /* ProgressView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -387,6 +392,7 @@
 				A0E642D61332301F00E36CFF /* RemaingTimeTitleView.m in Sources */,
 				A04BA3691333354300D124BC /* RemarksViewController.m in Sources */,
 				A04BA375133338AE00D124BC /* CoreLocationController.m in Sources */,
+				54A2A7691333641200490370 /* ProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

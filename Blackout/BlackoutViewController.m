@@ -16,13 +16,14 @@
 @synthesize buttonWarning, buttonHomepage, boNavigationBar;
 @synthesize locationService, blackoutService;
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
-@synthesize timeTitle;
+@synthesize timeTitleView, progressView;
 @synthesize locationController;
 
 - (void)dealloc
 {
     self.locationService = nil;
     self.blackoutService = nil;
+
     self.selectedCity = nil;
     self.selectedPrefecture = nil;
     self.selectedStreet = nil;
@@ -48,12 +49,14 @@
     self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
+    self.locationController = [[[CoreLocationController alloc] init] autorelease];
+	self.locationController.delegate = self;
     
     // setup navigation bar
-    self.timeTitle = [[[RemaingTimeTitleView alloc]init]autorelease];
+    self.timeTitleView = [[[RemaingTimeTitleView alloc]init]autorelease];
     UINavigationItem *barItem = [[UINavigationItem alloc]init];
-    [self.timeTitle lastUpdatedTime:blackoutService.lastUpdated];
-    barItem.titleView = self.timeTitle;
+    [self.timeTitleView lastUpdatedTime:blackoutService.lastUpdated];
+    barItem.titleView = self.timeTitleView;
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
 
@@ -88,6 +91,10 @@
     self.lblTimeDetail = nil;
     self.lblTimeRemaining = nil;
     self.lblTimeTitle = nil;
+    
+    self.timeTitleView = nil;
+    self.progressView = nil;
+
     self.buttonWarning = nil;
     self.buttonHomepage = nil;
     self.boNavigationBar = nil;
@@ -98,11 +105,6 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
--(void) viewWillAppear:(BOOL)animated {
-
-}
-
 
 #pragma mark - LocationServiceDelegate
 
@@ -175,7 +177,17 @@
 -(void) setLoading:(BOOL)isLoading {
     self.view.userInteractionEnabled = !isLoading;
     
-    // TODO add/remove loading views
+    if (isLoading) {
+        if (self.progressView) {
+            [self.progressView removeProgressView];
+        }
+        self.progressView = [ProgressView progressViewOnView:self.view];
+    } else {
+        if (self.progressView) {
+            [self.progressView removeProgressView];
+            self.progressView = nil;
+        }
+    }
 }
 
 #pragma mark - CoreLocationController
@@ -183,11 +195,7 @@
 // asynchronously find current location, then set the prefecture, city and street
 // if failed, as for retry or manual override
 -(void) selectCurrentLocation {
-    
-    self.locationController = [[[CoreLocationController alloc] init] autorelease];
-	locationController.delegate = self;
-	[locationController.locationManager startUpdatingLocation];
-    
+	[locationController.locationManager startUpdatingLocation];   
 
 }
 
@@ -199,7 +207,6 @@
     
     // Disable location manager
     [self.locationController.locationManager stopUpdatingLocation];
-    self.locationController = nil;
 }
 
 - (void)locationError:(NSError *)error {
@@ -210,7 +217,6 @@
 
     // Disable location manager
     [self.locationController.locationManager stopUpdatingLocation];
-    self.locationController = nil;    
 }
 
 // update reminder time based on next currently input prefecture, city and street
