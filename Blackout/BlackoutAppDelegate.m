@@ -20,7 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+    [ASIHTTPRequest setDefaultTimeOutSeconds:30];
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
