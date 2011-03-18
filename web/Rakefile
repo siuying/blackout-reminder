@@ -38,43 +38,19 @@ task :export do
     puts "downloading from #{source}"
     data =     Blackout::Utils.blackout_data_from_url(source)
 
-    # create unique record for prefecture-city-street
-    puts "  preprocess data"
-    data.each do |d|
-      id = "#{d[0]}-#{d[1]}-#{d[2]}"
-      time = Array.new(time_data[d[3].to_i.to_s.to_sym])
-
-      if uploads[id]
-        uploads[id][:time] = uploads[id][:time].concat(time).uniq
-      else
-        type = "blackout"
-        prefecture = d[0].strip
-        city = d[1].strip
-        street = d[2].strip
-
-        uploads[id] = {
-          :"_id" => id,
-          :type => type,
-          :prefecture => prefecture,
-          :city => city,
-          :street => street,
-          :time => time
-        }
-      end
-    end
-
     puts "  storing temp records to disk"
-    File.open("output/blackout_#{CGI.escape(source)}.json", 'w') {|f| f.write(uploads.values.to_json) }
+    File.open("output/blackout_#{CGI.escape(source)}.json", 'w') {|f| f.write(data.to_json) }
 
     # upload data to CouchDB    
     puts "  uploading records to db"
     response = Typhoeus::Request.post("#{url}/_bulk_docs", 
-          :body => {"docs" => uploads.values }.to_json,
+          :body => {"docs" => data }.to_json,
           :headers => {:"Content-Type" => "application/json"},
           :username => config["username"],
           :password => config["password"],
           :auth_method => :basic
         )
+
     if response
       result = JSON(response.body)
       result.each do |r|
@@ -85,8 +61,7 @@ task :export do
         end
       end
     end
-    
-    sleep(30)
+
   end 
 
 end

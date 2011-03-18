@@ -35,8 +35,9 @@ module Blackout
     # download and parse excel, and return only relevant records
     def self.blackout_data_from_url(url)
       Spreadsheet.client_encoding = 'UTF-8'
-      file = Tempfile.new('blackout')
-      
+      file          = Tempfile.new('blackout')
+      time_data     = Blackout::Utils.blackout_time
+  
       begin
         File.open(file.path, 'w') {|f| f.write(open(url).read) }
         wb = Spreadsheet.open(file.path)
@@ -46,11 +47,40 @@ module Blackout
         for idx in (0..(sheet1.row_count-1)) do
           row = sheet1.row(idx)
           unless row.hidden
-            data << row.to_a
+            row_data = row.to_a
+            if row_data.size == 4 && row_data[3].class == Float && (row_data[0] && row_data[1] && row_data[2] && row_data[3])
+              data << row_data
+            end
           end
         end
+        
+        # format the data to db format
+        uploads = {}
 
-        return data
+        data.each do |d|
+          id = "#{d[0]}-#{d[1]}-#{d[2]}"
+          time = Array.new(time_data[d[3].to_i.to_s.to_sym])
+
+          if uploads[id]
+            uploads[id][:time] = uploads[id][:time].concat(time).uniq
+          else
+            type = "blackout"
+            prefecture = d[0].strip
+            city = d[1].strip
+            street = d[2].strip
+
+            uploads[id] = {
+              :"_id" => id,
+              :type => type,
+              :prefecture => prefecture,
+              :city => city,
+              :street => street,
+              :time => time
+            }
+          end      
+        end
+
+        return uploads.values
       ensure
         file.close
         file.unlink
