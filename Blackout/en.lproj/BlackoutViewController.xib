@@ -151,7 +151,6 @@
 						<string key="NSFrame">{{20, 370}, {280, 37}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -200,7 +199,7 @@
 					<object class="IBUIButton" id="184040708">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 80}, {142, 59}}</string>
+						<string key="NSFrame">{{15, 80}, {159, 59}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="421088681"/>
@@ -223,7 +222,7 @@
 					<object class="IBUIButton" id="840113032">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{171, 80}, {130, 26}}</string>
+						<string key="NSFrame">{{176, 80}, {130, 26}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="478030911"/>
@@ -243,7 +242,7 @@
 					<object class="IBUIButton" id="478030911">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{171, 114}, {135, 49}}</string>
+						<string key="NSFrame">{{176, 114}, {135, 49}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="737512429"/>
@@ -484,13 +483,13 @@
 							<reference ref="1069097039"/>
 							<reference ref="421088681"/>
 							<reference ref="184040708"/>
-							<reference ref="840113032"/>
-							<reference ref="478030911"/>
 							<reference ref="737512429"/>
 							<reference ref="1000464242"/>
 							<reference ref="980507617"/>
 							<reference ref="670948132"/>
 							<reference ref="868678333"/>
+							<reference ref="840113032"/>
+							<reference ref="478030911"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
