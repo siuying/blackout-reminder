@@ -76,6 +76,10 @@
 
 -(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
 
+// If isLoading = YES, disable UI and show a loading screen
+// Otherwise, remove the loading screen
+-(void) setLoading:(BOOL)isLoading;
+
 // asynchronously find current location, then set the prefecture, city and street
 // if failed, as for retry or manual override
 -(void) selectCurrentLocation;

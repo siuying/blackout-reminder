@@ -52,17 +52,18 @@
     if (USE_MOCK_LOCATION) {
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
         [self.locationService findLocationName:location];
-        
 
     } else {
-        // TODO
-        // * check if CoreLocation service is enabled    
-        [self selectCurrentLocation];
-        
-        // TODO Disable UI
-        
-        // * if not enabled, show alert and ask for Prefecture input
-        // * if enabled, use CoreLocation service to find location
+        if ([CLLocationManager locationServicesEnabled]) {
+            // location service is enabled
+            [self selectCurrentLocation];
+            [self setLoading:YES];
+            
+        } else {
+            // location service is NOT enable
+            // show alert dialog to warn user about it and ask user manual select
+        }
+
     }
 
 }
@@ -167,6 +168,12 @@
     [navController release];
 }
 
+-(void) setLoading:(BOOL)isLoading {
+    self.view.userInteractionEnabled = !isLoading;
+    
+    // TODO add/remove loading views
+}
+
 #pragma mark - CoreLocationController
 
 // asynchronously find current location, then set the prefecture, city and street
@@ -181,8 +188,8 @@
 }
 
 - (void)locationUpdate:(CLLocation *)location {
-	NSLog(@"My current location: %@", [location description]);
-    // TODO Enable UI
+	NSLog(@" location: %@", [location description]);
+    [self setLoading:NO];
     
     // Update location
     
@@ -192,9 +199,11 @@
 }
 
 - (void)locationError:(NSError *)error {
-	// show error message
-    
-    
+    NSLog(@" error aquire location: %@", error);
+    [self setLoading:NO];
+
+	// show error message, ask if user would like to retry, or manual select
+
     // Disable location manager
     [self.locationController.locationManager stopUpdatingLocation];
     self.locationController = nil;    
