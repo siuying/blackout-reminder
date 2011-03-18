@@ -43,4 +43,14 @@
     [service release];
 }
 
+- (void)testStreet {
+    RemoteBlackoutService* service = [[RemoteBlackoutService alloc] init];
+
+    NSArray* streets = [service streetsWithPrefecture:@"栃木県" city:@"下都賀郡壬生町"];
+    NSLog(@"streets: %@", streets);
+    STAssertNotNil(streets, @"should not be nil");
+    STAssertTrue(48 == [streets count], @"should have 48 streets, currently %d", [streets count]);
+    [service release];
+}
+
 @end

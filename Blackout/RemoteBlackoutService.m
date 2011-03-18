@@ -18,13 +18,13 @@
 
 #define kBlackoutMethodPrefectures      @"_design/api/_view/prefectures?group=true"
 #define kBlackoutMethodCities           @"_design/api/_view/cities"
+#define kBlackoutMethodStreets          @"_design/api/_view/streets"
 
 @implementation RemoteBlackoutService
 
 @synthesize lastUpdated;
 
 // Find list of prefectures
-// dummy method always return preset values
 -(NSArray*) prefectures {
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kBlackoutUrlBase, kBlackoutDb, kBlackoutMethodPrefectures]];
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
@@ -58,7 +58,6 @@
 }
 
 // Find list of cities by prefecture
-// dummy method always return preset values
 -(NSArray*) cities:(NSString*)prefecture {
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?startkey=%@&endkey=%@&group=true", 
                                        kBlackoutUrlBase, 
@@ -101,25 +100,45 @@
 }
 
 // Find list of street by prefecture and city
-// dummy method always return preset values
 -(NSArray*) streetsWithPrefecture:(NSString*)prefecture city:(NSString*)city {
-    return [NSArray arrayWithObjects:@"緑ケ丘５丁目",
-            @"緑ケ丘４丁目",
-            @"緑ケ丘３丁目",
-            @"緑ケ丘２丁目",
-            @"緑ケ丘１丁目",
-            @"富士見平３丁目",
-            @"富士見平２丁目",
-            @"富士見平１丁目",
-            @"双葉町３丁目",
-            @"双葉町２丁目",
-            @"双葉町１丁目",
-            @"川崎４丁目",
-            @"川崎３丁目",
-            @"川崎２丁目",
-            @"川崎１丁目",
-            @"川崎", 
-            nil];
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?startkey=%@&endkey=%@&group=true", 
+                                       kBlackoutUrlBase, 
+                                       kBlackoutDb, 
+                                       kBlackoutMethodStreets, 
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\"]", prefecture, city] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", {}]", prefecture, city] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                       ]];
+    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
+    [request setUsername:kBlackoutUsername];
+    [request setPassword:kBlackoutPassword];
+    [request setSecondsToCache:60*60];
+    [request setNumberOfTimesToRetryOnTimeout:3];
+    [request startSynchronous];
+    
+    NSError *error = [request error];
+    if (!error) {
+        NSData *response = [request responseData];
+        NSDictionary* data = [[CJSONDeserializer deserializer] deserializeAsDictionary:response 
+                                                                                 error:&error];
+        
+        if (!error) {
+            NSArray* rows = [data objectForKey:@"rows"];
+            NSMutableArray* streets = [NSMutableArray array];
+            for (NSDictionary* entry in rows) {
+                NSArray* keys = [entry objectForKey:@"key"];
+                if (keys && [keys count] == 3) {
+                    [streets addObject:[keys objectAtIndex:2]];
+                }
+            }
+            return [[streets copy] autorelease];
+        } else {
+            NSLog(@"error parsing streets: %@", error);            
+        }
+    } else {
+        NSLog(@"error reading streets: %@", error);
+    }
+    
+    return [NSArray array];
 }
 
 // Array of BlackoutPeriod that match the street
