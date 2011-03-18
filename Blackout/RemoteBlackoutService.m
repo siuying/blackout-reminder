@@ -19,6 +19,11 @@
 #define kBlackoutMethodPrefectures      @"_design/api/_view/prefectures?group=true"
 #define kBlackoutMethodCities           @"_design/api/_view/cities"
 #define kBlackoutMethodStreets          @"_design/api/_view/streets"
+#define kBlackoutMethodGroup            @"_design/api/_view/blackout"
+
+@interface RemoteBlackoutService (Private)
+-(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+@end
 
 @implementation RemoteBlackoutService
 
@@ -142,7 +147,6 @@
 }
 
 // Array of BlackoutPeriod that match the street
-// dummy method always return preset values
 -(NSArray*) periodWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
     if (!prefecture || !city || !street) {
         return [NSArray array];
@@ -176,4 +180,43 @@
     
     return [NSArray arrayWithObjects:p, p2, nil];
 }
+
+#pragma mark private
+
+-(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
+                                       kBlackoutUrlBase, 
+                                       kBlackoutDb, 
+                                       kBlackoutMethodGroup, 
+                                       [[NSString stringWithFormat:@"\"%@-%@-%@\"", prefecture, city, street] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                       ]];
+    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
+    [request setUsername:kBlackoutUsername];
+    [request setPassword:kBlackoutPassword];
+    [request setSecondsToCache:60*60];
+    [request setNumberOfTimesToRetryOnTimeout:3];
+    [request startSynchronous];
+    
+    NSError *error = [request error];
+    if (!error) {
+        NSData *response = [request responseData];
+        NSDictionary* data = [[CJSONDeserializer deserializer] deserializeAsDictionary:response 
+                                                                                 error:&error];
+        
+        if (!error) {
+            NSArray* rows = [data objectForKey:@"rows"];
+            for (NSDictionary* entry in rows) {
+                NSDictionary* value = [entry objectForKey:@"value"];
+                return [value objectForKey:@"time"];
+            }
+        } else {
+            NSLog(@"error parsing groups: %@", error);            
+        }
+    } else {
+        NSLog(@"error reading groups: %@", error);
+    }
+
+    return nil;
+}
+
 @end

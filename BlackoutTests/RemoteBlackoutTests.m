@@ -8,6 +8,9 @@
 
 #import "RemoteBlackoutTests.h"
 
+@interface RemoteBlackoutService (Private)
+-(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+@end
 
 @implementation RemoteBlackoutTests
 
@@ -50,6 +53,27 @@
     NSLog(@"streets: %@", streets);
     STAssertNotNil(streets, @"should not be nil");
     STAssertTrue(48 == [streets count], @"should have 48 streets, currently %d", [streets count]);
+    [service release];
+}
+
+- (void)testGroup {
+    RemoteBlackoutService* service = [[RemoteBlackoutService alloc] init];
+
+    NSArray* groups = [service groupsWithPrefecture:@"千葉県" city:@"いすみ市" street:@"岬町中原"];
+    NSLog(@"groups: %@", groups);
+    STAssertNotNil(groups, @"should not be nil");
+    STAssertTrue(1 == [groups count], @"should have 1 group, currently %d", [groups count]);
+    STAssertTrue([groups containsObject:@"1"], @"should contain 1");
+    
+    groups = [service groupsWithPrefecture:@"静岡県" city:@"駿東郡  清水町" street:@"畑中"];
+    NSLog(@"groups: %@", groups);
+    STAssertNotNil(groups, @"should not be nil");
+    STAssertTrue(2 == [groups count], @"should have 1 group, currently %d", [groups count]);
+    STAssertTrue([groups containsObject:@"2"], @"should contain 2");
+    STAssertTrue([groups containsObject:@"3"], @"should contain 3");
+    
+    		
+    
     [service release];
 }
 
