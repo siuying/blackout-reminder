@@ -83,6 +83,15 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void) viewWillAppear:(BOOL)animated {
+    
+    UINavigationItem *barItem = [[UINavigationItem alloc]init];
+    [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
+    barItem.titleView = timeTitle;
+    [navigationBar pushNavigationItem:barItem animated:NO];
+    [barItem release];
+}
+
 
 #pragma mark - LocationServiceDelegate
 
@@ -119,7 +128,11 @@
 
 -(IBAction) openWarning:(id)sender {
     NSLog(@" clicked warning button");
-    // TODO open html for warning page
+    RemarksViewController *controller = [[RemarksViewController alloc]init];
+    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentModalViewController:navController animated:NO];
+    [controller release];
 }
 
 -(IBAction) openTepcoUrl:(id)sender{
@@ -222,13 +235,14 @@
 
         }
         
-        UINavigationItem *barItem = [[UINavigationItem alloc]init];
-        [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
-        barItem.titleView = timeTitle;
-        [navigationBar pushNavigationItem:barItem animated:NO];
-        [barItem release];
+//        UINavigationItem *barItem = [[UINavigationItem alloc]init];
+//        [timeTitle lastUpdatedTime:blackoutService.lastUpdated];
+//        barItem.titleView = timeTitle;
+//        [navigationBar pushNavigationItem:barItem animated:NO];
+//        [barItem release];
         
     }
+
 }
 
 #pragma mark LocationTableViewControllerDelegate

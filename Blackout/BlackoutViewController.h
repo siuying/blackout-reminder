@@ -19,6 +19,7 @@
 #import "BlackoutUtils.h"
 #import "PrefectureTableViewController.h"
 #import "LocationTableViewController.h"
+#import "RemarksViewController.h"
 
 #import "RemaingTimeTitleView.h"
 
