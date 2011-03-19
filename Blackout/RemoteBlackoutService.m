@@ -21,10 +21,6 @@
 #define kBlackoutMethodStreets          @"_design/api/_view/streets"
 #define kBlackoutMethodGroup            @"_design/api/_view/blackout"
 
-@interface RemoteBlackoutService (Private)
--(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
-@end
-
 @implementation RemoteBlackoutService
 
 @synthesize lastUpdated;
@@ -181,8 +177,6 @@
     return [NSArray arrayWithObjects:p, p2, nil];
 }
 
-#pragma mark private
-
 -(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
                                        kBlackoutUrlBase, 
@@ -217,6 +211,10 @@
     }
 
     return nil;
+}
+
+-(NSArray*) periodsWithGroups:(NSArray*)groups {
+    return [NSArray array];
 }
 
 @end

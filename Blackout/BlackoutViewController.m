@@ -218,9 +218,11 @@
 
 // update reminder time based on next currently input prefecture, city and street
 -(void) refreshReminder {
-    NSArray* blackoutPeriods = [self.blackoutService periodWithPrefecture:self.selectedPrefecture 
+    NSArray* blackoutGroups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture 
                                                                      city:self.selectedCity
                                                                    street:self.selectedStreet];
+    NSArray* blackoutPeriods = [self.blackoutService periodsWithGroups:blackoutGroups];
+    
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture
 

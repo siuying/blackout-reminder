@@ -49,13 +49,19 @@
             nil];
 }
 
-// Array of BlackoutPeriod that match the street
-// dummy method always return preset values
--(NSArray*) periodWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+// Array of string of groups that match the prefecture, city and street
+// If no groups found, return empty array
+-(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
     if (!prefecture || !city || !street) {
         return [NSArray array];
     }
 
+    return [NSArray arrayWithObject:@"1"];
+}
+
+// Array of BlackoutPeriod from the groups
+// If no electricity for the groups found, return empty array
+-(NSArray*) periodsWithGroups:(NSArray*)groups {
     BlackoutPeriod* p = [[[BlackoutPeriod alloc] init] autorelease];
     
     NSDateComponents* from = [[[NSDateComponents alloc] init] autorelease];

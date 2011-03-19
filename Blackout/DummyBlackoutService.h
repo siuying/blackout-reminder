@@ -24,8 +24,13 @@
 // Find list of street by prefecture and city
 -(NSArray*) streetsWithPrefecture:(NSString*)prefecture city:(NSString*)city;
 
-// Array of BlackoutPeriod that match the street
--(NSArray*) periodWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+// Array of string of groups that match the prefecture, city and street
+// If no groups found, return empty array
+-(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+
+// Array of BlackoutPeriod from the groups
+// If no electricity for the groups found, return empty array
+-(NSArray*) periodsWithGroups:(NSArray*)groups;
 
 
 @end
