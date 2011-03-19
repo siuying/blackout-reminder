@@ -142,41 +142,6 @@
     return [NSArray array];
 }
 
-// Array of BlackoutPeriod that match the street
--(NSArray*) periodWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
-    if (!prefecture || !city || !street) {
-        return [NSArray array];
-    }
-    
-    BlackoutPeriod* p = [[[BlackoutPeriod alloc] init] autorelease];
-    
-    NSDateComponents* from = [[[NSDateComponents alloc] init] autorelease];
-    [from setHour:10];
-    [from setMinute:0];
-    
-    NSDateComponents* to = [[[NSDateComponents alloc] init] autorelease];
-    [to setHour:12];
-    [to setMinute:20];
-    
-    p.fromTime = from;
-    p.toTime = to;
-    
-    BlackoutPeriod* p2 = [[[BlackoutPeriod alloc] init] autorelease];
-    
-    NSDateComponents* from2 = [[[NSDateComponents alloc] init] autorelease];
-    [from2 setHour:15];
-    [from2 setMinute:0];
-    
-    NSDateComponents* to2 = [[[NSDateComponents alloc] init] autorelease];
-    [to2 setHour:19];
-    [to2 setMinute:20];
-    
-    p2.fromTime = from2;
-    p2.toTime = to2;
-    
-    return [NSArray arrayWithObjects:p, p2, nil];
-}
-
 -(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
                                        kBlackoutUrlBase, 
