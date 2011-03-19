@@ -52,6 +52,10 @@
 		545A62A41333B097009475A1 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62941333B096009475A1 /* ASIDataCompressor.m */; };
 		545A62A71333B0A6009475A1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62A61333B0A6009475A1 /* Reachability.m */; };
 		545A62A81333B0A6009475A1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62A61333B0A6009475A1 /* Reachability.m */; };
+		5494400713343BF600EB0EFE /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5494400613343BF600EB0EFE /* XPathQuery.m */; };
+		5494400813343BF600EB0EFE /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5494400613343BF600EB0EFE /* XPathQuery.m */; };
+		5494400A13343C0D00EB0EFE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5494400913343C0D00EB0EFE /* libxml2.2.dylib */; };
+		5494400C13343C2300EB0EFE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5494400B13343C2200EB0EFE /* libxml2.2.dylib */; };
 		54A2A7691333641200490370 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A2A7681333641200490370 /* ProgressView.m */; };
 		54E513C01330858B00A4E8DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513BF1330858B00A4E8DA /* UIKit.framework */; };
 		54E513C21330858B00A4E8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C11330858B00A4E8DA /* Foundation.framework */; };
@@ -140,6 +144,10 @@
 		545A62941333B096009475A1 /* ASIDataCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIDataCompressor.m; path = External/ASIHttpRequest/Classes/ASIDataCompressor.m; sourceTree = "<group>"; };
 		545A62A51333B0A6009475A1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = External/ASIHttpRequest/External/Reachability/Reachability.h; sourceTree = "<group>"; };
 		545A62A61333B0A6009475A1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = External/ASIHttpRequest/External/Reachability/Reachability.m; sourceTree = "<group>"; };
+		5494400513343BF600EB0EFE /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathQuery.h; path = External/XPath/XPathQuery.h; sourceTree = "<group>"; };
+		5494400613343BF600EB0EFE /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathQuery.m; path = External/XPath/XPathQuery.m; sourceTree = "<group>"; };
+		5494400913343C0D00EB0EFE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		5494400B13343C2200EB0EFE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		54A2A7671333641200490370 /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressView.h; sourceTree = "<group>"; };
 		54A2A7681333641200490370 /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressView.m; sourceTree = "<group>"; };
 		54E513BB1330858B00A4E8DA /* Blackout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackout.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5494400A13343C0D00EB0EFE /* libxml2.2.dylib in Frameworks */,
 				545A6225133386FA009475A1 /* SystemConfiguration.framework in Frameworks */,
 				545A62231333867D009475A1 /* CFNetwork.framework in Frameworks */,
 				545A622113338661009475A1 /* MobileCoreServices.framework in Frameworks */,
@@ -210,6 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5494400C13343C2300EB0EFE /* libxml2.2.dylib in Frameworks */,
 				545A62541333A5CC009475A1 /* libz.dylib in Frameworks */,
 				545A62521333A5A3009475A1 /* SystemConfiguration.framework in Frameworks */,
 				545A62501333A596009475A1 /* MobileCoreServices.framework in Frameworks */,
@@ -226,6 +236,7 @@
 		545A61D813338572009475A1 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				5494400313343BD500EB0EFE /* XPath */,
 				545A62291333A2C4009475A1 /* TouchJSON */,
 				545A61D91333861A009475A1 /* ASIHttpRequest */,
 			);
@@ -302,12 +313,22 @@
 		545A624E1333A583009475A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5494400B13343C2200EB0EFE /* libxml2.2.dylib */,
 				545A62531333A5CB009475A1 /* libz.dylib */,
 				545A62511333A5A2009475A1 /* SystemConfiguration.framework */,
 				545A624F1333A596009475A1 /* MobileCoreServices.framework */,
 				545A624C1333A57F009475A1 /* CFNetwork.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5494400313343BD500EB0EFE /* XPath */ = {
+			isa = PBXGroup;
+			children = (
+				5494400513343BF600EB0EFE /* XPathQuery.h */,
+				5494400613343BF600EB0EFE /* XPathQuery.m */,
+			);
+			name = XPath;
 			sourceTree = "<group>";
 		};
 		54E513B01330858B00A4E8DA = {
@@ -332,6 +353,7 @@
 		54E513BE1330858B00A4E8DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5494400913343C0D00EB0EFE /* libxml2.2.dylib */,
 				545A621E13338652009475A1 /* libz.dylib */,
 				545A62221333867D009475A1 /* CFNetwork.framework */,
 				545A622013338661009475A1 /* MobileCoreServices.framework */,
@@ -592,6 +614,7 @@
 				545A62A11333B096009475A1 /* ASIDataDecompressor.m in Sources */,
 				545A62A31333B096009475A1 /* ASIDataCompressor.m in Sources */,
 				545A62A71333B0A6009475A1 /* Reachability.m in Sources */,
+				5494400713343BF600EB0EFE /* XPathQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +643,7 @@
 				545A62A21333B096009475A1 /* ASIDataDecompressor.m in Sources */,
 				545A62A41333B097009475A1 /* ASIDataCompressor.m in Sources */,
 				545A62A81333B0A6009475A1 /* Reachability.m in Sources */,
+				5494400813343BF600EB0EFE /* XPathQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +732,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Blackout/Blackout-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Blackout/Blackout-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -722,6 +747,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Blackout/Blackout-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Blackout/Blackout-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -741,6 +767,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlackoutTests/BlackoutTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "BlackoutTests/BlackoutTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -763,6 +790,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlackoutTests/BlackoutTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "BlackoutTests/BlackoutTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
