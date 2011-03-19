@@ -54,7 +54,9 @@
 #pragma MKReverseGeocoderDelegate
 
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark {
-    NSArray* location = [NSArray arrayWithObjects:placemark.administrativeArea, placemark.locality, placemark.subLocality, nil];
+    NSArray* location = [NSArray arrayWithObjects:placemark.administrativeArea,
+                         placemark.locality, 
+                         [NSString stringWithFormat:@"%@%@", placemark.subLocality, placemark.thoroughfare], nil];
     
     NSLog(@"placemark: %@", placemark);
     [self.locationDelegate findLocationName:geocoder.coordinate 

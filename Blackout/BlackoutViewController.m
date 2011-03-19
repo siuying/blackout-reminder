@@ -49,6 +49,10 @@
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
 
+    self.btnPrefecture.titleLabel.lineBreakMode = UILineBreakModeClip;
+    self.btnCity.titleLabel.lineBreakMode = UILineBreakModeClip;
+    self.btnStreet.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+
     // setup navigation bar
     self.timeTitleView = [[[RemaingTimeTitleView alloc]init]autorelease];
     UINavigationItem *barItem = [[UINavigationItem alloc]init];
