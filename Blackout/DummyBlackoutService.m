@@ -91,4 +91,10 @@
     return [NSArray arrayWithObjects:p, p2, nil];
 }
 
+// Validate if the specific Prefecture, City and Street existed in db, if not, return the cloest match
+// Mock method always return input values
+-(NSArray*) validatePrefectures:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+    return [NSArray arrayWithObjects:prefecture, city, street, nil];
+}
+
 @end

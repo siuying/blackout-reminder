@@ -11,6 +11,9 @@
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
 
+#define kBlackoutTepco      @"http://www.tepco.co.jp/index-j.html"
+#define kBlackoutTimeApi    @"http://www.tepco.co.jp/index-j.html"
+
 #define kBlackoutUrlBase    @"https://ignition.cloudant.com"
 #define kBlackoutDb         @"blackout-dev"
 #define kBlackoutUsername   @"behictingualdrionschaver"
@@ -180,6 +183,11 @@
 
 -(NSArray*) periodsWithGroups:(NSArray*)groups {
     return [NSArray array];
+}
+
+// Validate if the specific Prefecture, City and Street existed in db, if not, return the cloest match
+-(NSArray*) validatePrefectures:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+    return [NSArray arrayWithObjects:prefecture, city, street, nil];
 }
 
 @end

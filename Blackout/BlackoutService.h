@@ -31,4 +31,7 @@
 // If no electricity for the groups found, return empty array
 -(NSArray*) periodsWithGroups:(NSArray*)groups;
 
+// Validate if the specific Prefecture, City and Street existed in db, if not, return the cloest match
+-(NSArray*) validatePrefectures:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+
 @end
