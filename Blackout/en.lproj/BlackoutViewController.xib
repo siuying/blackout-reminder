@@ -103,7 +103,7 @@
 					<object class="IBUILabel" id="1000464242">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 196}, {280, 45}}</string>
+						<string key="NSFrame">{{20, 196}, {286, 63}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="980507617"/>
@@ -115,7 +115,7 @@
 						<string key="IBUIText"/>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica</string>
-							<double key="NSSize">40</double>
+							<double key="NSSize">56</double>
 							<int key="NSfFlags">16</int>
 						</object>
 						<reference key="IBUITextColor" ref="281352589"/>
@@ -126,7 +126,7 @@
 					<object class="IBUILabel" id="980507617">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 241}, {280, 33}}</string>
+						<string key="NSFrame">{{20, 250}, {280, 50}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1069097039"/>
@@ -136,14 +136,10 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText"/>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">STHeitiTC-Light</string>
-							<double key="NSSize">17</double>
-							<int key="NSfFlags">16</int>
-						</object>
+						<reference key="IBUIFont" ref="529620711"/>
 						<reference key="IBUITextColor" ref="281352589"/>
 						<nil key="IBUIHighlightedColor"/>
-						<int key="IBUIBaselineAdjustment">1</int>
+						<int key="IBUIBaselineAdjustment">0</int>
 						<float key="IBUIMinimumFontSize">10</float>
 					</object>
 					<object class="IBUIButton" id="1019718157">
@@ -201,7 +197,7 @@
 					<object class="IBUIButton" id="184040708">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 80}, {153, 59}}</string>
+						<string key="NSFrame">{{15, 75}, {153, 68}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="421088681"/>
@@ -209,8 +205,8 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">48</double>
+							<string key="NSName">STHeitiTC-Medium</string>
+							<double key="NSSize">50</double>
 							<int key="NSfFlags">16</int>
 						</object>
 						<string key="IBUINormalTitle">都県</string>
@@ -455,10 +451,10 @@
 							<reference ref="184040708"/>
 							<reference ref="737512429"/>
 							<reference ref="1000464242"/>
-							<reference ref="980507617"/>
 							<reference ref="868678333"/>
 							<reference ref="840113032"/>
 							<reference ref="478030911"/>
+							<reference ref="980507617"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
