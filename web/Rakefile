@@ -36,7 +36,7 @@ task :export do
     uploads       = {}
 
     puts "downloading from #{source}"
-    data =     Blackout::Utils.blackout_data_from_url(source)
+    data =     Blackout::Utils.tepco_data_from_url(source)
 
     # upload data to CouchDB    
     puts "  uploading records to db"
@@ -74,16 +74,16 @@ task :sync do
     :password => CONFIG["password"],
     :auth_method => :basic
   )
-      
+  
   raw_data = JSON(response.body)  
   couchdb = raw_data["rows"].inject({}) do |result, row|
-    result[row["id"]] = row["value"]["rev"]
+    result[row["id"]] = row["value"]["_rev"]
     result
   end
   puts "  #{couchdb.count} records found"
   
   puts "Update blackout data"
-  data = Blackout::Utils.blackout_data
+  data = Blackout::Utils.tepco_data
   updated = 0
   data.each do |row|
     if couchdb[row[:"_id"]] 
@@ -113,12 +113,16 @@ task :sync do
 
   if response
     result = JSON(response.body)
-    result.each do |r|
-      if r["error"]
-        puts "ERROR,#{r["id"]},#{r["error"]},#{r["reason"]}"
-      else
-        puts "OK,#{r["id"]},#{r["rev"]}"
+    begin
+      result["docs"].each do |r|
+        if r["error"]
+          puts "ERROR,#{r["id"]},#{r["error"]},#{r["reason"]}"
+        else
+          puts "OK,#{r["id"]},#{r["rev"]}"
+        end
       end
+    rescue 
+      puts "result = #{result.inspect}"
     end
   end
   

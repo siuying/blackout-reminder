@@ -7,19 +7,19 @@ $KCODE = "u"
 
 module Blackout
   class Utils
-    BASE_URL = "http://www.tepco.co.jp/index-j.html"
+    BASE_TEPCO_URL = "http://www.tepco.co.jp/index-j.html"
 
     # iterate through all the excel links, download excel file and extract data
-    def self.blackout_data
+    def self.tepco_data
       result = []
       file_urls.each do |url| 
-        result.concat(blackout_data_from_url(url))
+        result.concat(tepco_data_from_url(url))
       end
       return result
     end
 
     def self.blackout_time
-      doc = Nokogiri::HTML(open(BASE_URL))
+      doc = Nokogiri::HTML(open(BASE_TEPCO_URL))
       number_map = {"１" => "1", "２" => "2", "３" => "3", "４" => "4", "５" => "5"}
       para = doc.css("#urgency p").select do |p|
         p.text =~ /停電時間は表中の数字（グループ）をご覧ください。/
@@ -39,12 +39,12 @@ module Blackout
 
     # return Blackout excel file url
     def self.file_urls    
-      doc = Nokogiri::HTML(open(BASE_URL))
+      doc = Nokogiri::HTML(open(BASE_TEPCO_URL))
       doc.css('#urgency a').select {|link| link["href"] =~ /.+\.xls/ }.collect{|link| "http://www.tepco.co.jp" + link["href"].strip }
     end
     
     # download and parse excel, and return only relevant records
-    def self.blackout_data_from_url(url)
+    def self.tepco_data_from_url(url)
       Spreadsheet.client_encoding = 'UTF-8'
       file          = Tempfile.new('blackout')
   
@@ -86,7 +86,8 @@ module Blackout
                 :prefecture => prefecture,
                 :city => city,
                 :street => street,
-                :time => [time]
+                :time => [time],
+                :company => "tepco"
               }
             end
           rescue StandardError => e
