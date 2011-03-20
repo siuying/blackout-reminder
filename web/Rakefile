@@ -26,7 +26,7 @@ task :import do
   File.open(JSON_BLACKOUT_FILE, 'w') {|f| f.write(blackout_data.to_json) }
 end
 
-# initial export data to couchdb
+# initial export data from tepco to couchdb
 task :export do
   source_urls   = Blackout::Utils.file_urls
   time_data     = Blackout::Utils.blackout_time
@@ -37,9 +37,6 @@ task :export do
 
     puts "downloading from #{source}"
     data =     Blackout::Utils.blackout_data_from_url(source)
-
-    puts "  storing temp records to disk"
-    File.open("output/blackout_#{CGI.escape(source)}.json", 'w') {|f| f.write(data.to_json) }
 
     # upload data to CouchDB    
     puts "  uploading records to db"
@@ -65,13 +62,13 @@ task :export do
   end
 end
 
-# update couch db data
+# update tepco couch db data
 task :sync do
   url           = "#{CONFIG["url"]}#{CONFIG["database"]}"
 
   # download keys from DB
   puts "Fetch CouchDB data"
-  response = Typhoeus::Request.get("#{url}/_all_docs", 
+  response = Typhoeus::Request.get("#{url}/_design/api/_view/blackout", 
     :headers => {:"Content-Type" => "application/json"},
     :username => CONFIG["username"],
     :password => CONFIG["password"],
@@ -95,7 +92,7 @@ task :sync do
     end
   end
   puts "  #{data.count} records found"
-  
+
   puts "Find data that should be removed from server"
   keys = data.collect() { |row| row[:"_id"] }
   deleted = couchdb.keys.select() { |key| keys.index(key).nil? } # keys exists on server but NOT on downloaded data
