@@ -223,6 +223,15 @@
     [alert release];
 }
 
+-(IBAction) openIgntSoftUrl:(id)sender {
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Safariを起動します" message:@"ページが移動します。\n宜しいですか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"はい", nil];
+    alert.tag = kAlertViewIgntSoftURL;
+    [alert show];
+    [alert release];
+    
+}
+
 #pragma mark - Public
 
 // prompt for user to input
@@ -494,6 +503,13 @@
             
             [self promptInputWithSelectedPrefecture:nil city:nil street:nil];
             _alertOn = NO;
+        }
+    } else if (actionSheet.tag == kAlertViewIgntSoftURL) {
+        if (buttonIndex == 1) {
+            
+            NSLog(@"Open Ignition Soft url in Safari");
+            NSString* launchUrl = @"http://ignition.hk";
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: launchUrl]];
         }
     }
     

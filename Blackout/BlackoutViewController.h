@@ -28,6 +28,7 @@
 
 #define kAlertViewOpenURL   1
 #define kAlertViewNoLocationFound   2
+#define kAlertViewIgntSoftURL 3
 
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
     // UI
@@ -110,6 +111,7 @@
 
 -(IBAction) openWarning:(id)sender;
 -(IBAction) openTepcoUrl:(id)sender;
+-(IBAction) openIgntSoftUrl:(id)sender;
 
 @end
 
