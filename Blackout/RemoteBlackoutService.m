@@ -23,6 +23,11 @@
 #define kBlackoutMethodCities           @"_design/api/_view/cities"
 #define kBlackoutMethodStreets          @"_design/api/_view/streets"
 #define kBlackoutMethodGroup            @"_design/api/_view/blackout"
+#define kBlackoutMethodSchedules        @"_design/api/_list/time/schedules"
+
+@interface RemoteBlackoutService (Private)
+-(NSArray*) periodsWithGroup:(BlackoutGroup*)group withDate:(NSDate*)date;
+@end
 
 @implementation RemoteBlackoutService
 
@@ -178,16 +183,81 @@
         NSLog(@"error reading groups: %@", error);
     }
 
-    return nil;
-}
-
--(NSArray*) periodsWithGroups:(NSArray*)groups {
     return [NSArray array];
 }
 
-// Validate if the specific Prefecture, City and Street existed in db, if not, return the cloest match
--(NSArray*) validatePrefectures:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
-    return [NSArray arrayWithObjects:prefecture, city, street, nil];
+-(NSArray*) periodsWithGroups:(NSArray*)groups withDate:(NSDate*)date {
+    NSMutableArray* periods = [NSMutableArray array];
+
+    for (BlackoutGroup* group in groups) {
+        [periods addObjectsFromArray:[self periodsWithGroup:group 
+                                                   withDate:date]];
+    }
+
+    return periods;
+}
+
+#pragma Private
+
+-(NSArray*) periodsWithGroup:(BlackoutGroup*)group withDate:(NSDate*)date {
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeStyle:NSDateFormatterNoStyle];
+    [formatter setDateFormat:@"yyyyMMdd"];
+    
+    NSString* dateString = [formatter stringFromDate:date];
+    [formatter release];
+    
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
+                                       kBlackoutUrlBase, 
+                                       kBlackoutDb, 
+                                       kBlackoutMethodSchedules, 
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"%@\"]", group.company, group.code, dateString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                       ]];
+    
+    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
+    [request setUsername:kBlackoutUsername];
+    [request setPassword:kBlackoutPassword];
+    [request setSecondsToCache:60];
+    [request setNumberOfTimesToRetryOnTimeout:3];
+    [request startSynchronous];
+    
+    NSError *error = [request error];
+    if (!error) {
+        NSData *response = [request responseData];
+        NSDictionary* data = [[CJSONDeserializer deserializer] deserializeAsDictionary:response 
+                                                                                 error:&error];
+        
+        if (!error) {
+            NSArray* rows = [data objectForKey:@"rows"];
+            for (NSDictionary* entry in rows) {
+                NSDictionary* value = [entry objectForKey:@"value"];
+                NSString* company = [value objectForKey:@"company"];
+                NSArray*  times = [value objectForKey:@"time"];
+                
+                if (company && group && time) {
+                    NSMutableArray* periods = [NSMutableArray array];
+                    for (NSArray* time in times) {
+                        if ([time count] >= 2) {
+                            NSString* fromTimeStr = [time objectAtIndex:0];
+                            NSString* toTimeStr = [time objectAtIndex:1];
+                        
+                            BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
+                                                                            fromTimeString:fromTimeStr 
+                                                                              toTimeString:toTimeStr];
+                            [periods addObject:period];
+                            [period release];
+                        }                        
+                    }
+                    return periods;
+                }                
+            }
+        } else {
+            NSLog(@"error parsing groups: %@", error);            
+        }
+    } else {
+        NSLog(@"error reading groups: %@", error);
+    }
+    return [NSArray array];
 }
 
 @end

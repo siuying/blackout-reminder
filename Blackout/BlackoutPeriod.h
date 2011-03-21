@@ -7,13 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BlackoutGroup.h"
 
 @interface BlackoutPeriod : NSObject {
+    BlackoutGroup* group;
     NSDateComponents* fromTime;
     NSDateComponents* toTime;
 }
 
+@property (nonatomic, retain) BlackoutGroup* group;
 @property (nonatomic, retain) NSDateComponents* fromTime;
 @property (nonatomic, retain) NSDateComponents* toTime;
+
+-(id) initWithGroup:(BlackoutGroup*)group fromTimeString:(NSString*)fromTimeString toTimeString:(NSString*)toTimeString;
 
 @end
