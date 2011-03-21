@@ -49,10 +49,16 @@
     RemaingTimeTitleView* timeTitleView;
     ProgressView* progressView;
     
+    BOOL _alertOn;
+    
     // Model
     NSString* selectedPrefecture;
     NSString* selectedCity;
     NSString* selectedStreet;
+
+    NSArray* groups;
+    NSArray* periods;
+    NSDate* lastUpdated;
 }
 
 
@@ -73,9 +79,15 @@
 @property (nonatomic, retain) RemaingTimeTitleView* timeTitleView;
 @property (nonatomic, retain) ProgressView* progressView;
 
+@property (nonatomic) BOOL alertOn; 
+
 @property (nonatomic, retain) NSString* selectedPrefecture;
 @property (nonatomic, retain) NSString* selectedCity;
 @property (nonatomic, retain) NSString* selectedStreet;
+
+@property (nonatomic, retain) NSArray* groups;
+@property (nonatomic, retain) NSArray* periods;
+@property (nonatomic, retain) NSDate* lastUpdated;
 
 -(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
 
@@ -84,7 +96,9 @@
 -(void) setLoading:(BOOL)isLoading;
 
 // update reminder time based on next currently input prefecture, city and street
--(void) refreshReminder;
+-(void) refreshLocation;
+
+-(void) refreshTime;
 
 @end
 
