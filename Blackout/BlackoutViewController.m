@@ -102,7 +102,7 @@
             // location service is NOT enable
             // show alert dialog to warn user about it and ask user manual select
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
-            alert.tag = kAlertViewTwo;
+            alert.tag = kAlertViewNoLocationFound;
             [alert show];
     }
 
@@ -158,7 +158,7 @@
                                          street:nil];
         if (!_alertOn) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
-            alert.tag = kAlertViewTwo;
+            alert.tag = kAlertViewNoLocationFound;
             [alert show];
             _alertOn = YES;
         }
@@ -218,7 +218,7 @@
     NSLog(@" clicked TEPCO web button");
     
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Safariを起動します" message:@"東京電力のページに移動します。\n宜しいですか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"はい", nil];
-    alert.tag = kAlertViewOne;
+    alert.tag = kAlertViewOpenURL;
     [alert show];
     [alert release];
 }
@@ -335,9 +335,21 @@
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture
         
+        NSDateFormatter *mthFormatter = [[NSDateFormatter alloc] init];
+        [mthFormatter setDateFormat:@"MM"];
+        NSString *mthString = [mthFormatter stringFromDate:[NSDate date]];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"dd"];
+        NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+        
         lblTimeTitle.text = @"";
         lblTimeRemaining.text = @"";
-        lblTimeDetail.text = @"";
+        lblTimeDetail.text = [NSString stringWithFormat:@"%@月%@日に計画停電は実施しません", mthString,dateString];
+        
+        [mthFormatter release];
+        [dateFormatter release];
+        
     } else {
         // more than one period, should find the next period
 //        NSDate* currentTime = [NSDate date];
@@ -463,7 +475,7 @@
 
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if (actionSheet.tag == kAlertViewOne) {
+    if (actionSheet.tag == kAlertViewOpenURL) {
         if (buttonIndex == 1) {
             
             NSLog(@"Open url in Safari");
@@ -471,7 +483,7 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: launchUrl]];
         }
         
-    } else if (actionSheet.tag == kAlertViewTwo) {
+    } else if (actionSheet.tag == kAlertViewNoLocationFound) {
         
         if (buttonIndex == [actionSheet cancelButtonIndex]) {
             
