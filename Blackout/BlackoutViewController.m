@@ -394,13 +394,13 @@
         
         BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
                                                                     periods:blackoutPeriods];
-        
-        
-        
+
         BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
         
-        NSDateComponents *periodStartComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) fromDate:period.fromTime];
-        NSDateComponents *periodEndComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) fromDate:period.toTime];
+        NSDateComponents *periodStartComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) 
+                                                             fromDate:period.fromTime];
+        NSDateComponents *periodEndComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) 
+                                                           fromDate:period.toTime];
         
         if (isBlackout) {            
             NSDateComponents* diff = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit)
