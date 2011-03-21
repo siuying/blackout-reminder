@@ -96,6 +96,8 @@
 // Otherwise, remove the loading screen
 -(void) setLoading:(BOOL)isLoading;
 
+-(void) setLoading:(BOOL)isLoading animated:(BOOL)animated;
+
 // update reminder time based on next currently input prefecture, city and street
 -(void) refreshLocation;
 

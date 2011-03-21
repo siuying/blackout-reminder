@@ -34,33 +34,50 @@
 
 #pragma mark Public
 
-+(ProgressView*) progressViewOnView:(UIView*)parentView {
++(ProgressView*) progressViewOnView:(UIView*)parentView animated:(BOOL)animated {
     ProgressView* progressView = [[[ProgressView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
     progressView.alpha = 0;
     [parentView addSubview:progressView];
     [parentView bringSubviewToFront:progressView];
-
-    [UIView animateWithDuration:0.3 
-                     animations:^{
-                         progressView.alpha = 1;
-                     } 
-                     completion:^(BOOL finished){
-                     }
-     ];
     
+    if (animated) {
+        [UIView animateWithDuration:0.3 
+                         animations:^{
+                             progressView.alpha = 1;
+                         } 
+                         completion:^(BOOL finished){
+                         }
+         ];
+    } else {
+        progressView.alpha = 1;
+    }
+
     return progressView;
 }
 
--(void)removeProgressView {
-    [UIView animateWithDuration:0.3 
-                     animations:^{
-                         self.alpha = 0;
-                     } 
-                     completion:^(BOOL finished){
-                         self.hidden = YES;
-                         [self removeFromSuperview];
-                     }
-     ];
-
++(ProgressView*) progressViewOnView:(UIView*)parentView {
+    return [ProgressView progressViewOnView:parentView animated:YES];
 }
+
+-(void)removeProgressView {
+    [self removeProgressView:YES];
+}
+
+-(void)removeProgressView:(BOOL)animated {
+    if (animated) {
+        [UIView animateWithDuration:0.3 
+                         animations:^{
+                             self.alpha = 0;
+                         } 
+                         completion:^(BOOL finished){
+                             self.hidden = YES;
+                             [self removeFromSuperview];
+                         }
+         ];
+    } else {
+        self.hidden = YES;
+        [self removeFromSuperview];
+    }
+}
+
 @end

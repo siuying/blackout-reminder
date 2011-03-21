@@ -13,7 +13,9 @@
     
 }
 
++(ProgressView*) progressViewOnView:(UIView*)parentView animated:(BOOL)animated;
 +(ProgressView*) progressViewOnView:(UIView*)parentView;
 -(void)removeProgressView;
+-(void)removeProgressView:(BOOL)animated;
 
 @end

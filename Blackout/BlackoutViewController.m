@@ -85,9 +85,9 @@
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refreshTime) userInfo:nil repeats:YES];
 
     // begin finding location
-    if (USE_MOCK_LOCATION) {
-        [self setLoading:YES];
+    [self setLoading:YES animated:NO];
 
+    if (USE_MOCK_LOCATION) {
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
         [self.locationService findLocationName:location];
 
@@ -97,11 +97,11 @@
                 // location service is enabled
                 // find current location
                 [self.locationService findLocation];
-                [self setLoading:YES];
-                
+
             } else {
                 NSLog(@"location service is NOT enable");
                 [self promptManualInputLocation:NO];
+                [self setLoading:NO animated:NO];
             }
         } else {
             [self refreshLocation];
@@ -289,16 +289,19 @@
 }
 
 -(void) setLoading:(BOOL)isLoading {
+    [self setLoading:isLoading animated:YES];
+}
+
+-(void) setLoading:(BOOL)isLoading animated:(BOOL)animated {
     self.view.userInteractionEnabled = !isLoading;
     
     if (isLoading) {
-        if (self.progressView) {
-            [self.progressView removeProgressView];
+        if (!self.progressView) {
+            self.progressView = [ProgressView progressViewOnView:self.view animated:animated];
         }
-        self.progressView = [ProgressView progressViewOnView:self.view];
     } else {
         if (self.progressView) {
-            [self.progressView removeProgressView];
+            [self.progressView removeProgressView:animated];
             self.progressView = nil;
         }
     }
