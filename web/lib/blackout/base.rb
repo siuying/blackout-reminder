@@ -58,7 +58,7 @@ module Blackout
           row = sheet1.row(idx)
           unless row.hidden
             row_data = row.to_a
-            if row_data.size >= 4 && row_data[0] && row_data[1] && row_data[2] && row_data[3]
+            if row_data.size >= 4 && row_data[0] && row_data[1] && row_data[2] && row_data[3] && row_data[3].to_i > 0
               data << row_data
             end
           end
