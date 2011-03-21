@@ -76,7 +76,7 @@
     // setup navigation bar
     self.timeTitleView = [[[RemaingTimeTitleView alloc]init]autorelease];
     UINavigationItem *barItem = [[UINavigationItem alloc]init];
-    [self.timeTitleView lastUpdatedTime:blackoutService.lastUpdated];
+    [self.timeTitleView setLastUpdatedTime:blackoutService.lastUpdated];
     barItem.titleView = self.timeTitleView;
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
@@ -442,13 +442,8 @@
             
         }
     }
-    
-    // TODO
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMM dd, HH:mm"];
-    NSString *lastUpdatedString = [dateFormatter stringFromDate:[NSDate date]];
-    self.timeTitleView.remainingTime.text = [NSString stringWithFormat:@"更新時間：%@", lastUpdatedString];
 
+    [self.timeTitleView setLastUpdatedTime:self.lastUpdated];
 }
 
 #pragma mark LocationTableViewControllerDelegate
