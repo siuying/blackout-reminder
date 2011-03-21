@@ -53,6 +53,11 @@
     self.btnCity.titleLabel.lineBreakMode = UILineBreakModeClip;
     self.btnStreet.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     
+    //Load persisted Prefecture, City and Street
+    self.selectedPrefecture = [BlackoutAppDelegate displayPrefecture];
+	self.selectedCity = [BlackoutAppDelegate displayCity];
+	self.selectedStreet = [BlackoutAppDelegate displayStreet];
+    
     // setup navigation bar
     self.timeTitleView = [[[RemaingTimeTitleView alloc]init]autorelease];
     UINavigationItem *barItem = [[UINavigationItem alloc]init];
@@ -196,8 +201,19 @@
 // prompt for user to input
 -(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
     // TODO if user clicked city/street, should keep selected prefecture/city
-    
+   
     PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService delegate:self];
+    UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:pController];
+    [self presentModalViewController:navController animated:YES];
+    [pController release];
+    [navController release];
+    
+}
+
+-(void) promptInputWithSelectedCity:(NSString*)city street:(NSString*)street {
+    // TODO if user clicked city/street, should keep selected prefecture/city
+    
+    CityTableViewController* pController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutService delegate:self];
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:pController];
     [self presentModalViewController:navController animated:YES];
     [pController release];

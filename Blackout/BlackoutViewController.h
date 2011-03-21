@@ -18,6 +18,8 @@
 
 #import "BlackoutUtils.h"
 #import "PrefectureTableViewController.h"
+#import "CityTableViewController.h"
+#import "StreetTableViewController.h"
 #import "LocationTableViewController.h"
 #import "RemarksViewController.h"
 
