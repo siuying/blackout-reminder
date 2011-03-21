@@ -10,6 +10,10 @@
 #import "BlackoutAppDelegate.h"
 #import "RemoteBlackoutService.h"
 
+@interface BlackoutViewController (Private)
+-(void) refreshReminderDidUpdated:(NSArray*)blackoutPeriods;
+@end
+
 @implementation BlackoutViewController
 
 @synthesize btnPrefecture, btnCity, btnStreet;
@@ -262,14 +266,25 @@
 
 // update reminder time based on next currently input prefecture, city and street
 -(void) refreshReminder {
-    NSArray* blackoutGroups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture 
-                                                                     city:self.selectedCity
-                                                                   street:self.selectedStreet];
-    NSArray* blackoutPeriods = [self.blackoutService periodsWithGroups:blackoutGroups withDate:[NSDate date]];
-    
+    [self setLoading:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
+        NSArray* blackoutGroups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture 
+                                                                        city:self.selectedCity
+                                                                      street:self.selectedStreet];
+        NSArray* blackoutPeriods = [self.blackoutService periodsWithGroups:blackoutGroups 
+                                                                  withDate:[NSDate date]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setLoading:NO];
+            [self refreshReminderDidUpdated:blackoutPeriods];
+        });
+    });
+}
+
+-(void) refreshReminderDidUpdated:(NSArray*)blackoutPeriods {
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture
-
+        
         lblTimeTitle.text = @"";
         lblTimeRemaining.text = @"";
         lblTimeDetail.text = @"";
@@ -282,7 +297,7 @@
         BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
                                                                     periods:blackoutPeriods];
         
-
+        
         
         BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
         
@@ -305,9 +320,9 @@
             }
             
             lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
-                                                                                     [period.toTime hour],[period.toTime minute] ];
+                                  [period.toTime hour],[period.toTime minute] ];
         } else {
-
+            
             lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
             
             lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
@@ -332,7 +347,7 @@
                 
                 int currentTotalMinute2 = (24 * 60) - [currentComponent minute] - ([currentComponent hour] *60);
                 int blackoutFromMinute2 = ([period.fromTime hour] * 60) + [period.fromTime minute];
-                                                
+                
                 int remainMinuteToBlackout2 = currentTotalMinute2 + blackoutFromMinute2;
                 
                 int hourToBlackout = remainMinuteToBlackout2 / 60;
@@ -345,7 +360,7 @@
                 }
                 
             }
-
+            
         }
     }
 

@@ -201,7 +201,8 @@
     for (BlackoutGroup* group in groups) {
         [periods addObjectsFromArray:[self periodsWithGroup:group 
                                                    withDate:date]];
-    }
+    }    
+    self.lastUpdated = [NSDate date];
     return periods;
 }
 
