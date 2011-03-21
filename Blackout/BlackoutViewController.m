@@ -56,7 +56,7 @@
     [super viewDidLoad];
 
     // initialize services
-    self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
+    self.blackoutService = [[[RemoteBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
 
@@ -323,6 +323,8 @@
         self.periods = [self.blackoutService periodsWithGroups:self.groups];
 
         self.lastUpdated = [NSDate date];
+        
+        NSLog(@"groups: %@, periods: %@, lastUpdated:%@", self.groups, self.periods, self.lastUpdated);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setLoading:NO];

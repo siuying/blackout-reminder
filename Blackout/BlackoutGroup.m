@@ -27,7 +27,7 @@
 }
 
 -(NSString*) description {
-    return [NSString stringWithFormat:@"<Group company=%@, code=%@>", self.company, self.code];
+    return [NSString stringWithFormat:@"[%@, %@]", self.company, self.code];
 }
 
 @end
