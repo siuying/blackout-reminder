@@ -220,7 +220,8 @@
                                        [[NSString stringWithFormat:@"[\"%@\",\"%@\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
                                        [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"99999999\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
-
+    NSLog(@" url = %@", url);
+    
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
     [request setUsername:kBlackoutUsername];
     [request setPassword:kBlackoutPassword];
@@ -236,13 +237,13 @@
         if (!error) {
             NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
             [formatter setDateFormat:@"yyyyMMddHHmm"];
-
+            
+            NSMutableArray* periods = [NSMutableArray array];
             for (NSDictionary* entry in rows) {
                 NSArray* time = [entry objectForKey:@"time"];
                 NSString* dateStr = [entry objectForKey:@"date"];
 
                 if (time) {
-                    NSMutableArray* periods = [NSMutableArray array];
                     for (NSArray* timeEntry in time) {
                         if ([timeEntry count] >= 2) {
                             NSString* fromTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:0]];
@@ -255,11 +256,13 @@
                             [period release];
                         }                        
                     }
-                    return periods;
+
                 } else {
                     NSLog(@" warning: period contain not time: %@", entry);
+
                 }
             }
+            return periods;
         } else {
             NSLog(@"error parsing periods: %@\n data = %@", error, [request responseString]);            
         }
