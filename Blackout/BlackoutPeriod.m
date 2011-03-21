@@ -14,7 +14,8 @@
 
 -(id) initWithGroup:(BlackoutGroup*)aGroup fromTime:(NSDate*)aFromTime toTime:(NSDate*)aToTime {
     self = [super init];
-
+    
+    NSLog(@"group = %@", aGroup);
     self.group = aGroup;    
     self.fromTime = aFromTime;
     self.toTime = aToTime;

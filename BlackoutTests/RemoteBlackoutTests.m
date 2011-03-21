@@ -98,7 +98,7 @@
 
     BlackoutGroup* group = [[BlackoutGroup alloc] initWithCompany:@"tepco" code:@"1"];
     NSArray* periods = [service periodsWithGroups:[NSArray arrayWithObject:group]];
-    STAssertTrue([periods count] == 2, @"should return a period, now: %@", periods);
+    STAssertTrue([periods count] > 2, @"should return a period, now: %@", periods);
     
     if ([periods count] >= 2) {
         BlackoutPeriod* period1 = [periods objectAtIndex:0];

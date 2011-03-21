@@ -27,7 +27,7 @@
 #define kBlackoutMethodSchedules        @"_design/api/_list/time/schedules"
 
 @interface RemoteBlackoutService (Private)
--(NSArray*) periodsWithGroup:(BlackoutGroup*)group withDate:(NSDate*)date;
+-(NSArray*) periodsWithGroup:(BlackoutGroup*)group;
 @end
 
 @implementation RemoteBlackoutService
@@ -212,60 +212,60 @@
 
 -(NSArray*) periodsWithGroup:(BlackoutGroup*)group {
     NSLog(@"  find periods with group:%@ ", group);
-//    
-//    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"yyyyMMdd"];
-//    
-//    NSString* dateString = [formatter stringFromDate:date];
-//    [formatter release];
-//
-//    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
-//                                       kBlackoutUrlBase, 
-//                                       kBlackoutDb, 
-//                                       kBlackoutMethodSchedules, 
-//                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"%@\"]", group.company, group.code, dateString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-//                                       ]];
-//    
-//    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-//    [request setUsername:kBlackoutUsername];
-//    [request setPassword:kBlackoutPassword];
-//    [request setSecondsToCache:60];
-//    [request setNumberOfTimesToRetryOnTimeout:3];
-//    [request startSynchronous];
-//
-//    NSError *error = [request error];
-//    if (!error) {
-//        NSData *response = [request responseData];
-//        NSArray* rows = [[CJSONDeserializer deserializer] deserializeAsArray:response 
-//                                                                       error:&error];
-//        if (!error) {
-//            for (NSDictionary* entry in rows) {
-//                NSArray* time = [entry objectForKey:@"time"];
-//                if (time) {
-//                    NSMutableArray* periods = [NSMutableArray array];
-//                    for (NSArray* timeEntry in time) {
-//                        if ([time count] >= 2) {
-//                            NSString* fromTimeStr = [timeEntry objectAtIndex:0];
-//                            NSString* toTimeStr = [timeEntry objectAtIndex:1];
-//                        
-//                            BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
-//                                                                            fromTimeString:fromTimeStr 
-//                                                                              toTimeString:toTimeStr];
-//                            [periods addObject:period];
-//                            [period release];
-//                        }                        
-//                    }
-//                    return periods;
-//                } else {
-//                    NSLog(@" warning: period contain not time: %@", entry);
-//                }
-//            }
-//        } else {
-//            NSLog(@"error parsing periods: %@", error);            
-//        }
-//    } else {
-//        NSLog(@"error reading periods: %@", error);
-//    }
+
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?startkey=%@&endkey=%@", 
+                                       kBlackoutUrlBase, 
+                                       kBlackoutDb, 
+                                       kBlackoutMethodSchedules, 
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"99999999\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                       ]];
+    
+    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
+    [request setUsername:kBlackoutUsername];
+    [request setPassword:kBlackoutPassword];
+    [request setSecondsToCache:60];
+    [request setNumberOfTimesToRetryOnTimeout:3];
+    [request startSynchronous];
+
+    NSError *error = [request error];
+    if (!error) {
+        NSData *response = [request responseData];
+        NSArray* rows = [[CJSONDeserializer deserializer] deserializeAsArray:response 
+                                                                       error:&error];
+        if (!error) {
+            NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+            [formatter setDateFormat:@"yyyyMMddHHmm"];
+
+            for (NSDictionary* entry in rows) {
+                NSArray* time = [entry objectForKey:@"time"];
+                NSString* dateStr = [entry objectForKey:@"date"];
+
+                if (time) {
+                    NSMutableArray* periods = [NSMutableArray array];
+                    for (NSArray* timeEntry in time) {
+                        if ([time count] >= 2) {
+                            NSString* fromTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:0]];
+                            NSString* toTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:1]];
+                        
+                            BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
+                                                                                  fromTime:[formatter dateFromString:fromTimeStr]
+                                                                                    toTime:[formatter dateFromString:toTimeStr]];
+                            [periods addObject:period];
+                            [period release];
+                        }                        
+                    }
+                    return periods;
+                } else {
+                    NSLog(@" warning: period contain not time: %@", entry);
+                }
+            }
+        } else {
+            NSLog(@"error parsing periods: %@\n data = %@", error, [request responseString]);            
+        }
+    } else {
+        NSLog(@"error reading periods: %@", error);
+    }
     return [NSArray array];
 }
 
