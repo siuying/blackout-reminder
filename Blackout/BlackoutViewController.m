@@ -274,13 +274,16 @@
 
 // when time is updated, update display
 -(void) refreshTime {
-    if (self.groups && self.periods) {
-        
+    if (self.groups && self.periods && self.lastUpdated) {
         NSDate *now = [NSDate date];
-        NSString * nowString = [[now description] substringToIndex:10];
-        NSString * lastUpdatedString = [[lastUpdated description] substringToIndex:10];
-        
-        if (![lastUpdatedString isEqualToString:nowString]) {
+
+        NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease]; 
+        NSUInteger unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit;         
+        NSDateComponents* nowComponents = [gregorian components:unitFlags fromDate:now];
+        NSDateComponents* lastUpdateComponents = [gregorian components:unitFlags fromDate:self.lastUpdated];        
+
+        if (nowComponents.month != lastUpdateComponents.month || nowComponents.day != lastUpdateComponents.day) {
+            NSLog(@"date changed! refresh location & time again");
             [self refreshLocation];
 
         } else {
@@ -293,14 +296,32 @@
 
 // update reminder time based on next currently input prefecture, city and street
 -(void) refreshLocation {
+    NSLog(@" refresh location ");
+    
     [self setLoading:YES];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSDate* now = [NSDate date];
+        
+        if (USE_MOCK_TIME) {
+            NSDateComponents* component = [[[NSDateComponents alloc] init] autorelease];
+            [component setYear:2011];
+            [component setMonth:3];
+            [component setDay:23];
+            [component setHour:0];
+            [component setMinute:0];
+            [component setSecond:0];
+            
+            NSCalendar* gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+            now = [gregorian dateFromComponents:component];
+            
+        }
+        
         self.groups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture
                                                             city:self.selectedCity
                                                           street:self.selectedStreet];
         
         self.periods = [self.blackoutService periodsWithGroups:self.groups 
-                                                      withDate:[NSDate date]];
+                                                      withDate:now];
 
         self.lastUpdated = [NSDate date];
         
