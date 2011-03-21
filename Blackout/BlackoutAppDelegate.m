@@ -27,17 +27,6 @@
 	self.prefectureName = [prefs objectForKey:PREFECTURE_KEY];
 	self.cityName = [prefs objectForKey:CITY_KEY];
 	self.streetName = [prefs objectForKey:STREET_KEY];
-    if (self.prefectureName == nil) {
-        self.prefectureName = @"都県";
-    } 
-    
-    if (self.cityName == nil) {
-        self.cityName = @"市区郡";
-    }
-    
-    if (self.streetName == nil) {
-        self.streetName = @"大字通称";
-    }
     
     [ASIHTTPRequest setDefaultTimeOutSeconds:30];
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];

@@ -11,7 +11,7 @@
 #import "RemoteBlackoutService.h"
 
 @interface BlackoutViewController (Private)
--(void) refreshReminderDidUpdatedWithGroup:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods;
+-(void) refreshReminderDidUpdatedWithGroups:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods;
 @end
 
 @implementation BlackoutViewController
@@ -22,6 +22,8 @@
 @synthesize locationService, blackoutService;
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
 @synthesize timeTitleView, progressView;
+@synthesize groups, periods, lastUpdated;
+@synthesize alertOn = _alertOn;
 
 - (void)dealloc
 {
@@ -32,6 +34,10 @@
     self.selectedPrefecture = nil;
     self.selectedStreet = nil;
 
+    self.groups = nil;
+    self.periods = nil;
+    self.lastUpdated = nil;
+    
     [super dealloc];
 }
 
@@ -74,6 +80,9 @@
     barItem.titleView = self.timeTitleView;
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
+    
+    //NSTimer to refresh time 
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refreshTime) userInfo:nil repeats:YES];
 
     // begin finding location
     if (USE_MOCK_LOCATION) {
@@ -147,10 +156,12 @@
         [self locationDidSelectedWithPrefecture:nil
                                            city:nil
                                          street:nil];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
-        alert.tag = kAlertViewTwo;
-        [alert show];
+        if (!_alertOn) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
+            alert.tag = kAlertViewTwo;
+            [alert show];
+            _alertOn = YES;
+        }
     }
 
     [self.locationService stop];
@@ -261,24 +272,46 @@
     }
 }
 
+// when time is updated, update display
+-(void) refreshTime {
+    if (self.groups && self.periods) {
+        
+        NSDate *now = [NSDate date];
+        NSString * nowString = [[now description] substringToIndex:10];
+        NSString * lastUpdatedString = [[lastUpdated description] substringToIndex:10];
+        
+        if (![lastUpdatedString isEqualToString:nowString]) {
+            [self refreshLocation];
+
+        } else {
+            [self refreshReminderDidUpdatedWithGroups:self.groups 
+                                              periods:self.periods];
+        }
+        
+    }
+}
+
 // update reminder time based on next currently input prefecture, city and street
--(void) refreshReminder {
+-(void) refreshLocation {
     [self setLoading:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
-        NSArray* blackoutGroups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture 
-                                                                        city:self.selectedCity
-                                                                      street:self.selectedStreet];
-        NSArray* blackoutPeriods = [self.blackoutService periodsWithGroups:blackoutGroups 
-                                                                  withDate:[NSDate date]];
+        self.groups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture
+                                                            city:self.selectedCity
+                                                          street:self.selectedStreet];
+        
+        self.periods = [self.blackoutService periodsWithGroups:self.groups 
+                                                      withDate:[NSDate date]];
+
+        self.lastUpdated = [NSDate date];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setLoading:NO];
-            [self refreshReminderDidUpdatedWithGroup:blackoutGroups periods:blackoutPeriods];
+            [self refreshReminderDidUpdatedWithGroups:self.groups periods:self.periods];
         });
     });
 }
 
--(void) refreshReminderDidUpdatedWithGroup:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods {
+-(void) refreshReminderDidUpdatedWithGroups:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods {
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture
         
@@ -360,6 +393,12 @@
             
         }
     }
+    
+    // TODO
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMM dd, HH:mm"];
+    NSString *lastUpdatedString = [dateFormatter stringFromDate:[NSDate date]];
+    self.timeTitleView.remainingTime.text = [NSString stringWithFormat:@"更新時間：%@", lastUpdatedString];
 
 }
 
@@ -374,23 +413,23 @@
         [self.btnPrefecture setTitle:prefecture forState:UIControlStateNormal];
     } else {
         // show message when location not found
-        [self.btnPrefecture setTitle:@"--" forState:UIControlStateNormal];
+        [self.btnPrefecture setTitle:@"都県" forState:UIControlStateNormal];
     }
     
     if (city) {
         [self.btnCity setTitle:city forState:UIControlStateNormal];
     } else {
-        [self.btnCity setTitle:@"" forState:UIControlStateNormal];
+        [self.btnCity setTitle:@"市区郡" forState:UIControlStateNormal];
     }
     
     if (street) {
         [self.btnStreet setTitle:street forState:UIControlStateNormal];
     } else {
-        [self.btnStreet setTitle:@"" forState:UIControlStateNormal];
+        [self.btnStreet setTitle:@"大字通称" forState:UIControlStateNormal];
     }
     
     if (prefecture && city && street) {
-        [self refreshReminder];
+        [self refreshLocation];
     }
 
     [self dismissModalViewControllerAnimated:YES];
@@ -417,6 +456,7 @@
         if (buttonIndex == [actionSheet cancelButtonIndex]) {
             
             [self promptInputWithSelectedPrefecture:nil city:nil street:nil];
+            _alertOn = NO;
         }
     }
     
