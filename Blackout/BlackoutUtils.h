@@ -21,4 +21,7 @@
 +(BOOL) isBlackout:(NSDate*)currentTime
             period:(BlackoutPeriod*)period;
 
+// provided array of BlackoutGroup, return string to describe the groups
++(NSString*) groupsMessage:(NSArray*)groups;
+
 @end

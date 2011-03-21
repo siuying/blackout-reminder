@@ -32,4 +32,23 @@
         [currentTime compare:period.toTime] == NSOrderedAscending;
 }
 
++(NSString*) groupsMessage:(NSArray*)groups {
+    NSMutableString* message = [NSMutableString string];
+
+    BOOL firstGroup = YES;
+    for (BlackoutGroup* group in groups) {
+        if (firstGroup) {
+            if ([group.company isEqualToString:@"tepco"]) {
+                [message appendFormat:@"東京電力"];                
+            } else if ([group.company isEqualToString:@"tohoku"]) {
+                [message appendFormat:@"東北電力"];                
+            }
+            firstGroup = NO;
+        }
+        [message appendFormat:@"第%@グループ ", group.code];
+    }
+
+    return message;
+}
+
 @end

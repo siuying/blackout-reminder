@@ -414,15 +414,20 @@
             
             NSLog(@"The group is %@", [period description]);
             
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d (第%@グループ)",[periodStartComponent hour],[periodStartComponent minute],
-                                  [periodEndComponent hour],[periodEndComponent minute],period.group.code ];
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d (%@)", 
+                                    [periodStartComponent hour],[periodStartComponent minute], 
+                                    [periodEndComponent hour], [periodEndComponent minute], 
+                                    [BlackoutUtils groupsMessage:self.groups]];
+            
+            
         } else {
             
             
             lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
-            
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d (第%@グループ)",[periodStartComponent hour],[periodStartComponent minute],
-                                  [periodEndComponent hour],[periodEndComponent minute],period.group.code ];
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d (%@)", 
+                                  [periodStartComponent hour],[periodStartComponent minute], 
+                                  [periodEndComponent hour], [periodEndComponent minute], 
+                                  [BlackoutUtils groupsMessage:self.groups]];
             
             int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
             int blackoutFromMinute = ([periodStartComponent hour] * 60) + [periodStartComponent minute];
@@ -498,6 +503,10 @@
 
 -(void) locationDidCancelled {
     [self dismissModalViewControllerAnimated:YES];
+    
+    if (!self.selectedStreet) {
+        [self promptManualInputLocation:NO];
+    }
 }
 
 #pragma mark UIAlertViewDelegate 
