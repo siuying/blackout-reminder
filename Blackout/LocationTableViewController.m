@@ -11,7 +11,7 @@
 @implementation LocationTableViewController
 
 @synthesize loadingView;
-@synthesize locations;
+@synthesize locations, error, loaded;
 @synthesize blackoutServices;
 @synthesize locationDelegate;
 
@@ -97,6 +97,7 @@
             self.loadingView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
             [self.loadingView startAnimating];
             self.navigationItem.titleView = self.loadingView;
+            self.loaded = NO;
         }
     } else {
         if (self.loadingView) {
@@ -104,6 +105,7 @@
             [self.loadingView removeFromSuperview];
             self.navigationItem.titleView = nil;
             self.loadingView = nil;
+            self.loaded = YES;
         }        
     }
     self.navigationItem.leftBarButtonItem.enabled = !loading;
@@ -115,7 +117,21 @@
     return @"";
 }
 
+-(void) setError:(BOOL)isError message:(NSString*)message {
+    self.error = isError;
+    if (isError) {
+        
+    } else {
+        
+    }
+}
+
+-(BOOL) empty {
+    return [locations count] == 0 && loaded;
+}
+
 #pragma mark - Table view data source
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -125,8 +141,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [locations count];
+    if (self.error) {
+        return 1;
+    } else if (self.empty) {
+        return 1;
+    } else {
+        return [locations count];        
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -137,7 +158,18 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    cell.textLabel.text = [locations objectAtIndex:[indexPath indexAtPosition:1]];    
+    
+    if (self.error) {
+        cell.textLabel.text = @"Error downloading data!";        
+        cell.textLabel.textColor = [UIColor redColor];
+    } else if (self.empty) {
+        cell.textLabel.text = @"No result found!";
+        cell.textLabel.textColor = [UIColor darkGrayColor];
+    } else {
+        cell.textLabel.text = [locations objectAtIndex:[indexPath indexAtPosition:1]];        
+        cell.textLabel.textColor = [UIColor darkTextColor];
+    }
+
     return cell;
 }
 

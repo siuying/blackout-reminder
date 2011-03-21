@@ -34,13 +34,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    // find selected index
-    NSString* selected = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
-    NSLog(@" selected: %@", selected);
-
-    CityTableViewController* cityController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutServices prefecture:selected delegate:self.locationDelegate];
-    [self.navigationController pushViewController:cityController animated:YES];
-    [cityController release];
+    if (self.loaded && !self.empty && !self.error) {
+        // find selected index
+        NSString* selected = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
+        NSLog(@" selected: %@", selected);
+        
+        CityTableViewController* cityController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutServices prefecture:selected delegate:self.locationDelegate];
+        [self.navigationController pushViewController:cityController animated:YES];
+        [cityController release];
+        
+    }
 }
 
 #pragma mark - LocationTableViewController

@@ -38,16 +38,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    // find selected index
-    NSString* selected = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
-    NSLog(@" selected: %@", selected);
+    if (self.loaded && !self.empty && !self.error) {
+        // find selected index
+        NSString* selected = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
+        NSLog(@" selected: %@", selected);
 
-    StreetTableViewController* cityController = [[StreetTableViewController alloc] initWithBlackoutServices:self.blackoutServices
-                                                                                                 prefecture:self.prefecture
-                                                                                                       city:selected
-                                                                                                   delegate:self.locationDelegate];
-    [self.navigationController pushViewController:cityController animated:YES];
-    [cityController release];
+        StreetTableViewController* cityController = [[StreetTableViewController alloc] initWithBlackoutServices:self.blackoutServices
+                                                                                                     prefecture:self.prefecture
+                                                                                                           city:selected
+                                                                                                       delegate:self.locationDelegate];
+        [self.navigationController pushViewController:cityController animated:YES];
+        [cityController release];
+    }
 }
 
 

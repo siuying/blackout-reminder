@@ -54,10 +54,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    // find selected index
-    self.street = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
-    NSLog(@" selected: %@", street);    
-    self.navigationItem.rightBarButtonItem.enabled = YES;
+    if (self.loaded && !self.empty && !self.error) {
+        self.street = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
+        NSLog(@" selected: %@", street);    
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
 }
 
 #pragma mark - LocationTableViewController
