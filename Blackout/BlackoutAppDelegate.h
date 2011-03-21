@@ -29,10 +29,12 @@
 @property (nonatomic, retain) NSString *streetName;
 
 +(void)setPrefectureName:(NSString*)newPrefecture;
-+(NSString*)displayPrefecture;
++(NSString*)prefectureName;
+
 +(void)setCityName:(NSString*)newCity;
-+(NSString*)displayCity;
++(NSString*)cityName;
+
 +(void)setStreetName:(NSString*)newStreet;
-+(NSString*)displayStreet;
++(NSString*)streetName;
 
 @end

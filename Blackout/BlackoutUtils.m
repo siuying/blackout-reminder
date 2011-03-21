@@ -47,8 +47,7 @@
         }
         [message appendFormat:@"第%@グループ ", group.code];
     }
-
-    return message;
+    return [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 @end

@@ -65,17 +65,17 @@
     self.btnStreet.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
     
     //Load persisted Prefecture, City and Street
-    self.selectedPrefecture = [BlackoutAppDelegate displayPrefecture];
-	self.selectedCity = [BlackoutAppDelegate displayCity];
-	self.selectedStreet = [BlackoutAppDelegate displayStreet];
+    self.selectedPrefecture = [BlackoutAppDelegate prefectureName];
+	self.selectedCity = [BlackoutAppDelegate cityName];
+	self.selectedStreet = [BlackoutAppDelegate streetName];
     
     [self.btnPrefecture setTitle:self.selectedPrefecture forState:UIControlStateNormal];
     [self.btnStreet setTitle:self.selectedStreet forState:UIControlStateNormal];
     [self.btnCity setTitle:self.selectedCity forState:UIControlStateNormal];
     
     // setup navigation bar
-    self.timeTitleView = [[[RemaingTimeTitleView alloc]init]autorelease];
-    UINavigationItem *barItem = [[UINavigationItem alloc]init];
+    self.timeTitleView = [[[RemaingTimeTitleView alloc] init] autorelease];
+    UINavigationItem *barItem = [[UINavigationItem alloc] init];
     [self.timeTitleView setLastUpdatedTime:blackoutService.lastUpdated];
     barItem.titleView = self.timeTitleView;
     [boNavigationBar pushNavigationItem:barItem animated:NO];
@@ -92,15 +92,19 @@
         [self.locationService findLocationName:location];
 
     } else {
-        if ([CLLocationManager locationServicesEnabled]) {
-            // location service is enabled
-            // find current location
-            [self.locationService findLocation];
-            [self setLoading:YES];
-            
+        if (!self.selectedPrefecture || !self.selectedCity || !self.selectedStreet) {
+            if ([CLLocationManager locationServicesEnabled]) {
+                // location service is enabled
+                // find current location
+                [self.locationService findLocation];
+                [self setLoading:YES];
+                
+            } else {
+                NSLog(@"location service is NOT enable");
+                [self promptManualInputLocation:NO];
+            }
         } else {
-            NSLog(@"location service is NOT enable");
-            [self promptManualInputLocation:NO];
+            [self refreshLocation];
         }
     }
 

@@ -12,6 +12,10 @@
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
 
+@interface BlackoutAppDelegate (Private)
+-(void) saveConfig;
+@end
+
 @implementation BlackoutAppDelegate
 
 
@@ -46,10 +50,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    /*
-     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-     If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-     */
+    [self saveConfig];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -68,11 +69,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    /*
-     Called when the application is about to terminate.
-     Save data if appropriate.
-     See also applicationDidEnterBackground:.
-     */
+    [self saveConfig];    
 }
 
 - (void)dealloc
@@ -86,7 +83,6 @@
 #pragma mark Persistence of Prefecture,City and Street names
 
 +(void)setPrefectureName:(NSString*)newPrefecture{
-    
     BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
 	delegate.prefectureName = newPrefecture;
 	
@@ -96,15 +92,12 @@
     
 }
 
-+(NSString*)displayPrefecture {
-    
-    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
-    return delegate.prefectureName;
-    
++(NSString*)prefectureName {
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs objectForKey:PREFECTURE_KEY];    
 }
 
 +(void)setCityName:(NSString*)newCity {
-    
     BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
 	delegate.cityName = newCity;
 	
@@ -114,15 +107,13 @@
     
 }
 
-+(NSString*)displayCity {
-    
-    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
-    return delegate.cityName;
++(NSString*)cityName {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs objectForKey:CITY_KEY];
 
 }
 
-+(void)setStreetName:(NSString*)newStreet {
-    
++(void)setStreetName:(NSString*)newStreet {    
     BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
 	delegate.streetName = newStreet;
 	
@@ -132,11 +123,20 @@
     
 }
 
-+(NSString*)displayStreet {
++(NSString*)streetName {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs objectForKey:STREET_KEY];
+}
+
+-(void) saveConfig {    
+    if (self.viewController.selectedPrefecture)
+        [BlackoutAppDelegate setPrefectureName:self.viewController.selectedPrefecture];
     
-    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
-    return delegate.streetName;
+    if (self.viewController.selectedCity)
+        [BlackoutAppDelegate setCityName:self.viewController.selectedCity];
     
+    if (self.viewController.selectedStreet)
+        [BlackoutAppDelegate setStreetName:self.viewController.selectedStreet];
 }
 
 @end
