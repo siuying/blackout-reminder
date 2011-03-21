@@ -50,7 +50,7 @@
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="868678333"/>
+						<reference key="NSNextKeyView" ref="184040708"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIBarStyle">1</int>
 						<reference key="IBUIItems" ref="0"/>
@@ -121,7 +121,9 @@
 						<reference key="IBUITextColor" ref="281352589"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
+						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUINumberOfLines">0</int>
 						<int key="IBUILineBreakMode">0</int>
 					</object>
 					<object class="IBUIButton" id="1019718157">
@@ -231,33 +233,6 @@
 						<reference key="IBUIHighlightedTitleColor" ref="425320663"/>
 						<reference key="IBUINormalTitleColor" ref="431173678"/>
 						<reference key="IBUINormalTitleShadowColor" ref="354927521"/>
-					</object>
-					<object class="IBUILabel" id="868678333">
-						<reference key="NSNextResponder" ref="774585933"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{75, 0}, {170, 31}}</string>
-						<reference key="NSSuperview" ref="774585933"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="184040708"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">7</int>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText"/>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica</string>
-							<double key="NSSize">22</double>
-							<int key="NSfFlags">16</int>
-						</object>
-						<object class="NSColor" key="IBUITextColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
-						</object>
-						<nil key="IBUIHighlightedColor"/>
-						<int key="IBUIBaselineAdjustment">1</int>
-						<float key="IBUIMinimumFontSize">10</float>
-						<int key="IBUITextAlignment">1</int>
 					</object>
 					<object class="IBUILabel" id="809208725">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -484,15 +459,14 @@
 							<reference ref="609695753"/>
 							<reference ref="1019718157"/>
 							<reference ref="1069097039"/>
-							<reference ref="868678333"/>
 							<reference ref="714158035"/>
 							<reference ref="980507617"/>
 							<reference ref="737512429"/>
-							<reference ref="1000464242"/>
 							<reference ref="184040708"/>
 							<reference ref="840113032"/>
 							<reference ref="478030911"/>
 							<reference ref="809208725"/>
+							<reference ref="1000464242"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -551,11 +525,6 @@
 						<string key="objectName">Button Street</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">45</int>
-						<reference key="object" ref="868678333"/>
-						<reference key="parent" ref="774585933"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">49</int>
 						<reference key="object" ref="809208725"/>
 						<reference key="parent" ref="774585933"/>
@@ -581,7 +550,6 @@
 					<string>35.IBPluginDependency</string>
 					<string>36.IBPluginDependency</string>
 					<string>37.IBPluginDependency</string>
-					<string>45.IBPluginDependency</string>
 					<string>49.IBPluginDependency</string>
 					<string>50.IBPluginDependency</string>
 					<string>6.IBEditorWindowLastContentRect</string>
@@ -592,7 +560,6 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>BlackoutViewController</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
