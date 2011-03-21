@@ -11,14 +11,14 @@
 
 @interface BlackoutPeriod : NSObject {
     BlackoutGroup* group;
-    NSDateComponents* fromTime;
-    NSDateComponents* toTime;
+    NSDate* fromTime;
+    NSDate* toTime;
 }
 
 @property (nonatomic, retain) BlackoutGroup* group;
-@property (nonatomic, retain) NSDateComponents* fromTime;
-@property (nonatomic, retain) NSDateComponents* toTime;
+@property (nonatomic, retain) NSDate* fromTime;
+@property (nonatomic, retain) NSDate* toTime;
 
--(id) initWithGroup:(BlackoutGroup*)group fromTimeString:(NSString*)fromTimeString toTimeString:(NSString*)toTimeString;
+-(id) initWithGroup:(BlackoutGroup*)group fromTime:(NSDate*)fromTime toTime:(NSDate*)toTime;
 
 @end

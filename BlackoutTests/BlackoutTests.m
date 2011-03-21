@@ -58,13 +58,19 @@
     // Blackout Period: 9:00 ~ 11:20
     BlackoutPeriod* period = [[[BlackoutPeriod alloc] init] autorelease];
     NSDateComponents* from = [[[NSDateComponents alloc] init] autorelease];
+    [from setDay:20];
+    [from setMonth:4];
+    [from setYear:2011];
     [from setHour:9];
     [from setMinute:0];
     NSDateComponents* to = [[[NSDateComponents alloc] init] autorelease];
+    [to setDay:20];
+    [to setMonth:4];
+    [to setYear:2011];    
     [to setHour:11];
     [to setMinute:20];
-    period.fromTime = from;
-    period.toTime = to;
+    period.fromTime = [gregorian dateFromComponents:from];
+    period.toTime = [gregorian dateFromComponents:to];
     
     STAssertTrue([BlackoutUtils isBlackout:[gregorian dateFromComponents:time1] period:period], @"9:50 should be in blackout");
     STAssertTrue(![BlackoutUtils isBlackout:[gregorian dateFromComponents:time2] period:period], @"6:00 should NOT be in blackout");
@@ -105,7 +111,7 @@
     
     // 16:00
     NSDateComponents *time3 = [[[NSDateComponents alloc] init] autorelease];
-    [time3 setDay:20];
+    [time3 setDay:21];
     [time3 setMonth:4];
     [time3 setYear:2011];
     [time3 setHour:16];
@@ -122,24 +128,37 @@
     // Blackout Period: 9:00 ~ 11:20
     BlackoutPeriod* period1 = [[[BlackoutPeriod alloc] init] autorelease];
     NSDateComponents* from = [[[NSDateComponents alloc] init] autorelease];
+    [from setDay:20];
+    [from setMonth:4];
+    [from setYear:2011];
     [from setHour:9];
     [from setMinute:0];
     NSDateComponents* to = [[[NSDateComponents alloc] init] autorelease];
+    [to setDay:20];
+    [to setMonth:4];
+    [to setYear:2011];
     [to setHour:11];
     [to setMinute:20];
-    period1.fromTime = from;
-    period1.toTime = to;
-
+    period1.fromTime = [gregorian dateFromComponents:from];
+    period1.toTime = [gregorian dateFromComponents:to];
+    
+    
     // Blackout Period: 13:00 ~ 14:20    
     BlackoutPeriod* period2 = [[[BlackoutPeriod alloc] init] autorelease];
     NSDateComponents* from2 = [[[NSDateComponents alloc] init] autorelease];
     [from2 setHour:13];
     [from2 setMinute:0];
+    [from2 setDay:20];
+    [from2 setMonth:4];
+    [from2 setYear:2011];
     NSDateComponents* to2 = [[[NSDateComponents alloc] init] autorelease];
+    [to2 setDay:20];
+    [to2 setMonth:4];
+    [to2 setYear:2011];    
     [to2 setHour:14];
     [to2 setMinute:20];
-    period2.fromTime = from2;
-    period2.toTime = to2;
+    period2.fromTime = [gregorian dateFromComponents:from2];
+    period2.toTime = [gregorian dateFromComponents:to2];
     
     NSArray* periods = [NSArray arrayWithObjects:period1, period2, nil];
     [BlackoutUtils nextBlackoutWithCurrentTime:[gregorian dateFromComponents:time1]
@@ -153,8 +172,6 @@
                                                                      periods:periods], @"at 11:30, next blackout should be 13:00~14:20");
     STAssertEqualObjects(period2, [BlackoutUtils nextBlackoutWithCurrentTime:[gregorian dateFromComponents:time4]
                                                                      periods:periods], @"at 13:30, next blackout should be 13:00~14:20");
-    STAssertEqualObjects(period1, [BlackoutUtils nextBlackoutWithCurrentTime:[gregorian dateFromComponents:time3]
-                                                                     periods:periods], @"at 16:00, next blackout should be 09:00~11:20");
     
     
 }

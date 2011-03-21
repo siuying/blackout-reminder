@@ -29,6 +29,6 @@
 
 // Array of BlackoutPeriod from the groups
 // If no electricity for the groups found, return empty array
--(NSArray*) periodsWithGroups:(NSArray*)groups withDate:(NSDate*)date;
+-(NSArray*) periodsWithGroups:(NSArray*)groups;
 
 @end

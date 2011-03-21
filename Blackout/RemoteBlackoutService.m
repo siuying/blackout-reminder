@@ -152,6 +152,7 @@
 }
 
 -(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+    NSLog(@"  find groups with with (%@, %@, %@)", prefecture, city, street);
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
                                        kBlackoutUrlBase, 
                                        kBlackoutDb, 
@@ -195,12 +196,13 @@
     return [NSArray array];
 }
 
--(NSArray*) periodsWithGroups:(NSArray*)groups withDate:(NSDate*)date {
+-(NSArray*) periodsWithGroups:(NSArray*)groups  {
+    NSLog(@"find periods with groups:%@ ", groups);
+
     NSMutableArray* periods = [NSMutableArray array];
 
     for (BlackoutGroup* group in groups) {
-        [periods addObjectsFromArray:[self periodsWithGroup:group 
-                                                   withDate:date]];
+        [periods addObjectsFromArray:[self periodsWithGroup:group]];
     }    
     self.lastUpdated = [NSDate date];
     return periods;
@@ -208,60 +210,62 @@
 
 #pragma Private
 
--(NSArray*) periodsWithGroup:(BlackoutGroup*)group withDate:(NSDate*)date {
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyyMMdd"];
-    
-    NSString* dateString = [formatter stringFromDate:date];
-    [formatter release];
-    
-    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
-                                       kBlackoutUrlBase, 
-                                       kBlackoutDb, 
-                                       kBlackoutMethodSchedules, 
-                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"%@\"]", group.company, group.code, dateString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                       ]];
-    
-    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setUsername:kBlackoutUsername];
-    [request setPassword:kBlackoutPassword];
-    [request setSecondsToCache:60];
-    [request setNumberOfTimesToRetryOnTimeout:3];
-    [request startSynchronous];
-
-    NSError *error = [request error];
-    if (!error) {
-        NSData *response = [request responseData];
-        NSArray* rows = [[CJSONDeserializer deserializer] deserializeAsArray:response 
-                                                                       error:&error];
-        if (!error) {
-            for (NSDictionary* entry in rows) {
-                NSArray* time = [entry objectForKey:@"time"];
-                if (time) {
-                    NSMutableArray* periods = [NSMutableArray array];
-                    for (NSArray* timeEntry in time) {
-                        if ([time count] >= 2) {
-                            NSString* fromTimeStr = [timeEntry objectAtIndex:0];
-                            NSString* toTimeStr = [timeEntry objectAtIndex:1];
-                        
-                            BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
-                                                                            fromTimeString:fromTimeStr 
-                                                                              toTimeString:toTimeStr];
-                            [periods addObject:period];
-                            [period release];
-                        }                        
-                    }
-                    return periods;
-                } else {
-                    NSLog(@" warning: period contain not time: %@", entry);
-                }
-            }
-        } else {
-            NSLog(@"error parsing periods: %@", error);            
-        }
-    } else {
-        NSLog(@"error reading periods: %@", error);
-    }
+-(NSArray*) periodsWithGroup:(BlackoutGroup*)group {
+    NSLog(@"  find periods with group:%@ ", group);
+//    
+//    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"yyyyMMdd"];
+//    
+//    NSString* dateString = [formatter stringFromDate:date];
+//    [formatter release];
+//
+//    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
+//                                       kBlackoutUrlBase, 
+//                                       kBlackoutDb, 
+//                                       kBlackoutMethodSchedules, 
+//                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"%@\"]", group.company, group.code, dateString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+//                                       ]];
+//    
+//    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
+//    [request setUsername:kBlackoutUsername];
+//    [request setPassword:kBlackoutPassword];
+//    [request setSecondsToCache:60];
+//    [request setNumberOfTimesToRetryOnTimeout:3];
+//    [request startSynchronous];
+//
+//    NSError *error = [request error];
+//    if (!error) {
+//        NSData *response = [request responseData];
+//        NSArray* rows = [[CJSONDeserializer deserializer] deserializeAsArray:response 
+//                                                                       error:&error];
+//        if (!error) {
+//            for (NSDictionary* entry in rows) {
+//                NSArray* time = [entry objectForKey:@"time"];
+//                if (time) {
+//                    NSMutableArray* periods = [NSMutableArray array];
+//                    for (NSArray* timeEntry in time) {
+//                        if ([time count] >= 2) {
+//                            NSString* fromTimeStr = [timeEntry objectAtIndex:0];
+//                            NSString* toTimeStr = [timeEntry objectAtIndex:1];
+//                        
+//                            BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
+//                                                                            fromTimeString:fromTimeStr 
+//                                                                              toTimeString:toTimeStr];
+//                            [periods addObject:period];
+//                            [period release];
+//                        }                        
+//                    }
+//                    return periods;
+//                } else {
+//                    NSLog(@" warning: period contain not time: %@", entry);
+//                }
+//            }
+//        } else {
+//            NSLog(@"error parsing periods: %@", error);            
+//        }
+//    } else {
+//        NSLog(@"error reading periods: %@", error);
+//    }
     return [NSArray array];
 }
 

@@ -61,32 +61,36 @@
 
 // Array of BlackoutPeriod from the groups
 // If no electricity for the groups found, return empty array
--(NSArray*) periodsWithGroups:(NSArray*)groups withDate:(NSDate*)date {
+-(NSArray*) periodsWithGroups:(NSArray*)groups {
+    NSCalendar* gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
+    
+    
     BlackoutPeriod* p = [[[BlackoutPeriod alloc] init] autorelease];
     
-    NSDateComponents* from = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents* from = [gregorian components:unitFlags fromDate:[NSDate date]];
     [from setHour:10];
     [from setMinute:0];
 
-    NSDateComponents* to = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents* to = [gregorian components:unitFlags fromDate:[NSDate date]];
     [to setHour:12];
     [to setMinute:20];
 
-    p.fromTime = from;
-    p.toTime = to;
+    p.fromTime = [gregorian dateFromComponents:from];
+    p.toTime = [gregorian dateFromComponents:to];
     
     BlackoutPeriod* p2 = [[[BlackoutPeriod alloc] init] autorelease];
     
-    NSDateComponents* from2 = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents* from2 = [gregorian components:unitFlags fromDate:[NSDate date]];
     [from2 setHour:15];
     [from2 setMinute:0];
     
-    NSDateComponents* to2 = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents* to2 = [gregorian components:unitFlags fromDate:[NSDate date]];
     [to2 setHour:19];
     [to2 setMinute:20];
     
-    p2.fromTime = from2;
-    p2.toTime = to2;
+    p2.fromTime = [gregorian dateFromComponents:from2];
+    p2.toTime = [gregorian dateFromComponents:to2];
 
     return [NSArray arrayWithObjects:p, p2, nil];
 }

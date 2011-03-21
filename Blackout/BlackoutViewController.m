@@ -56,7 +56,7 @@
     [super viewDidLoad];
 
     // initialize services
-    self.blackoutService = [[[RemoteBlackoutService alloc] init] autorelease];
+    self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
 
@@ -320,8 +320,7 @@
                                                             city:self.selectedCity
                                                           street:self.selectedStreet];
         
-        self.periods = [self.blackoutService periodsWithGroups:self.groups 
-                                                      withDate:now];
+        self.periods = [self.blackoutService periodsWithGroups:self.groups];
 
         self.lastUpdated = [NSDate date];
         
@@ -341,78 +340,78 @@
         lblTimeDetail.text = @"";
     } else {
         // more than one period, should find the next period
-        NSDate* currentTime = [NSDate date];
-        NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *currentComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) fromDate:currentTime];
-        
-        BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
-                                                                    periods:blackoutPeriods];
-        
-        
-        
-        BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
-        
-        if (isBlackout) {
-            
-            int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
-            int blackoutFromMinute = ([period.toTime hour] * 60) + [period.toTime minute];
-            
-            int remainMinuteForBlackout = blackoutFromMinute - currentTotalMinute;
-            
-            int hourEndBlackout = remainMinuteForBlackout / 60;
-            int minuteEndBlackOut = remainMinuteForBlackout % 60;
-            
-            lblTimeTitle.text = [NSString stringWithFormat:@"停電が終わるまで"];
-            
-            if (hourEndBlackout == 0) {
-                lblTimeRemaining.text = [NSString stringWithFormat:@"%d分", minuteEndBlackOut];
-            } else {
-                lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%d分", hourEndBlackout, minuteEndBlackOut];
-            }
-            
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
-                                  [period.toTime hour],[period.toTime minute] ];
-        } else {
-            
-            lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
-            
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
-                                  [period.toTime hour],[period.toTime minute] ];
-            
-            int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
-            int blackoutFromMinute = ([period.fromTime hour] * 60) + [period.fromTime minute];
-            
-            int remainMinuteToBlackout = blackoutFromMinute - currentTotalMinute;
-            
-            if (remainMinuteToBlackout >= 0) {
-                
-                int hourToBlackout = remainMinuteToBlackout / 60;
-                int minuteToBlackOut = remainMinuteToBlackout % 60;
-                
-                if (hourToBlackout == 0) {
-                    lblTimeRemaining.text = [NSString stringWithFormat:@"%d分", minuteToBlackOut];
-                } else {
-                    lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%d分", hourToBlackout, minuteToBlackOut];
-                }
-            } else {
-                
-                int currentTotalMinute2 = (24 * 60) - [currentComponent minute] - ([currentComponent hour] *60);
-                int blackoutFromMinute2 = ([period.fromTime hour] * 60) + [period.fromTime minute];
-                
-                int remainMinuteToBlackout2 = currentTotalMinute2 + blackoutFromMinute2;
-                
-                int hourToBlackout = remainMinuteToBlackout2 / 60;
-                int minuteToBlackOut = remainMinuteToBlackout2 % 60;
-                
-                if (hourToBlackout == 0) {
-                    lblTimeRemaining.text = [NSString stringWithFormat:@"%d分", minuteToBlackOut];
-                } else {
-                    lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%d分", hourToBlackout, minuteToBlackOut];
-                }
-                
-            }
-            
-        }
+//        NSDate* currentTime = [NSDate date];
+//        NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//        NSDateComponents *currentComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) fromDate:currentTime];
+//        
+//        BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
+//                                                                    periods:blackoutPeriods];
+//        
+//        
+//        
+//        BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
+//        
+//        if (isBlackout) {
+//            
+//            int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
+//            int blackoutFromMinute = ([period.toTime hour] * 60) + [period.toTime minute];
+//            
+//            int remainMinuteForBlackout = blackoutFromMinute - currentTotalMinute;
+//            
+//            int hourEndBlackout = remainMinuteForBlackout / 60;
+//            int minuteEndBlackOut = remainMinuteForBlackout % 60;
+//            
+//            lblTimeTitle.text = [NSString stringWithFormat:@"停電が終わるまで"];
+//            
+//            if (hourEndBlackout == 0) {
+//                lblTimeRemaining.text = [NSString stringWithFormat:@"%d分", minuteEndBlackOut];
+//            } else {
+//                lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%d分", hourEndBlackout, minuteEndBlackOut];
+//            }
+//            
+//            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
+//                                  [period.toTime hour],[period.toTime minute] ];
+//        } else {
+//            
+//            lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
+//            
+//            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[period.fromTime hour],[period.fromTime minute],
+//                                  [period.toTime hour],[period.toTime minute] ];
+//            
+//            int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
+//            int blackoutFromMinute = ([period.fromTime hour] * 60) + [period.fromTime minute];
+//            
+//            int remainMinuteToBlackout = blackoutFromMinute - currentTotalMinute;
+//            
+//            if (remainMinuteToBlackout >= 0) {
+//                
+//                int hourToBlackout = remainMinuteToBlackout / 60;
+//                int minuteToBlackOut = remainMinuteToBlackout % 60;
+//                
+//                if (hourToBlackout == 0) {
+//                    lblTimeRemaining.text = [NSString stringWithFormat:@"%d分", minuteToBlackOut];
+//                } else {
+//                    lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%d分", hourToBlackout, minuteToBlackOut];
+//                }
+//            } else {
+//                
+//                int currentTotalMinute2 = (24 * 60) - [currentComponent minute] - ([currentComponent hour] *60);
+//                int blackoutFromMinute2 = ([period.fromTime hour] * 60) + [period.fromTime minute];
+//                
+//                int remainMinuteToBlackout2 = currentTotalMinute2 + blackoutFromMinute2;
+//                
+//                int hourToBlackout = remainMinuteToBlackout2 / 60;
+//                int minuteToBlackOut = remainMinuteToBlackout2 % 60;
+//                
+//                if (hourToBlackout == 0) {
+//                    lblTimeRemaining.text = [NSString stringWithFormat:@"%d分", minuteToBlackOut];
+//                } else {
+//                    lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%d分", hourToBlackout, minuteToBlackOut];
+//                }
+//                
+//            }
+//            
+//        }
     }
     
     // TODO
