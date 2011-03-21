@@ -2,8 +2,8 @@
 //  BlackoutAppDelegate.m
 //  Blackout
 //
-//  Created by Francis Chong on 11年3月16日.
-//  Copyright 2011年 Ignition Soft Limited. All rights reserved.
+//  Created by Francis Chong on 11Âπ¥3Êúà16Êó•.
+//  Copyright 2011Âπ¥ Ignition Soft Limited. All rights reserved.
 //
 
 #import "BlackoutAppDelegate.h"
@@ -27,6 +27,17 @@
 	self.prefectureName = [prefs objectForKey:PREFECTURE_KEY];
 	self.cityName = [prefs objectForKey:CITY_KEY];
 	self.streetName = [prefs objectForKey:STREET_KEY];
+    if (self.prefectureName == nil) {
+        self.prefectureName = @"都県";
+    } 
+    
+    if (self.cityName == nil) {
+        self.cityName = @"市区郡";
+    }
+    
+    if (self.streetName == nil) {
+        self.streetName = @"大字通称";
+    }
     
     [ASIHTTPRequest setDefaultTimeOutSeconds:30];
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];

@@ -58,6 +58,10 @@
 	self.selectedCity = [BlackoutAppDelegate displayCity];
 	self.selectedStreet = [BlackoutAppDelegate displayStreet];
     
+    [self.btnPrefecture setTitle:self.selectedPrefecture forState:UIControlStateNormal];
+    [self.btnStreet setTitle:self.selectedStreet forState:UIControlStateNormal];
+    [self.btnCity setTitle:self.selectedCity forState:UIControlStateNormal];
+    
     // setup navigation bar
     self.timeTitleView = [[[RemaingTimeTitleView alloc]init]autorelease];
     UINavigationItem *barItem = [[UINavigationItem alloc]init];
