@@ -101,7 +101,7 @@
 
 -(void) refreshTime;
 
--(void) promptManualInputLocation;
+-(void) promptManualInputLocation:(BOOL)retry;
 
 @end
 

@@ -100,7 +100,7 @@
             
         } else {
             NSLog(@"location service is NOT enable");
-            [self promptManualInputLocation];
+            [self promptManualInputLocation:NO];
         }
 
     }
@@ -175,8 +175,8 @@
     [self.locationService stop];
     [self setLoading:NO];
 
-    // report error
-    [self promptManualInputLocation];
+    // cannot find location name, probably cannot help even retry
+    [self promptManualInputLocation:NO];
 }
 
 
@@ -186,8 +186,8 @@
     [self.locationService stop];
     [self setLoading:NO];
     
-    // report error
-    [self promptManualInputLocation];
+    // cannot find location, maybe helpful if retry
+    [self promptManualInputLocation:YES];
 }
 
 #pragma mark - User Actions
@@ -241,7 +241,8 @@
 #pragma mark - Public
 
 // show alert dialog to warn user about it and ask user manual select
--(void) promptManualInputLocation {
+// if retry is YES, ask if user would like to retry
+-(void) promptManualInputLocation:(BOOL)retry {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" 
                                                     message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" 
                                                    delegate:self 
