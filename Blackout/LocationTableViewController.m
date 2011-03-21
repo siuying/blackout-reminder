@@ -8,9 +8,9 @@
 
 #import "LocationTableViewController.h"
 
-
 @implementation LocationTableViewController
 
+@synthesize loadingView;
 @synthesize locations;
 @synthesize blackoutServices;
 @synthesize locationDelegate;
@@ -51,19 +51,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.loadingView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -99,6 +92,27 @@
 
 -(void) setLoading:(BOOL)loading {
     NSLog(@" loading table: %@", loading ? @"YES" : @"NO");
+    if (loading) {
+        if (!self.loadingView) {
+            self.loadingView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
+            [self.loadingView startAnimating];
+            self.navigationItem.titleView = self.loadingView;
+        }
+    } else {
+        if (self.loadingView) {
+            [self.loadingView stopAnimating];
+            [self.loadingView removeFromSuperview];
+            self.navigationItem.titleView = nil;
+            self.loadingView = nil;
+        }        
+    }
+    self.navigationItem.leftBarButtonItem.enabled = !loading;
+    self.navigationItem.rightBarButtonItem.enabled = !loading;
+    [self.navigationController.navigationBar setNeedsDisplay];
+}
+
+-(NSString*) title {
+    return @"";
 }
 
 #pragma mark - Table view data source

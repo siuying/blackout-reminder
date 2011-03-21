@@ -16,4 +16,7 @@
 
 -(id)initWithBlackoutServices:(id<BlackoutService>)service delegate:(id<LocationTableViewControllerDelegate>) delegate;
 -(void) cancel;
+
+-(NSString*) title;
+
 @end

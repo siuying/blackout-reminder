@@ -18,15 +18,20 @@
     NSMutableArray* locations;
     id<BlackoutService> blackoutServices;
     id<LocationTableViewControllerDelegate> locationDelegate;
+    
+    UIActivityIndicatorView* loadingView;
 }
 
 @property (nonatomic, retain)    NSMutableArray* locations;
 @property (nonatomic, retain)    id<BlackoutService> blackoutServices;
 @property (nonatomic, assign)    id<LocationTableViewControllerDelegate> locationDelegate;
+@property (nonatomic, retain)    UIActivityIndicatorView* loadingView;
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)service locations:(NSArray*)locations delegate:(id<LocationTableViewControllerDelegate>) delegate;
 
 -(void) loadTable;
 -(void) setLoading:(BOOL)loading;
+
+-(NSString*) title;
 
 @end

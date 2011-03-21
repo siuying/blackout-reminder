@@ -15,7 +15,7 @@
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)thePrefecture delegate:(id<LocationTableViewControllerDelegate>) delegate{
     self = [super initWithBlackoutServices:service locations:[NSArray array] delegate:delegate];
-    self.title = @"市区郡";
+    self.title = [self title];
     self.prefecture = thePrefecture;
     return self;
 }
@@ -62,9 +62,14 @@
         [self.locations addObjectsFromArray:theCities];
 
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self setLoading:NO];
             [self.tableView reloadData];
         });
     });
+}
+
+-(NSString*) title {
+    return @"市区郡";
 }
 
 

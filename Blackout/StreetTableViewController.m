@@ -15,7 +15,7 @@
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)theService prefecture:(NSString*)thePrefecture city:(NSString*)theCity delegate:(id<LocationTableViewControllerDelegate>) delegate{
     self = [super initWithBlackoutServices:theService locations:[NSArray array] delegate:delegate];
-    self.title = @"大字通称";
+    self.title = [self title];
     self.prefecture = thePrefecture;
     self.city = theCity;
     return self;
@@ -71,11 +71,20 @@
         [self.locations addObjectsFromArray:streets];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self setLoading:NO];
             [self.tableView reloadData];
         });
     });
 }
 
+-(void) setLoading:(BOOL)loading {
+    [super setLoading:loading];
+    self.navigationItem.rightBarButtonItem.enabled = !loading && self.street;
+}
+
+-(NSString*) title {
+    return @"大字通称";
+}
 
 
 @end
