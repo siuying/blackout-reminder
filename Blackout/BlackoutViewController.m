@@ -173,12 +173,12 @@
 }
 
 -(IBAction) clickCity:(id)sender {
-    NSLog(@" clicked city");
+    NSLog(@" clicked city: %@", self.selectedPrefecture);
     [self promptInputWithSelectedPrefecture:self.selectedPrefecture city:nil street:nil];
 }
 
 -(IBAction) clickStreet:(id)sender {
-    NSLog(@" clicked street");
+    NSLog(@" clicked street:%@, %@", self.selectedPrefecture, self.selectedCity);
     [self promptInputWithSelectedPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
 }
 
@@ -204,10 +204,29 @@
 
 // prompt for user to input
 -(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
-    // TODO if user clicked city/street, should keep selected prefecture/city
-   
-    PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService delegate:self];
+    // build nav controller & prefecture controller
+    PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService 
+                                                                                                        delegate:self];   
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:pController];
+    
+    
+    // build city controller if needed
+    if (prefecture != nil) {
+        CityTableViewController* cController = [[[CityTableViewController alloc] initWithBlackoutServices:self.blackoutService
+                                                                                               prefecture:prefecture 
+                                                                                                 delegate:self] autorelease];
+        [navController pushViewController:cController animated:NO];
+    }
+    
+    // build street controller if needed
+    if (prefecture != nil && city != nil) {
+        StreetTableViewController* sController = [[[StreetTableViewController alloc] initWithBlackoutServices:self.blackoutService 
+                                                                                                  prefecture:prefecture 
+                                                                                                        city:city 
+                                                                                                    delegate:self] autorelease];
+        [navController pushViewController:sController animated:NO];
+    }
+    
     [self presentModalViewController:navController animated:YES];
     [pController release];
     [navController release];
@@ -334,6 +353,10 @@
 #pragma mark LocationTableViewControllerDelegate
 
 -(void) locationDidSelectedWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {    
+    self.selectedPrefecture = prefecture;
+    self.selectedCity = city;
+    self.selectedStreet = street;
+    
     if (prefecture) {
         [self.btnPrefecture setTitle:prefecture forState:UIControlStateNormal];
     } else {

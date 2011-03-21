@@ -2,6 +2,7 @@ require 'tempfile'
 require 'nokogiri'
 require 'spreadsheet'
 require 'open-uri'
+require 'json'
 
 $KCODE = "u"
 
@@ -19,22 +20,25 @@ module Blackout
     end
 
     def self.blackout_time
-      doc = Nokogiri::HTML(open(BASE_TEPCO_URL))
-      number_map = {"１" => "1", "２" => "2", "３" => "3", "４" => "4", "５" => "5"}
-      para = doc.css("#urgency p").select do |p|
-        p.text =~ /停電時間は表中の数字（グループ）をご覧ください。/
-      end.first
-      puts para.inner_text
-
-      time = {}
-      para.inner_text.scan(/第([１２３４５])グループ.([0-9]+:[0-9]+).([0-9]+:[0-9]+)/) do |group, from, to|
-        group_number = number_map[group]
-        if !time[group_number]
-          time[group_number] = []
+      time = JSON(open("config/time.json").read)
+      
+      result = []
+      time.each do |company, date_data|
+        date_data.each do |date, group_data|
+          group_data.each do |group, time|
+            result << {
+              :"_id" => "#{company}-#{group}-#{date}",
+              :type => "schedule",
+              :company => company,
+              :date => date,
+              :group => group,
+              :time => time
+            }
+          end
         end
-        time[group_number] << [from, to]
       end
-      time
+
+      result
     end
 
     # return Blackout excel file url
@@ -58,7 +62,7 @@ module Blackout
           row = sheet1.row(idx)
           unless row.hidden
             row_data = row.to_a
-            if row_data.size >= 4 && row_data[0] && row_data[1] && row_data[2] && row_data[3]
+            if row_data.size >= 4 && row_data[0] && row_data[1] && row_data[2] && row_data[3] && row_data[3].to_i > 0
               data << row_data
             end
           end
