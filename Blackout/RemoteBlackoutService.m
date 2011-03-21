@@ -220,7 +220,7 @@
                                        [[NSString stringWithFormat:@"[\"%@\",\"%@\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
                                        [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"99999999\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
-    
+
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
     [request setUsername:kBlackoutUsername];
     [request setPassword:kBlackoutPassword];
@@ -244,7 +244,7 @@
                 if (time) {
                     NSMutableArray* periods = [NSMutableArray array];
                     for (NSArray* timeEntry in time) {
-                        if ([time count] >= 2) {
+                        if ([timeEntry count] >= 2) {
                             NSString* fromTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:0]];
                             NSString* toTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:1]];
                         
