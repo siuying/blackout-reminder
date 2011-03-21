@@ -50,4 +50,17 @@
     return [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
++(NSString*) timeWithHours:(NSUInteger)hour minutes:(NSUInteger)min {
+    NSMutableString* message = [NSMutableString string];
+    if (hour != 0) {
+        [message appendFormat:@"%d時間", hour];
+    }
+    
+    if (min != 0) {
+        [message appendFormat:@"%d分", min];
+    }
+    return message;
+}
+
+
 @end
