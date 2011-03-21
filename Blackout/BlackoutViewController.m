@@ -332,9 +332,7 @@
         self.periods = [self.blackoutService periodsWithGroups:self.groups];
 
         self.lastUpdated = [NSDate date];
-        
-        NSLog(@"groups: %@, periods: %@, lastUpdated:%@", self.groups, self.periods, self.lastUpdated);
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setLoading:NO];
             [self refreshReminderDidUpdatedWithGroups:self.groups periods:self.periods];
