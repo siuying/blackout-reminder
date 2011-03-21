@@ -163,7 +163,7 @@
 		54E513CB1330858B00A4E8DA /* Blackout-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blackout-Prefix.pch"; sourceTree = "<group>"; };
 		54E513CC1330858B00A4E8DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		54E513CE1330858B00A4E8DA /* BlackoutAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackoutAppDelegate.h; sourceTree = "<group>"; };
-		54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlackoutAppDelegate.m; sourceTree = "<group>"; };
+		54E513CF1330858B00A4E8DA /* BlackoutAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackoutAppDelegate.m; sourceTree = "<group>"; };
 		54E513D21330858B00A4E8DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		54E513D41330858B00A4E8DA /* BlackoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlackoutViewController.h; sourceTree = "<group>"; };
 		54E513D51330858B00A4E8DA /* BlackoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackoutViewController.m; sourceTree = "<group>"; };

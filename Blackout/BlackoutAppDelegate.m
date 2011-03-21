@@ -2,8 +2,8 @@
 //  BlackoutAppDelegate.m
 //  Blackout
 //
-//  Created by Francis Chong on 11年3月16日.
-//  Copyright 2011年 Ignition Soft Limited. All rights reserved.
+//  Created by Francis Chong on 11Âπ¥3Êúà16Êó•.
+//  Copyright 2011Âπ¥ Ignition Soft Limited. All rights reserved.
 //
 
 #import "BlackoutAppDelegate.h"
@@ -17,9 +17,28 @@
 
 @synthesize window=_window;
 @synthesize viewController=_viewController;
+@synthesize prefectureName, cityName, streetName;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	self.prefectureName = [prefs objectForKey:PREFECTURE_KEY];
+	self.cityName = [prefs objectForKey:CITY_KEY];
+	self.streetName = [prefs objectForKey:STREET_KEY];
+    if (self.prefectureName == nil) {
+        self.prefectureName = @"都県";
+    } 
+    
+    if (self.cityName == nil) {
+        self.cityName = @"市区郡";
+    }
+    
+    if (self.streetName == nil) {
+        self.streetName = @"大字通称";
+    }
+    
     [ASIHTTPRequest setDefaultTimeOutSeconds:30];
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     self.window.rootViewController = self.viewController;
@@ -72,6 +91,62 @@
     [_window release];
     [_viewController release];
     [super dealloc];
+}
+
+#pragma mark Persistence of Prefecture,City and Street names
+
++(void)setPrefectureName:(NSString*)newPrefecture{
+    
+    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
+	delegate.prefectureName = newPrefecture;
+	
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	[prefs setObject:newPrefecture forKey:PREFECTURE_KEY];
+	[prefs synchronize];
+    
+}
+
++(NSString*)displayPrefecture {
+    
+    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
+    return delegate.prefectureName;
+    
+}
+
++(void)setCityName:(NSString*)newCity {
+    
+    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
+	delegate.cityName = newCity;
+	
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	[prefs setObject:newCity forKey:CITY_KEY];
+	[prefs synchronize];
+    
+}
+
++(NSString*)displayCity {
+    
+    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
+    return delegate.cityName;
+
+}
+
++(void)setStreetName:(NSString*)newStreet {
+    
+    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
+	delegate.streetName = newStreet;
+	
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	[prefs setObject:newStreet forKey:STREET_KEY];
+	[prefs synchronize];
+    
+}
+
++(NSString*)displayStreet {
+    
+    BlackoutAppDelegate* delegate = (BlackoutAppDelegate*) [UIApplication sharedApplication].delegate;
+    return delegate.streetName;
+    
 }
 
 @end
