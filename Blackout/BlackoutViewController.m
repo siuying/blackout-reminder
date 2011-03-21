@@ -102,7 +102,6 @@
             NSLog(@"location service is NOT enable");
             [self promptManualInputLocation:NO];
         }
-
     }
 
 }
@@ -163,6 +162,7 @@
             [alert show];
             [alert release];
             _alertOn = YES;
+            [alert release];
         }
     }
 
