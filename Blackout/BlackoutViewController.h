@@ -26,6 +26,9 @@
 #import "RemaingTimeTitleView.h"
 #import "ProgressView.h"
 
+#define kAlertViewOne   1
+#define kAlertViewTwo   2
+#define kAlertViewThree 3
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
     // UI
     LocationService* locationService;

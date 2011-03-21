@@ -69,6 +69,13 @@
     barItem.titleView = self.timeTitleView;
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
+    
+    // setup NSTimer to refresh timer 
+    [NSTimer scheduledTimerWithTimeInterval:1.0
+                                     target:self
+                                   selector:@selector(refreshReminder)
+                                   userInfo:nil
+                                    repeats:YES];
 
     // begin finding location
     if (USE_MOCK_LOCATION) {
@@ -87,7 +94,10 @@
         } else {
             // location service is NOT enable
             // show alert dialog to warn user about it and ask user manual select
-        }
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
+            alert.tag = kAlertViewTwo;
+            [alert show];
+    }
 
     }
 
@@ -139,6 +149,10 @@
         [self locationDidSelectedWithPrefecture:nil
                                            city:nil
                                          street:nil];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
+        alert.tag = kAlertViewTwo;
+        [alert show];
     }
 
     [self.locationService stop];
@@ -194,8 +208,8 @@
 -(IBAction) openTepcoUrl:(id)sender{
     NSLog(@" clicked TEPCO web button");
     
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Safariを起動します" message:@"東京電力のページに移動します。宜しいですか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"はい", nil];
-    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Safariを起動します" message:@"東京電力のページに移動します。\n宜しいですか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"はい", nil];
+    alert.tag = kAlertViewOne;
     [alert show];
     [alert release];
 }
@@ -231,16 +245,6 @@
     [pController release];
     [navController release];
     
-}
-
--(void) promptInputWithSelectedCity:(NSString*)city street:(NSString*)street {
-    // TODO if user clicked city/street, should keep selected prefecture/city
-    
-    CityTableViewController* pController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutService delegate:self];
-    UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:pController];
-    [self presentModalViewController:navController animated:YES];
-    [pController release];
-    [navController release];
 }
 
 -(void) setLoading:(BOOL)isLoading {
@@ -391,11 +395,20 @@
 
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if (buttonIndex == 1) {
+    if (actionSheet.tag == kAlertViewOne) {
+        if (buttonIndex == 1) {
+            
+            NSLog(@"Open url in Safari");
+            NSString* launchUrl = @"http://www.tepco.co.jp";
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: launchUrl]];
+        }
         
-        NSLog(@"Open url in Safari");
-        NSString* launchUrl = @"http://www.tepco.co.jp";
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: launchUrl]];
+    } else if (actionSheet.tag == kAlertViewTwo) {
+        
+        if (buttonIndex == [actionSheet cancelButtonIndex]) {
+            
+            [self promptInputWithSelectedPrefecture:nil city:nil street:nil];
+        }
     }
     
 }
