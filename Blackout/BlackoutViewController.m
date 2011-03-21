@@ -104,6 +104,7 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
             alert.tag = kAlertViewNoLocationFound;
             [alert show];
+            [alert release];
     }
 
     }
@@ -161,6 +162,7 @@
             alert.tag = kAlertViewNoLocationFound;
             [alert show];
             _alertOn = YES;
+            [alert release];
         }
     }
 
