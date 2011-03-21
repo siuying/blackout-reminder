@@ -11,7 +11,7 @@
 #import "RemoteBlackoutService.h"
 
 @interface BlackoutViewController (Private)
--(void) refreshReminderDidUpdated:(NSArray*)blackoutPeriods;
+-(void) refreshReminderDidUpdatedWithGroup:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods;
 @end
 
 @implementation BlackoutViewController
@@ -276,12 +276,12 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setLoading:NO];
-            [self refreshReminderDidUpdated:blackoutPeriods];
+            [self refreshReminderDidUpdatedWithGroup:blackoutGroups periods:blackoutPeriods];
         });
     });
 }
 
--(void) refreshReminderDidUpdated:(NSArray*)blackoutPeriods {
+-(void) refreshReminderDidUpdatedWithGroup:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods {
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture
         
