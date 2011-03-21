@@ -413,7 +413,7 @@
             } else {
                 
                 int currentTotalMinute2 = (24 * 60) - [currentComponent minute] - ([currentComponent hour] *60);
-                int blackoutFromMinute2 = ([periodEndComponent hour] * 60) + [periodEndComponent minute];
+                int blackoutFromMinute2 = ([periodStartComponent hour] * 60) + [periodStartComponent minute];
                 
                 int remainMinuteToBlackout2 = currentTotalMinute2 + blackoutFromMinute2;
                 
