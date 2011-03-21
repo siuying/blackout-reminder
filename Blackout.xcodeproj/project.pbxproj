@@ -85,6 +85,8 @@
 		54E5141B1330C5A600A4E8DA /* StreetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E5141A1330C5A200A4E8DA /* StreetTableViewController.m */; };
 		A04BA3691333354300D124BC /* RemarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04BA3671333353D00D124BC /* RemarksViewController.m */; };
 		A04BA36A1333354300D124BC /* RemarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A04BA3681333353F00D124BC /* RemarksViewController.xib */; };
+		A0A63DB11337933200A0021F /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A0A63DAF1337933200A0021F /* icon.png */; };
+		A0A63DB21337933200A0021F /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0A63DB01337933200A0021F /* icon@2x.png */; };
 		A0BCAA851337326B00BD92CD /* reminder.html in Resources */ = {isa = PBXBuildFile; fileRef = A0BCAA841337326B00BD92CD /* reminder.html */; };
 		A0E642D61332301F00E36CFF /* RemaingTimeTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */; };
 /* End PBXBuildFile section */
@@ -198,6 +200,8 @@
 		A04BA3661333353C00D124BC /* RemarksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemarksViewController.h; sourceTree = "<group>"; };
 		A04BA3671333353D00D124BC /* RemarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemarksViewController.m; sourceTree = "<group>"; };
 		A04BA3681333353F00D124BC /* RemarksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemarksViewController.xib; sourceTree = "<group>"; };
+		A0A63DAF1337933200A0021F /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		A0A63DB01337933200A0021F /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		A0BCAA841337326B00BD92CD /* reminder.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = reminder.html; sourceTree = "<group>"; };
 		A0E642D41332301F00E36CFF /* RemaingTimeTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemaingTimeTitleView.h; sourceTree = "<group>"; };
 		A0E642D51332301F00E36CFF /* RemaingTimeTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemaingTimeTitleView.m; sourceTree = "<group>"; };
@@ -398,6 +402,8 @@
 				54E513C71330858B00A4E8DA /* Blackout-Info.plist */,
 				54E513C81330858B00A4E8DA /* InfoPlist.strings */,
 				A0BCAA841337326B00BD92CD /* reminder.html */,
+				A0A63DAF1337933200A0021F /* icon.png */,
+				A0A63DB01337933200A0021F /* icon@2x.png */,
 				54E513CB1330858B00A4E8DA /* Blackout-Prefix.pch */,
 				54E513CC1330858B00A4E8DA /* main.m */,
 			);
@@ -559,6 +565,8 @@
 				54E513D91330858C00A4E8DA /* BlackoutViewController.xib in Resources */,
 				A04BA36A1333354300D124BC /* RemarksViewController.xib in Resources */,
 				A0BCAA851337326B00BD92CD /* reminder.html in Resources */,
+				A0A63DB11337933200A0021F /* icon.png in Resources */,
+				A0A63DB21337933200A0021F /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
