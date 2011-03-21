@@ -74,13 +74,6 @@
     barItem.titleView = self.timeTitleView;
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
-    
-    // setup NSTimer to refresh timer 
-    [NSTimer scheduledTimerWithTimeInterval:1.0
-                                     target:self
-                                   selector:@selector(refreshReminder)
-                                   userInfo:nil
-                                    repeats:YES];
 
     // begin finding location
     if (USE_MOCK_LOCATION) {
