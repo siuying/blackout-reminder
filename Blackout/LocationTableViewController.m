@@ -8,10 +8,10 @@
 
 #import "LocationTableViewController.h"
 
-
 @implementation LocationTableViewController
 
-@synthesize locations;
+@synthesize loadingView;
+@synthesize locations, error, loaded;
 @synthesize blackoutServices;
 @synthesize locationDelegate;
 
@@ -20,7 +20,7 @@
     if (self) {
         self.locationDelegate = delegate;
         self.blackoutServices = theService;
-        self.locations = theLocations;
+        self.locations = [NSMutableArray arrayWithArray:theLocations];
     }
     return self;
 }
@@ -43,22 +43,20 @@
 
 #pragma mark - View lifecycle
 
+-(void) loadView {
+    [super loadView];
+    [self loadTable];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.loadingView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -87,7 +85,53 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Public
+
+-(void) loadTable {
+}
+
+-(void) setLoading:(BOOL)loading {
+    NSLog(@" loading table: %@", loading ? @"YES" : @"NO");
+    if (loading) {
+        if (!self.loadingView) {
+            self.loadingView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
+            [self.loadingView startAnimating];
+            self.navigationItem.titleView = self.loadingView;
+            self.loaded = NO;
+        }
+    } else {
+        if (self.loadingView) {
+            [self.loadingView stopAnimating];
+            [self.loadingView removeFromSuperview];
+            self.navigationItem.titleView = nil;
+            self.loadingView = nil;
+            self.loaded = YES;
+        }        
+    }
+    self.navigationItem.leftBarButtonItem.enabled = !loading;
+    self.navigationItem.rightBarButtonItem.enabled = !loading;
+    [self.navigationController.navigationBar setNeedsDisplay];
+}
+
+-(NSString*) title {
+    return @"";
+}
+
+-(void) setError:(BOOL)isError message:(NSString*)message {
+    self.error = isError;
+    if (isError) {
+        
+    } else {
+        
+    }
+}
+
+-(BOOL) empty {
+    return [locations count] == 0 && loaded;
+}
+
 #pragma mark - Table view data source
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -97,8 +141,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [locations count];
+    if (self.error) {
+        return 1;
+    } else if (self.empty) {
+        return 1;
+    } else {
+        return [locations count];        
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,7 +158,18 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    cell.textLabel.text = [locations objectAtIndex:[indexPath indexAtPosition:1]];    
+    
+    if (self.error) {
+        cell.textLabel.text = @"Error downloading data!";        
+        cell.textLabel.textColor = [UIColor redColor];
+    } else if (self.empty) {
+        cell.textLabel.text = @"No result found!";
+        cell.textLabel.textColor = [UIColor darkGrayColor];
+    } else {
+        cell.textLabel.text = [locations objectAtIndex:[indexPath indexAtPosition:1]];        
+        cell.textLabel.textColor = [UIColor darkTextColor];
+    }
+
     return cell;
 }
 

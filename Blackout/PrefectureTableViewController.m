@@ -12,9 +12,8 @@
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)theService delegate:(id<LocationTableViewControllerDelegate>) delegate
 {
-    NSArray* prefectures = [theService prefectures];
-    self = [super initWithBlackoutServices:theService locations:prefectures delegate:delegate];
-    self.title = @"都県";
+    self = [super initWithBlackoutServices:theService locations:[NSArray array] delegate:delegate];
+    self.title = [self title];
     return self;
 }
 
@@ -35,13 +34,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    // find selected index
-    NSString* selected = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
-    NSLog(@" selected: %@", selected);
+    if (self.loaded && !self.empty && !self.error) {
+        // find selected index
+        NSString* selected = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
+        NSLog(@" selected: %@", selected);
+        
+        CityTableViewController* cityController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutServices prefecture:selected delegate:self.locationDelegate];
+        [self.navigationController pushViewController:cityController animated:YES];
+        [cityController release];
+        
+    }
+}
 
-    CityTableViewController* cityController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutServices prefecture:selected delegate:self.locationDelegate];
-    [self.navigationController pushViewController:cityController animated:YES];
-    [cityController release];
+#pragma mark - LocationTableViewController
+
+-(void) loadTable {
+    [self setLoading:YES];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
+        NSArray* prefectures = [self.blackoutServices prefectures];
+        [self.locations removeAllObjects];
+        [self.locations addObjectsFromArray:prefectures];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setLoading:NO];
+            [self.tableView reloadData];
+        });
+    });
+}
+
+-(NSString*) title {
+    return @"都県";
 }
 
 @end
