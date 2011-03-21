@@ -28,7 +28,7 @@
 
 #define kAlertViewOpenURL   1
 #define kAlertViewNoLocationFound   2
-#define kAlertViewThree 3
+
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
     // UI
     LocationService* locationService;
