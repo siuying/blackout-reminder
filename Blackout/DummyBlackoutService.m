@@ -61,7 +61,7 @@
 
 // Array of BlackoutPeriod from the groups
 // If no electricity for the groups found, return empty array
--(NSArray*) periodsWithGroups:(NSArray*)groups {
+-(NSArray*) periodsWithGroups:(NSArray*)groups withDate:(NSDate*)date {
     BlackoutPeriod* p = [[[BlackoutPeriod alloc] init] autorelease];
     
     NSDateComponents* from = [[[NSDateComponents alloc] init] autorelease];

@@ -8,6 +8,7 @@
 
 #import "BlackoutViewController.h"
 #import "BlackoutAppDelegate.h"
+#import "RemoteBlackoutService.h"
 
 @implementation BlackoutViewController
 
@@ -45,7 +46,7 @@
     [super viewDidLoad];
 
     // initialize services
-    self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
+    self.blackoutService = [[[RemoteBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
 
@@ -268,7 +269,7 @@
     NSArray* blackoutGroups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture 
                                                                      city:self.selectedCity
                                                                    street:self.selectedStreet];
-    NSArray* blackoutPeriods = [self.blackoutService periodsWithGroups:blackoutGroups];
+    NSArray* blackoutPeriods = [self.blackoutService periodsWithGroups:blackoutGroups withDate:[NSDate date]];
     
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture

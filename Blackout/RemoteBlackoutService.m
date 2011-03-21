@@ -10,6 +10,7 @@
 
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
+#import "BlackoutGroup.h"
 
 #define kBlackoutTepco      @"http://www.tepco.co.jp/index-j.html"
 #define kBlackoutTimeApi    @"http://www.tepco.co.jp/index-j.html"
@@ -23,6 +24,11 @@
 #define kBlackoutMethodCities           @"_design/api/_view/cities"
 #define kBlackoutMethodStreets          @"_design/api/_view/streets"
 #define kBlackoutMethodGroup            @"_design/api/_view/blackout"
+#define kBlackoutMethodSchedules        @"_design/api/_list/time/schedules"
+
+@interface RemoteBlackoutService (Private)
+-(NSArray*) periodsWithGroup:(BlackoutGroup*)group withDate:(NSDate*)date;
+@end
 
 @implementation RemoteBlackoutService
 
@@ -168,8 +174,16 @@
         if (!error) {
             NSArray* rows = [data objectForKey:@"rows"];
             for (NSDictionary* entry in rows) {
-                NSDictionary* value = [entry objectForKey:@"value"];
-                return [value objectForKey:@"time"];
+                NSDictionary* value = [entry objectForKey:@"value"];                
+                
+                NSMutableArray* groups = [NSMutableArray array];
+                NSString* company = [value objectForKey:@"company"];
+                NSArray* groupCodes = [value objectForKey:@"group"];
+
+                for (NSString* groupId in groupCodes) {
+                    [groups addObject:[[BlackoutGroup alloc] initWithCompany:company code:groupId]];
+                }
+                return groups;
             }
         } else {
             NSLog(@"error parsing groups: %@", error);            
@@ -178,16 +192,76 @@
         NSLog(@"error reading groups: %@", error);
     }
 
-    return nil;
-}
-
--(NSArray*) periodsWithGroups:(NSArray*)groups {
     return [NSArray array];
 }
 
-// Validate if the specific Prefecture, City and Street existed in db, if not, return the cloest match
--(NSArray*) validatePrefectures:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
-    return [NSArray arrayWithObjects:prefecture, city, street, nil];
+-(NSArray*) periodsWithGroups:(NSArray*)groups withDate:(NSDate*)date {
+    NSMutableArray* periods = [NSMutableArray array];
+
+    for (BlackoutGroup* group in groups) {
+        [periods addObjectsFromArray:[self periodsWithGroup:group 
+                                                   withDate:date]];
+    }
+    return periods;
+}
+
+#pragma Private
+
+-(NSArray*) periodsWithGroup:(BlackoutGroup*)group withDate:(NSDate*)date {
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMdd"];
+    
+    NSString* dateString = [formatter stringFromDate:date];
+    [formatter release];
+    
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?key=%@", 
+                                       kBlackoutUrlBase, 
+                                       kBlackoutDb, 
+                                       kBlackoutMethodSchedules, 
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"%@\"]", group.company, group.code, dateString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                       ]];
+    
+    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
+    [request setUsername:kBlackoutUsername];
+    [request setPassword:kBlackoutPassword];
+    [request setSecondsToCache:60];
+    [request setNumberOfTimesToRetryOnTimeout:3];
+    [request startSynchronous];
+
+    NSError *error = [request error];
+    if (!error) {
+        NSData *response = [request responseData];
+        NSArray* rows = [[CJSONDeserializer deserializer] deserializeAsArray:response 
+                                                                       error:&error];
+        if (!error) {
+            for (NSDictionary* entry in rows) {
+                NSArray* time = [entry objectForKey:@"time"];
+                if (time) {
+                    NSMutableArray* periods = [NSMutableArray array];
+                    for (NSArray* timeEntry in time) {
+                        if ([time count] >= 2) {
+                            NSString* fromTimeStr = [timeEntry objectAtIndex:0];
+                            NSString* toTimeStr = [timeEntry objectAtIndex:1];
+                        
+                            BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
+                                                                            fromTimeString:fromTimeStr 
+                                                                              toTimeString:toTimeStr];
+                            [periods addObject:period];
+                            [period release];
+                        }                        
+                    }
+                    return periods;
+                } else {
+                    NSLog(@" warning: period contain not time: %@", entry);
+                }
+            }
+        } else {
+            NSLog(@"error parsing periods: %@", error);            
+        }
+    } else {
+        NSLog(@"error reading periods: %@", error);
+    }
+    return [NSArray array];
 }
 
 @end

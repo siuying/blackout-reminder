@@ -57,6 +57,8 @@
 		5494400A13343C0D00EB0EFE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5494400913343C0D00EB0EFE /* libxml2.2.dylib */; };
 		5494400C13343C2300EB0EFE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5494400B13343C2200EB0EFE /* libxml2.2.dylib */; };
 		54A2A7691333641200490370 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A2A7681333641200490370 /* ProgressView.m */; };
+		54D32EBD133707FC00760A8F /* BlackoutGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D32EBC133707FC00760A8F /* BlackoutGroup.m */; };
+		54D32EBF13372A8300760A8F /* BlackoutGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D32EBC133707FC00760A8F /* BlackoutGroup.m */; };
 		54E513C01330858B00A4E8DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513BF1330858B00A4E8DA /* UIKit.framework */; };
 		54E513C21330858B00A4E8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C11330858B00A4E8DA /* Foundation.framework */; };
 		54E513C41330858B00A4E8DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E513C31330858B00A4E8DA /* CoreGraphics.framework */; };
@@ -151,6 +153,8 @@
 		5494400B13343C2200EB0EFE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		54A2A7671333641200490370 /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressView.h; sourceTree = "<group>"; };
 		54A2A7681333641200490370 /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressView.m; sourceTree = "<group>"; };
+		54D32EBB133707FC00760A8F /* BlackoutGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackoutGroup.h; sourceTree = "<group>"; };
+		54D32EBC133707FC00760A8F /* BlackoutGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackoutGroup.m; sourceTree = "<group>"; };
 		54E513BB1330858B00A4E8DA /* Blackout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E513BF1330858B00A4E8DA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54E513C11330858B00A4E8DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -429,6 +433,8 @@
 				54E513FE1330881600A4E8DA /* Services */,
 				54E513FB133086E200A4E8DA /* BlackoutPeriod.h */,
 				54E513FC133086E200A4E8DA /* BlackoutPeriod.m */,
+				54D32EBB133707FC00760A8F /* BlackoutGroup.h */,
+				54D32EBC133707FC00760A8F /* BlackoutGroup.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -619,6 +625,7 @@
 				545A62A31333B096009475A1 /* ASIDataCompressor.m in Sources */,
 				545A62A71333B0A6009475A1 /* Reachability.m in Sources */,
 				5494400713343BF600EB0EFE /* XPathQuery.m in Sources */,
+				54D32EBD133707FC00760A8F /* BlackoutGroup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +633,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54D32EBF13372A8300760A8F /* BlackoutGroup.m in Sources */,
 				545A627D1333AF3F009475A1 /* BlackoutUtils.m in Sources */,
 				545A627E1333AF3F009475A1 /* DummyBlackoutService.m in Sources */,
 				545A627F1333AF3F009475A1 /* RemoteBlackoutService.m in Sources */,
