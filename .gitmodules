@@ -4,6 +4,3 @@
 [submodule "Blackout/External/TouchJSON"]
 	path = Blackout/External/TouchJSON
 	url = https://github.com/TouchCode/TouchJSON.git
-[submodule "couchapp"]
-	path = couchapp
-	url = /Users/siuying/Dropbox/ProjectRiver/repos/blackout-couch.git
