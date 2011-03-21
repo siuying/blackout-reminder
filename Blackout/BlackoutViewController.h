@@ -101,6 +101,8 @@
 
 -(void) refreshTime;
 
+-(void) promptManualInputLocation;
+
 @end
 
 @interface BlackoutViewController (UIActions)

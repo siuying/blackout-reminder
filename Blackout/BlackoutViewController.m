@@ -99,12 +99,9 @@
             [self setLoading:YES];
             
         } else {
-            // location service is NOT enable
-            // show alert dialog to warn user about it and ask user manual select
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
-            alert.tag = kAlertViewNoLocationFound;
-            [alert show];
-    }
+            NSLog(@"location service is NOT enable");
+            [self promptManualInputLocation];
+        }
 
     }
 
@@ -157,9 +154,14 @@
                                            city:nil
                                          street:nil];
         if (!_alertOn) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" message:@"マニュアルで位置情報を入力してください。" delegate:self cancelButtonTitle:@"はい" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" 
+                                                            message:@"マニュアルで位置情報を入力してください。" 
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"はい" 
+                                                  otherButtonTitles:nil];
             alert.tag = kAlertViewNoLocationFound;
             [alert show];
+            [alert release];
             _alertOn = YES;
         }
     }
@@ -174,18 +176,18 @@
     [self setLoading:NO];
 
     // report error
-    // ask for retry
+    [self promptManualInputLocation];
 }
 
 
 
 -(void) findLocationDidFailedWithError:(NSError*)error {
-    NSLog(@" error finding location name: %@", error);
+    NSLog(@" error finding location: %@", error);
     [self.locationService stop];
     [self setLoading:NO];
     
     // report error
-    // ask for retry
+    [self promptManualInputLocation];
 }
 
 #pragma mark - User Actions
@@ -225,7 +227,11 @@
 
 -(IBAction) openIgntSoftUrl:(id)sender {
     
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Safariを起動します" message:@"ページが移動します。\n宜しいですか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"はい", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Safariを起動します" 
+                                                    message:@"ページが移動します。\n宜しいですか？"
+                                                   delegate:self 
+                                          cancelButtonTitle:@"キャンセル" 
+                                          otherButtonTitles:@"はい", nil];
     alert.tag = kAlertViewIgntSoftURL;
     [alert show];
     [alert release];
@@ -233,6 +239,18 @@
 }
 
 #pragma mark - Public
+
+// show alert dialog to warn user about it and ask user manual select
+-(void) promptManualInputLocation {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" 
+                                                    message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" 
+                                                   delegate:self 
+                                          cancelButtonTitle:@"はい" 
+                                          otherButtonTitles:nil];
+    alert.tag = kAlertViewNoLocationFound;
+    [alert show];
+    [alert release];
+}
 
 // prompt for user to input
 -(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
