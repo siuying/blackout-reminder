@@ -33,20 +33,36 @@
     return self;
 }
 
-- (void) lastUpdatedTime: (NSDate*) update {
+- (void) setLastUpdatedTime:(NSDate*) update {
+    if (update) {
+        if (!self.remainingTime) {
+            self.remainingTime = [self labelWithPrimaryColor:[UIColor whiteColor] selectedColor:[UIColor whiteColor] fontSize:11.0 bold:NO];
+            self.remainingTime.textAlignment = UITextAlignmentCenter;
+            self.remainingTime.backgroundColor = [UIColor clearColor];
+            [self addSubview:self.remainingTime];            
+        }
+
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMM dd, HH:mm"];
+        NSString *lastUpdatedString = [dateFormatter stringFromDate:update];
+        self.remainingTime.text = [NSString stringWithFormat:@"更新時間：%@", lastUpdatedString];
+        [dateFormatter release];
+    } else {
+        [self.remainingTime removeFromSuperview];
+        self.remainingTime = nil;
+    }
+}
+
+-(void) layoutSubviews {
+    [super layoutSubviews];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMM dd, HH:mm"];
-    NSString *lastUpdatedString = [dateFormatter stringFromDate:update];
-    
-    self.remainingTime = [self labelWithPrimaryColor:[UIColor whiteColor] selectedColor:[UIColor whiteColor] fontSize:11.0 bold:NO];
-    self.remainingTime.frame = CGRectMake(0, 26, 250, 15);
-    self.remainingTime.textAlignment = UITextAlignmentCenter;
-    self.remainingTime.backgroundColor = [UIColor clearColor];
-    self.remainingTime.text = [NSString stringWithFormat:@"更新時間：%@", lastUpdatedString];
-    [self addSubview:self.remainingTime];
-    [dateFormatter release];
-    
+    if (self.remainingTime) {
+        self.appTitle.frame = CGRectMake(0, 0, 250, 28);
+        self.remainingTime.frame = CGRectMake(0, 26, 250, 15);
+    } else {
+        self.appTitle.frame = CGRectMake(0, 0, 250, 44);
+        self.remainingTime.frame = CGRectZero; 
+    }
 }
 
 - (void)dealloc

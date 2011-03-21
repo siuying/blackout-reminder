@@ -18,6 +18,6 @@
 @property(nonatomic,retain) UILabel* appTitle;
 @property(nonatomic,retain) UILabel* remainingTime;
 
-- (void) lastUpdatedTime: (NSDate*) update;
+-(void) setLastUpdatedTime: (NSDate*) update;
 
 @end
