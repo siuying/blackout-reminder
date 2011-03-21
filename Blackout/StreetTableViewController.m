@@ -14,8 +14,7 @@
 @synthesize prefecture, city, street;
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)theService prefecture:(NSString*)thePrefecture city:(NSString*)theCity delegate:(id<LocationTableViewControllerDelegate>) delegate{
-    NSArray* streets = [theService streetsWithPrefecture:thePrefecture city:theCity];
-    self = [super initWithBlackoutServices:theService locations:streets delegate:delegate];
+    self = [super initWithBlackoutServices:theService locations:[NSArray array] delegate:delegate];
     self.title = @"大字通称";
     self.prefecture = thePrefecture;
     self.city = theCity;
@@ -60,5 +59,23 @@
     NSLog(@" selected: %@", street);    
     self.navigationItem.rightBarButtonItem.enabled = YES;
 }
+
+#pragma mark - LocationTableViewController
+
+-(void) loadTable {
+    [self setLoading:YES];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
+        NSArray* streets = [self.blackoutServices streetsWithPrefecture:self.prefecture city:self.city];
+        [self.locations removeAllObjects];
+        [self.locations addObjectsFromArray:streets];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
+}
+
+
 
 @end

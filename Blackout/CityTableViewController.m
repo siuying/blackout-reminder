@@ -14,8 +14,7 @@
 @synthesize prefecture;
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)thePrefecture delegate:(id<LocationTableViewControllerDelegate>) delegate{
-    NSArray* cities = [service cities:thePrefecture];
-    self = [super initWithBlackoutServices:service locations:cities delegate:delegate];
+    self = [super initWithBlackoutServices:service locations:[NSArray array] delegate:delegate];
     self.title = @"市区郡";
     self.prefecture = thePrefecture;
     return self;
@@ -50,5 +49,23 @@
     [self.navigationController pushViewController:cityController animated:YES];
     [cityController release];
 }
+
+
+#pragma mark - LocationTableViewController
+
+-(void) loadTable {
+    [self setLoading:YES];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
+        NSArray* theCities = [self.blackoutServices cities:self.prefecture];
+        [self.locations removeAllObjects];
+        [self.locations addObjectsFromArray:theCities];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
+}
+
 
 @end

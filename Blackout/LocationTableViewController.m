@@ -20,7 +20,7 @@
     if (self) {
         self.locationDelegate = delegate;
         self.blackoutServices = theService;
-        self.locations = theLocations;
+        self.locations = [NSMutableArray arrayWithArray:theLocations];
     }
     return self;
 }
@@ -42,6 +42,11 @@
 }
 
 #pragma mark - View lifecycle
+
+-(void) loadView {
+    [super loadView];
+    [self loadTable];
+}
 
 - (void)viewDidLoad
 {
@@ -85,6 +90,15 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Public
+
+-(void) loadTable {
+}
+
+-(void) setLoading:(BOOL)loading {
+    NSLog(@" loading table: %@", loading ? @"YES" : @"NO");
 }
 
 #pragma mark - Table view data source
