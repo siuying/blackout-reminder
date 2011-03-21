@@ -26,4 +26,8 @@
     [super dealloc];
 }
 
+-(NSString*) description {
+    return [NSString stringWithFormat:@"<Group company=%@, code=%@>", self.company, self.code];
+}
+
 @end

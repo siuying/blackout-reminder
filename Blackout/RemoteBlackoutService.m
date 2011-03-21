@@ -193,7 +193,6 @@
         [periods addObjectsFromArray:[self periodsWithGroup:group 
                                                    withDate:date]];
     }
-
     return periods;
 }
 
@@ -201,7 +200,6 @@
 
 -(NSArray*) periodsWithGroup:(BlackoutGroup*)group withDate:(NSDate*)date {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeStyle:NSDateFormatterNoStyle];
     [formatter setDateFormat:@"yyyyMMdd"];
     
     NSString* dateString = [formatter stringFromDate:date];
@@ -220,26 +218,23 @@
     [request setSecondsToCache:60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
+    NSLog(@" request URL: %@", url);
     
     NSError *error = [request error];
     if (!error) {
         NSData *response = [request responseData];
-        NSDictionary* data = [[CJSONDeserializer deserializer] deserializeAsDictionary:response 
-                                                                                 error:&error];
-        
+        NSArray* rows = [[CJSONDeserializer deserializer] deserializeAsArray:response 
+                                                                       error:&error];
+        NSLog(@"periodsWithGroup:date %@", rows);
         if (!error) {
-            NSArray* rows = [data objectForKey:@"rows"];
             for (NSDictionary* entry in rows) {
-                NSDictionary* value = [entry objectForKey:@"value"];
-                NSString* company = [value objectForKey:@"company"];
-                NSArray*  times = [value objectForKey:@"time"];
-                
-                if (company && group && time) {
+                NSArray* time = [entry objectForKey:@"time"];
+                if (time) {
                     NSMutableArray* periods = [NSMutableArray array];
-                    for (NSArray* time in times) {
+                    for (NSArray* timeEntry in time) {
                         if ([time count] >= 2) {
-                            NSString* fromTimeStr = [time objectAtIndex:0];
-                            NSString* toTimeStr = [time objectAtIndex:1];
+                            NSString* fromTimeStr = [timeEntry objectAtIndex:0];
+                            NSString* toTimeStr = [timeEntry objectAtIndex:1];
                         
                             BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
                                                                             fromTimeString:fromTimeStr 
@@ -249,13 +244,15 @@
                         }                        
                     }
                     return periods;
-                }                
+                } else {
+                    NSLog(@" warning: period contain not time: %@", entry);
+                }
             }
         } else {
-            NSLog(@"error parsing groups: %@", error);            
+            NSLog(@"error parsing periods: %@", error);            
         }
     } else {
-        NSLog(@"error reading groups: %@", error);
+        NSLog(@"error reading periods: %@", error);
     }
     return [NSArray array];
 }

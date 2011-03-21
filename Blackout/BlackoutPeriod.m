@@ -17,26 +17,24 @@
 
     self.group = aGroup;
     
-    if ([aFromTimeString length] == 4) {
-        NSString* hour = [aFromTimeString substringWithRange:NSMakeRange(0, 2)];
-        NSString* min = [aFromTimeString substringWithRange:NSMakeRange(2, 2)];
-
+    if (aFromTimeString) {
+        NSString* fhour = [aFromTimeString substringWithRange:NSMakeRange(0, 2)];
+        NSString* fmin = [aFromTimeString substringWithRange:NSMakeRange(2, 2)];        
         NSDateComponents* fromTimeComponent = [[NSDateComponents alloc] init];
-        [fromTimeComponent setHour:[hour intValue]];
-        [fromTimeComponent setMinute:[min intValue]];
-        [fromTimeComponent release];
+        [fromTimeComponent setHour:[fhour intValue]];
+        [fromTimeComponent setMinute:[fmin intValue]];
         self.fromTime = fromTimeComponent;
+        [fromTimeComponent release];
     }
     
-    if ([aToTimeString length] == 4) {
-        NSString* hour = [aToTimeString substringWithRange:NSMakeRange(0, 2)];
-        NSString* min = [aToTimeString substringWithRange:NSMakeRange(2, 2)];
-        
+    if (aToTimeString) {
+        NSString* thour = [aToTimeString substringWithRange:NSMakeRange(0, 2)];
+        NSString* tmin = [aToTimeString substringWithRange:NSMakeRange(2, 2)];
         NSDateComponents* toTimeComponent = [[NSDateComponents alloc] init];
-        [toTimeComponent setHour:[hour intValue]];
-        [toTimeComponent setMinute:[min intValue]];
-        [toTimeComponent release];        
+        [toTimeComponent setHour:[thour intValue]];
+        [toTimeComponent setMinute:[tmin intValue]];
          self.toTime = toTimeComponent;        
+        [toTimeComponent release];
     }    
     return self;
 }
@@ -47,4 +45,10 @@
     self.toTime = nil;
     [super dealloc];
 }
+
+-(NSString*) description {
+    return [NSString stringWithFormat:@"<Period group=%@, from=%02d:%02d, to=%02d:%02d>", 
+            self.group, self.fromTime.hour, self.fromTime.minute, self.toTime.hour, self.toTime.minute];
+}
+
 @end
