@@ -19,7 +19,7 @@
         
         
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelEdit)];
-        self.title = @"東京電力";
+        self.title = @"ご注意事項";
 
     }
     return self;
@@ -50,6 +50,9 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"reminder" ofType:@"html"];
+	[remarksWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path isDirectory:NO]]];
     // Do any additional setup after loading the view from its nib.
 }
 
