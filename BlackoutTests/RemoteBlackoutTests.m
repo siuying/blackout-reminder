@@ -60,18 +60,24 @@
     RemoteBlackoutService* service = [[RemoteBlackoutService alloc] init];
     
     NSArray* groups = [service groupsWithPrefecture:@"千葉県" city:@"いすみ市" street:@"岬町中原"];
-    NSLog(@"groups: %@", groups);
     STAssertNotNil(groups, @"should not be nil");
     STAssertTrue(1 == [groups count], @"should have 1 group, currently %d", [groups count]);
-    STAssertTrue([groups containsObject:@"1"], @"should contain 1");
+    if ([groups count] ==1){
+        BlackoutGroup* group = [groups objectAtIndex:0];
+        STAssertTrue([group.company isEqual:@"tepco"], @"should contain 1");
+        STAssertTrue([group.code isEqual:@"1"], @"should contain 1");
+    }
     
     groups = [service groupsWithPrefecture:@"静岡県" city:@"駿東郡  清水町" street:@"畑中"];
     NSLog(@"groups: %@", groups);
-    STAssertNotNil(groups, @"should not be nil");
-    STAssertTrue(2 == [groups count], @"should have 1 group, currently %d", [groups count]);
-    STAssertTrue([groups containsObject:@"2"], @"should contain 2");
-    STAssertTrue([groups containsObject:@"3"], @"should contain 3");
     
+    STAssertTrue(2 == [groups count], @"should have 1 group, currently %d", [groups count]);
+    if ([groups count] == 2) {    
+        BlackoutGroup* group1 = [groups objectAtIndex:0];
+        BlackoutGroup* group2 = [groups objectAtIndex:1];
+        STAssertTrue([group1.code isEqual:@"2"], @"should contain 2");
+        STAssertTrue([group2.code isEqual:@"3"], @"should contain 3");
+    }    
     
     
     [service release];

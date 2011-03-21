@@ -10,6 +10,7 @@
 
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
+#import "BlackoutGroup.h"
 
 #define kBlackoutTepco      @"http://www.tepco.co.jp/index-j.html"
 #define kBlackoutTimeApi    @"http://www.tepco.co.jp/index-j.html"
@@ -173,8 +174,16 @@
         if (!error) {
             NSArray* rows = [data objectForKey:@"rows"];
             for (NSDictionary* entry in rows) {
-                NSDictionary* value = [entry objectForKey:@"value"];
-                return [value objectForKey:@"time"];
+                NSDictionary* value = [entry objectForKey:@"value"];                
+                
+                NSMutableArray* groups = [NSMutableArray array];
+                NSString* company = [value objectForKey:@"company"];
+                NSArray* groupCodes = [value objectForKey:@"group"];
+
+                for (NSString* groupId in groupCodes) {
+                    [groups addObject:[[BlackoutGroup alloc] initWithCompany:company code:groupId]];
+                }
+                return groups;
             }
         } else {
             NSLog(@"error parsing groups: %@", error);            
@@ -218,14 +227,12 @@
     [request setSecondsToCache:60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
-    NSLog(@" request URL: %@", url);
-    
+
     NSError *error = [request error];
     if (!error) {
         NSData *response = [request responseData];
         NSArray* rows = [[CJSONDeserializer deserializer] deserializeAsArray:response 
                                                                        error:&error];
-        NSLog(@"periodsWithGroup:date %@", rows);
         if (!error) {
             for (NSDictionary* entry in rows) {
                 NSArray* time = [entry objectForKey:@"time"];

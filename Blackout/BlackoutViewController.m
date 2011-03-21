@@ -8,6 +8,7 @@
 
 #import "BlackoutViewController.h"
 #import "BlackoutAppDelegate.h"
+#import "RemoteBlackoutService.h"
 
 @implementation BlackoutViewController
 
@@ -45,7 +46,7 @@
     [super viewDidLoad];
 
     // initialize services
-    self.blackoutService = [[[DummyBlackoutService alloc] init] autorelease];
+    self.blackoutService = [[[RemoteBlackoutService alloc] init] autorelease];
     self.locationService = [[[LocationService alloc] init] autorelease];
     self.locationService.locationDelegate = self;
 
