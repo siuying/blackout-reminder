@@ -27,7 +27,7 @@
 
 -(void) cancelEdit {
     
-    [self dismissModalViewControllerAnimated:NO];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)dealloc

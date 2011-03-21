@@ -196,10 +196,10 @@
 
 -(IBAction) openWarning:(id)sender {
     NSLog(@" clicked warning button");
-    RemarksViewController *controller = [[RemarksViewController alloc]init];
+    RemarksViewController *controller = [[RemarksViewController alloc] init];
     controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self presentModalViewController:navController animated:NO];
+    [self presentModalViewController:navController animated:YES];
     [controller release];
 }
 
