@@ -16,9 +16,9 @@
 #define kBlackoutTimeApi    @"http://www.tepco.co.jp/index-j.html"
 
 #define kBlackoutUrlBase    @"https://ignition.cloudant.com"
-#define kBlackoutDb         @"blackout-dev"
-#define kBlackoutUsername   @"behictingualdrionschaver"
-#define kBlackoutPassword   @"lqNLPtLRyNDcW1nk4cT81SvP"
+#define kBlackoutDb         @"blackout"
+#define kBlackoutUsername   @"pecanglendereageneelould"
+#define kBlackoutPassword   @"qtBPrExEWHplvRNqwNjgMw0W"
 
 #define kBlackoutMethodPrefectures      @"_design/api/_view/prefectures?group=true"
 #define kBlackoutMethodCities           @"_design/api/_view/cities"
@@ -237,6 +237,7 @@
         if (!error) {
             NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
             [formatter setDateFormat:@"yyyyMMddHHmm"];
+            [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"JST"]];
             
             NSMutableArray* periods = [NSMutableArray array];
             for (NSDictionary* entry in rows) {
