@@ -395,14 +395,17 @@
                 lblTimeRemaining.text = [NSString stringWithFormat:@"%d時間%d分", hourEndBlackout, minuteEndBlackOut];
             }
             
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[periodStartComponent hour],[periodStartComponent minute],
-                                  [periodEndComponent hour],[periodEndComponent minute] ];
+            NSLog(@"The group is %@", [period description]);
+            
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d (第%@グループ)",[periodStartComponent hour],[periodStartComponent minute],
+                                  [periodEndComponent hour],[periodEndComponent minute],period.group.code ];
         } else {
+            
             
             lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
             
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d",[periodStartComponent hour],[periodStartComponent minute],
-                                  [periodEndComponent hour],[periodEndComponent minute] ];
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d - %02d:%02d (第%@グループ)",[periodStartComponent hour],[periodStartComponent minute],
+                                  [periodEndComponent hour],[periodEndComponent minute],period.group.code ];
             
             int currentTotalMinute = ([currentComponent hour] *60) + [currentComponent minute];
             int blackoutFromMinute = ([periodStartComponent hour] * 60) + [periodStartComponent minute];
