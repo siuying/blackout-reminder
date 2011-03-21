@@ -7,6 +7,7 @@
 //
 
 #define USE_MOCK_LOCATION   NO
+#define USE_MOCK_TIME       NO
 #define MOCK_LOCATION       CLLocationCoordinate2DMake(35.661236, 139.558103)
 
 #define TEPCO_URL           @"http://www.tepco.co.jp/index-j.html"
