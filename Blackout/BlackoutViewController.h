@@ -107,7 +107,7 @@
 
 -(void) promptManualInputLocation:(BOOL)retry;
 
--(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+-(void) manualInputLocation;
 
 @end
 

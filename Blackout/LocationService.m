@@ -11,11 +11,12 @@
 
 @implementation LocationService
 
-@synthesize locationDelegate, locationManager, reverseGeocoder;
+@synthesize locationDelegate, locationManager, blackoutService, reverseGeocoder;
 
--(id) init {
+-(id) initWithBlackoutService:(id<BlackoutService>)service {
     self = [super init];
     if (self) {
+        self.blackoutService = service;
     }
     return self;
 }
@@ -23,6 +24,7 @@
 -(void) dealloc {
     [self stop];
 
+    self.blackoutService = nil;
     self.locationManager = nil;
     self.reverseGeocoder = nil;
     [super dealloc];
@@ -54,14 +56,29 @@
 #pragma MKReverseGeocoderDelegate
 
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark {
-    NSArray* location = [NSArray arrayWithObjects:placemark.administrativeArea,
-                         placemark.locality, 
-                         [NSString stringWithFormat:@"%@%@", placemark.subLocality, placemark.thoroughfare], nil];
+    NSLog(@" placemark: %@, begin validation", placemark);    
+    if (placemark.administrativeArea == nil ||
+        placemark.locality == nil ||
+        placemark.subLocality == nil ||
+        placemark.thoroughfare == nil) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.locationDelegate findLocationDidFailedWithError:[NSError errorWithDomain:@"NoLocation" 
+                                                                                      code:0 
+                                                                                  userInfo:nil]];
+        });
+        return;
+    }
     
-    NSLog(@"placemark: %@", placemark);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.locationDelegate findLocationName:geocoder.coordinate 
-                                       didFound:location];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSArray* locations = [self.blackoutService validatePrefecture:placemark.administrativeArea 
+                                                                 city:placemark.locality 
+                                                               street:[NSString stringWithFormat:@"%@%@", placemark.subLocality, placemark.thoroughfare]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.locationDelegate findLocationName:geocoder.coordinate 
+                                           didFound:locations];
+        });        
     });
 }
 

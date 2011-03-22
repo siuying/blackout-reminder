@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "BlackoutService.h"
 
 @protocol LocationServiceDelegate
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names;
@@ -21,12 +22,16 @@
 
     CLLocationManager *locationManager;
     MKReverseGeocoder* reverseGeocoder;
+    id<BlackoutService> blackoutService;
 }
 
 @property (nonatomic,assign) id<LocationServiceDelegate>    locationDelegate;
 
 @property (nonatomic, retain) CLLocationManager*            locationManager;
-@property (nonatomic,retain) MKReverseGeocoder*             reverseGeocoder;
+@property (nonatomic, retain) id<BlackoutService>           blackoutService;
+@property (nonatomic, retain) MKReverseGeocoder*            reverseGeocoder;
+
+-(id) initWithBlackoutService:(id<BlackoutService>)service;
 
 // Discard currently working location service
 -(void) stop;

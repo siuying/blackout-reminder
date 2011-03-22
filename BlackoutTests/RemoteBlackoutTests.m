@@ -94,7 +94,7 @@
     [component setMinute:0];
     [component setSecond:0];
     
-    NSCalendar* gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+//    NSCalendar* gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
 
     BlackoutGroup* group = [[BlackoutGroup alloc] initWithCompany:@"tepco" code:@"1"];
     NSArray* periods = [service periodsWithGroups:[NSArray arrayWithObject:group]];

@@ -58,7 +58,7 @@
 
     // initialize services
     self.blackoutService = [[[RemoteBlackoutService alloc] init] autorelease];
-    self.locationService = [[[LocationService alloc] init] autorelease];
+    self.locationService = [[[LocationService alloc] initWithBlackoutService:self.blackoutService] autorelease];
     self.locationService.locationDelegate = self;
 
     self.btnPrefecture.titleLabel.lineBreakMode = UILineBreakModeClip;
@@ -91,7 +91,7 @@
         [self setLoading:YES animated:NO];
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
         [self.locationService findLocationName:location];
-        
+
     } else {
         if (!self.selectedPrefecture || !self.selectedCity || !self.selectedStreet) {
             if ([CLLocationManager locationServicesEnabled]) {
@@ -101,6 +101,7 @@
             } else {
                 NSLog(@"location service is NOT enable");
                 [self promptManualInputLocation:NO];
+
             }
         } else {
             [self setLoading:YES animated:NO];
@@ -155,15 +156,25 @@
 #pragma mark - LocationServiceDelegate
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
-    if (names && [names count] == 3) {
-        // TODO
-        // If the location name is not in area affected of japan, show error and ask for manual selection
-
+    if (names && [names count] == 3) {       
         NSLog(@" location name found: %@", names);
         [self locationDidSelectedWithPrefecture:[names objectAtIndex:0]
                                            city:[names objectAtIndex:1]
                                          street:[names objectAtIndex:2]];
         
+        
+    } else if (names && [names count] == 2) {
+        NSLog(@" location name found: %@", names);
+        [self locationDidSelectedWithPrefecture:[names objectAtIndex:0]
+                                           city:[names objectAtIndex:1]
+                                         street:nil];
+        
+        
+    } else if (names && [names count] == 1) {
+        NSLog(@" location name found: %@", names);
+        [self locationDidSelectedWithPrefecture:[names objectAtIndex:0]
+                                           city:nil
+                                         street:nil];
         
     } else {
         NSLog(@" location not found: %@", names);
@@ -213,17 +224,17 @@
 
 -(IBAction) clickPrefecture:(id)sender {
     NSLog(@" clicked prefecture");
-    [self promptInputWithSelectedPrefecture:nil city:nil street:nil];
+    [self manualInputLocation];
 }
 
 -(IBAction) clickCity:(id)sender {
     NSLog(@" clicked city: %@", self.selectedPrefecture);
-    [self promptInputWithSelectedPrefecture:self.selectedPrefecture city:nil street:nil];
+    [self manualInputLocation];
 }
 
 -(IBAction) clickStreet:(id)sender {
     NSLog(@" clicked street:%@, %@", self.selectedPrefecture, self.selectedCity);
-    [self promptInputWithSelectedPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
+    [self manualInputLocation];
 }
 
 -(IBAction) openWarning:(id)sender {
@@ -276,8 +287,12 @@
     [alert release];
 }
 
-// prompt for user to input
--(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+// prompt for user to input location manually
+-(void) manualInputLocation {
+    NSString* prefecture = self.selectedPrefecture;
+    NSString* city = self.selectedCity;
+    NSString* street = self.selectedStreet;
+    
     // build nav controller & prefecture controller
     PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService 
                                                                                                         delegate:self];   
@@ -298,6 +313,7 @@
                                                                                                   prefecture:prefecture 
                                                                                                         city:city 
                                                                                                     delegate:self] autorelease];
+        sController.street = street;
         [navController pushViewController:sController animated:NO];
     }
     
@@ -440,7 +456,8 @@
 
 #pragma mark LocationTableViewControllerDelegate
 
--(void) locationDidSelectedWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {    
+-(void) locationDidSelectedWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+    NSLog(@"location did selected with prefecture");
     self.selectedPrefecture = prefecture;
     self.selectedCity = city;
     self.selectedStreet = street;
@@ -463,12 +480,15 @@
     } else {
         [self.btnStreet setTitle:@"大字通称" forState:UIControlStateNormal];
     }
+    [self dismissModalViewControllerAnimated:YES];
     
     if (prefecture && city && street) {
+        NSLog(@" refresh location");
         [self refreshLocation];
+    } else {
+        NSLog(@" prompt manual input");
+        [self promptManualInputLocation:NO];
     }
-
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 -(void) locationDidCancelled {
@@ -479,7 +499,7 @@
     }
 }
 
-#pragma mark UIAlertViewDelegate 
+#pragma mark - UIAlertViewDelegate 
 
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
@@ -495,7 +515,7 @@
         
         if (buttonIndex == [actionSheet cancelButtonIndex]) {
             
-            [self promptInputWithSelectedPrefecture:nil city:nil street:nil];
+            [self manualInputLocation];
             _alertOn = NO;
         }
     } else if (actionSheet.tag == kAlertViewIgntSoftURL) {
