@@ -79,31 +79,34 @@
     UINavigationItem *barItem = [[UINavigationItem alloc] init];
     [self.timeTitleView setLastUpdatedTime:blackoutService.lastUpdated];
     barItem.titleView = self.timeTitleView;
+    barItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_location"] 
+                                                                  style:UIBarButtonItemStylePlain 
+                                                                 target:self
+                                                                 action:@selector(promptGpsInputLocation)];
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
-
+    
     // begin finding location
-    [self setLoading:YES animated:NO];
-
     if (USE_MOCK_LOCATION) {
+        [self setLoading:YES animated:NO];
         CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
         [self.locationService findLocationName:location];
-
+        
     } else {
         if (!self.selectedPrefecture || !self.selectedCity || !self.selectedStreet) {
             if ([CLLocationManager locationServicesEnabled]) {
+                [self setLoading:YES animated:NO];
                 [self promptGpsInputLocation];
-
+                
             } else {
                 NSLog(@"location service is NOT enable");
                 [self promptManualInputLocation:NO];
-                [self setLoading:NO animated:NO];
             }
         } else {
+            [self setLoading:YES animated:NO];
             [self refreshLocation];
         }
     }
-
 }
 
 - (void)viewDidUnload
@@ -163,7 +166,7 @@
         
         
     } else {
-        NSLog(@" unexpected: %@", names);
+        NSLog(@" location not found: %@", names);
         // TODO
         // no location found, show error message and ask user manual selection
         [self locationDidSelectedWithPrefecture:nil
@@ -177,7 +180,6 @@
                                                   otherButtonTitles:nil];
             alert.tag = kAlertViewNoLocationFound;
             [alert show];
-            [alert release];
             _alertOn = YES;
             [alert release];
         }
@@ -259,7 +261,6 @@
 
 -(void) promptGpsInputLocation {
     [self.locationService findLocation];
-
 }
 
 // show alert dialog to warn user about it and ask user manual select
