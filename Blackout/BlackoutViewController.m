@@ -354,22 +354,6 @@
     
     [self setLoading:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSDate* now = [NSDate date];
-        
-        if (USE_MOCK_TIME) {
-            NSDateComponents* component = [[[NSDateComponents alloc] init] autorelease];
-            [component setYear:2011];
-            [component setMonth:3];
-            [component setDay:23];
-            [component setHour:0];
-            [component setMinute:0];
-            [component setSecond:0];
-            
-            NSCalendar* gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
-            now = [gregorian dateFromComponents:component];
-            
-        }
-        
         self.groups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture
                                                             city:self.selectedCity
                                                           street:self.selectedStreet];
