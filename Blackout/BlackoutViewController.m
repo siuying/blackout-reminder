@@ -79,10 +79,10 @@
     UINavigationItem *barItem = [[UINavigationItem alloc] init];
     [self.timeTitleView setLastUpdatedTime:blackoutService.lastUpdated];
     barItem.titleView = self.timeTitleView;
-    barItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_location"] 
-                                                                  style:UIBarButtonItemStylePlain 
-                                                                 target:self
-                                                                 action:@selector(promptGpsInputLocation)];
+    barItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_location"] 
+                                                                   style:UIBarButtonItemStylePlain 
+                                                                  target:self
+                                                                  action:@selector(promptGpsInputLocation)] autorelease];
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
     
@@ -178,7 +178,6 @@
         
     } else {
         NSLog(@" location not found: %@", names);
-        // TODO
         // no location found, show error message and ask user manual selection
         [self locationDidSelectedWithPrefecture:nil
                                            city:nil
