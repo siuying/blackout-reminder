@@ -49,6 +49,7 @@
     IBOutlet UINavigationBar* boNavigationBar;
     RemaingTimeTitleView* timeTitleView;
     ProgressView* progressView;
+    NSTimer* timer;
     
     BOOL _alertOn;
     
@@ -79,6 +80,7 @@
 @property (nonatomic, retain) IBOutlet UINavigationBar* boNavigationBar;
 @property (nonatomic, retain) RemaingTimeTitleView* timeTitleView;
 @property (nonatomic, retain) ProgressView* progressView;
+@property (nonatomic, retain) NSTimer* timer;
 
 @property (nonatomic) BOOL alertOn; 
 

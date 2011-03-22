@@ -21,7 +21,7 @@
 @synthesize buttonWarning, buttonHomepage, boNavigationBar;
 @synthesize locationService, blackoutService;
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
-@synthesize timeTitleView, progressView;
+@synthesize timeTitleView, progressView, timer;
 @synthesize groups, periods, lastUpdated;
 @synthesize alertOn = _alertOn;
 
@@ -37,6 +37,7 @@
     self.groups = nil;
     self.periods = nil;
     self.lastUpdated = nil;
+    self.timer = nil;
     
     [super dealloc];
 }
@@ -80,9 +81,6 @@
     barItem.titleView = self.timeTitleView;
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
-    
-    //NSTimer to refresh time 
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refreshTime) userInfo:nil repeats:YES];
 
     // begin finding location
     [self setLoading:YES animated:NO];
@@ -126,6 +124,23 @@
     self.buttonWarning = nil;
     self.buttonHomepage = nil;
     self.boNavigationBar = nil;
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //NSTimer to refresh time 
+    [self.timer invalidate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 
+                                                  target:self 
+                                                selector:@selector(refreshTime) 
+                                                userInfo:nil 
+                                                 repeats:YES];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.timer invalidate];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
