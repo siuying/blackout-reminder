@@ -20,9 +20,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.frame = CGRectMake(0, 0, 250, 44);
+        self.frame = CGRectMake(0, 0, 200, 44);
         self.appTitle = [self labelWithPrimaryColor:[UIColor whiteColor] selectedColor:[UIColor whiteColor] fontSize:20.0 bold:YES];
-        self.appTitle.frame = CGRectMake(0, 0, 250, 28);
+        self.appTitle.frame = CGRectMake(0, 0, 200, 28);
+        self.appTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.appTitle.textAlignment = UITextAlignmentCenter;
         self.appTitle.backgroundColor = [UIColor clearColor];
         self.appTitle.text = [NSString stringWithFormat:@"計画停電"];
@@ -37,6 +38,7 @@
     if (update) {
         if (!self.remainingTime) {
             self.remainingTime = [self labelWithPrimaryColor:[UIColor whiteColor] selectedColor:[UIColor whiteColor] fontSize:11.0 bold:NO];
+            self.remainingTime.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             self.remainingTime.textAlignment = UITextAlignmentCenter;
             self.remainingTime.backgroundColor = [UIColor clearColor];
             [self addSubview:self.remainingTime];            
@@ -57,10 +59,10 @@
     [super layoutSubviews];
     
     if (self.remainingTime) {
-        self.appTitle.frame = CGRectMake(0, 0, 250, 28);
-        self.remainingTime.frame = CGRectMake(0, 26, 250, 15);
+        self.appTitle.frame = CGRectMake(0, 0, 200, 28);
+        self.remainingTime.frame = CGRectMake(0, 26, 200, 15);
     } else {
-        self.appTitle.frame = CGRectMake(0, 0, 250, 44);
+        self.appTitle.frame = CGRectMake(0, 0, 200, 44);
         self.remainingTime.frame = CGRectZero; 
     }
 }
