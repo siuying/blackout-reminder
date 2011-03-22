@@ -54,6 +54,8 @@
 		545A62A81333B0A6009475A1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 545A62A61333B0A6009475A1 /* Reachability.m */; };
 		547C41D81337AFA900240591 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 547C41D61337AFA200240591 /* Default.png */; };
 		547C41D91337AFA900240591 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 547C41D71337AFA500240591 /* Default@2x.png */; };
+		547C869613383232003B640B /* location_24.png in Resources */ = {isa = PBXBuildFile; fileRef = 547C869413383232003B640B /* location_24.png */; };
+		547C869713383232003B640B /* location_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 547C869513383232003B640B /* location_48.png */; };
 		5494400713343BF600EB0EFE /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5494400613343BF600EB0EFE /* XPathQuery.m */; };
 		5494400813343BF600EB0EFE /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5494400613343BF600EB0EFE /* XPathQuery.m */; };
 		5494400A13343C0D00EB0EFE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5494400913343C0D00EB0EFE /* libxml2.2.dylib */; };
@@ -153,6 +155,8 @@
 		545A62A61333B0A6009475A1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = External/ASIHttpRequest/External/Reachability/Reachability.m; sourceTree = "<group>"; };
 		547C41D61337AFA200240591 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		547C41D71337AFA500240591 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		547C869413383232003B640B /* location_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_24.png; sourceTree = "<group>"; };
+		547C869513383232003B640B /* location_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_48.png; sourceTree = "<group>"; };
 		5494400513343BF600EB0EFE /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPathQuery.h; path = External/XPath/XPathQuery.h; sourceTree = "<group>"; };
 		5494400613343BF600EB0EFE /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPathQuery.m; path = External/XPath/XPathQuery.m; sourceTree = "<group>"; };
 		5494400913343C0D00EB0EFE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -406,6 +410,8 @@
 				54E513C71330858B00A4E8DA /* Blackout-Info.plist */,
 				54E513C81330858B00A4E8DA /* InfoPlist.strings */,
 				A0BCAA841337326B00BD92CD /* reminder.html */,
+				547C869413383232003B640B /* location_24.png */,
+				547C869513383232003B640B /* location_48.png */,
 				547C41D61337AFA200240591 /* Default.png */,
 				547C41D71337AFA500240591 /* Default@2x.png */,
 				A0A63DAF1337933200A0021F /* icon.png */,
@@ -575,6 +581,8 @@
 				A0A63DB21337933200A0021F /* icon@2x.png in Resources */,
 				547C41D81337AFA900240591 /* Default.png in Resources */,
 				547C41D91337AFA900240591 /* Default@2x.png in Resources */,
+				547C869613383232003B640B /* location_24.png in Resources */,
+				547C869713383232003B640B /* location_48.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,6 +765,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chan Fai Chong (LZDJU2DZR7)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -765,6 +774,7 @@
 				INFOPLIST_FILE = "Blackout/Blackout-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2549DF43-BF8A-460F-9BF0-C2C539E9CC46";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
