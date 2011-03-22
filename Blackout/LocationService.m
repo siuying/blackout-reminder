@@ -59,8 +59,10 @@
                          [NSString stringWithFormat:@"%@%@", placemark.subLocality, placemark.thoroughfare], nil];
     
     NSLog(@"placemark: %@", placemark);
-    [self.locationDelegate findLocationName:geocoder.coordinate 
-                                   didFound:location];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.locationDelegate findLocationName:geocoder.coordinate 
+                                       didFound:location];
+    });
 }
 
 // There are at least two types of errors:
@@ -68,18 +70,22 @@
 //   - Result not found errors (permanent condition).  The result not found errors
 //     will have the domain MKErrorDomain and the code MKErrorPlacemarkNotFound
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
-    [self.locationDelegate findLocationName:geocoder.coordinate 
-                         didFailedWithError:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.locationDelegate findLocationName:geocoder.coordinate 
+                             didFailedWithError:error];
+    });
 }
 
 #pragma CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     [self findLocationName:newLocation.coordinate];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    [self.locationDelegate findLocationDidFailedWithError:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.locationDelegate findLocationDidFailedWithError:error];
+    });
 }
 
 @end
