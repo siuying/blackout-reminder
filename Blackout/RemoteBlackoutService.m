@@ -208,6 +208,31 @@
     return periods;
 }
 
+-(NSArray*) validatePrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
+    if (prefecture && city && street) {
+        NSArray* streets = [self streetsWithPrefecture:prefecture city:city];
+        if ([streets containsObject:street]) {
+            return [NSArray arrayWithObjects:prefecture, city, street, nil];
+        }
+    }
+    
+    if (prefecture && city) {
+        NSArray* cities = [self cities:prefecture];
+        if ([cities containsObject:city]) {
+            return [NSArray arrayWithObjects:prefecture, city, nil];
+        }
+    }
+
+    if (prefecture) {
+        NSArray* prefectures = [self prefectures];
+        if ([prefectures containsObject:prefecture]) {
+            return [NSArray arrayWithObjects:prefecture, nil];
+        }
+    }
+
+    return [NSArray array];
+}
+
 #pragma Private
 
 -(NSArray*) periodsWithGroup:(BlackoutGroup*)group {

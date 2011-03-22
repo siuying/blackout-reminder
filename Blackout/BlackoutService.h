@@ -31,4 +31,6 @@
 // If no electricity for the groups found, return empty array
 -(NSArray*) periodsWithGroups:(NSArray*)groups;
 
+-(NSArray*) validatePrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+
 @end
