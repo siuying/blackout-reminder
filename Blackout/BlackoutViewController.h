@@ -115,6 +115,10 @@
 
 -(void) promptManualInputLocation:(BOOL)retry;
 
+// popup manual selection of prefecture, city and street
+-(void) manualInputLocationWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+
+// popup manual selection of prefecture, city and street, with what already entered filled in
 -(void) manualInputLocation;
 
 - (void)reachabilityChanged:(NSNotification *)note;

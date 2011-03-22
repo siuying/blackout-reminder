@@ -214,17 +214,17 @@
 
 -(IBAction) clickPrefecture:(id)sender {
     NSLog(@" clicked prefecture");
-    [self manualInputLocation];
+    [self manualInputLocationWithPrefecture:nil city:nil street:nil];
 }
 
 -(IBAction) clickCity:(id)sender {
     NSLog(@" clicked city: %@", self.selectedPrefecture);
-    [self manualInputLocation];
+    [self manualInputLocationWithPrefecture:self.selectedPrefecture city:nil street:nil];
 }
 
 -(IBAction) clickStreet:(id)sender {
     NSLog(@" clicked street:%@, %@", self.selectedPrefecture, self.selectedCity);
-    [self manualInputLocation];
+    [self manualInputLocationWithPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
 }
 
 -(IBAction) openWarning:(id)sender {
@@ -277,12 +277,7 @@
     [alert release];
 }
 
-// prompt for user to input location manually
--(void) manualInputLocation {
-    NSString* prefecture = self.selectedPrefecture;
-    NSString* city = self.selectedCity;
-    NSString* street = self.selectedStreet;
-    
+-(void) manualInputLocationWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
     // build nav controller & prefecture controller
     PrefectureTableViewController* pController = [[PrefectureTableViewController alloc] initWithBlackoutServices:self.blackoutService 
                                                                                                         delegate:self];   
@@ -300,9 +295,9 @@
     // build street controller if needed
     if (prefecture != nil && city != nil) {
         StreetTableViewController* sController = [[[StreetTableViewController alloc] initWithBlackoutServices:self.blackoutService 
-                                                                                                  prefecture:prefecture 
-                                                                                                        city:city 
-                                                                                                    delegate:self] autorelease];
+                                                                                                   prefecture:prefecture 
+                                                                                                         city:city 
+                                                                                                     delegate:self] autorelease];
         sController.street = street;
         [navController pushViewController:sController animated:NO];
     }
@@ -311,6 +306,15 @@
     [pController release];
     [navController release];
     
+
+}
+
+// prompt for user to input location manually
+-(void) manualInputLocation {
+    NSString* prefecture = self.selectedPrefecture;
+    NSString* city = self.selectedCity;
+    NSString* street = self.selectedStreet;
+    [self manualInputLocationWithPrefecture:prefecture city:city street:street];
 }
 
 -(void) setLoading:(BOOL)isLoading {
@@ -540,17 +544,13 @@
         self.btnPrefecture.enabled = NO;
         self.btnCity.enabled = NO;
         self.btnStreet.enabled = NO;
-        self.buttonHomepage.enabled = NO;
-        self.navigationItem.rightBarButtonItem.enabled = NO;
 
     }  else {
         NSLog(@"find or restore location");
         self.btnPrefecture.enabled = YES;
         self.btnCity.enabled = YES;
         self.btnStreet.enabled = YES;
-        self.buttonHomepage.enabled = YES;
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-        
+
         if (USE_MOCK_LOCATION) {
             [self setLoading:YES animated:NO];
             CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
