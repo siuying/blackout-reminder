@@ -95,10 +95,12 @@
     if (loading) {
         if (!self.loadingView) {
             self.loadingView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
-            [self.loadingView startAnimating];
-            self.navigationItem.titleView = self.loadingView;
-            self.loaded = NO;
         }
+        
+        [self.loadingView startAnimating];
+        self.navigationItem.titleView = self.loadingView;
+        self.loaded = NO;
+
     } else {
         if (self.loadingView) {
             [self.loadingView stopAnimating];

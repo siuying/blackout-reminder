@@ -36,11 +36,11 @@
 
 +(ProgressView*) progressViewOnView:(UIView*)parentView animated:(BOOL)animated {
     ProgressView* progressView = [[[ProgressView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
-    progressView.alpha = 0;
     [parentView addSubview:progressView];
     [parentView bringSubviewToFront:progressView];
     
     if (animated) {
+        progressView.alpha = 0;
         [UIView animateWithDuration:0.3 
                          animations:^{
                              progressView.alpha = 1;
@@ -48,10 +48,7 @@
                          completion:^(BOOL finished){
                          }
          ];
-    } else {
-        progressView.alpha = 1;
     }
-
     return progressView;
 }
 
