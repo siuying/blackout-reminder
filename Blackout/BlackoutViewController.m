@@ -94,9 +94,7 @@
     } else {
         if (!self.selectedPrefecture || !self.selectedCity || !self.selectedStreet) {
             if ([CLLocationManager locationServicesEnabled]) {
-                // location service is enabled
-                // find current location
-                [self.locationService findLocation];
+                [self promptGpsInputLocation];
 
             } else {
                 NSLog(@"location service is NOT enable");
@@ -243,6 +241,11 @@
 }
 
 #pragma mark - Public
+
+-(void) promptGpsInputLocation {
+    [self.locationService findLocation];
+
+}
 
 // show alert dialog to warn user about it and ask user manual select
 // if retry is YES, ask if user would like to retry

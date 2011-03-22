@@ -90,8 +90,6 @@
 @property (nonatomic, retain) NSArray* periods;
 @property (nonatomic, retain) NSDate* lastUpdated;
 
--(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
-
 // If isLoading = YES, disable UI and show a loading screen
 // Otherwise, remove the loading screen
 -(void) setLoading:(BOOL)isLoading;
@@ -103,7 +101,11 @@
 
 -(void) refreshTime;
 
+-(void) promptGpsInputLocation;
+
 -(void) promptManualInputLocation:(BOOL)retry;
+
+-(void) promptInputWithSelectedPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
 
 @end
 
