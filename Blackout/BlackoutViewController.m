@@ -428,12 +428,11 @@
 
             
             lblTimeTitle.text = [NSString stringWithFormat:@"停電が終わるまで"];
-            lblTimeRemaining.text = [BlackoutUtils timeWithHours:diff.hour minutes:diff.minute];            
             lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
                                     [periodStartComponent hour],[periodStartComponent minute], 
                                     [periodEndComponent hour], [periodEndComponent minute], 
                                     [BlackoutUtils groupsMessage:self.groups]];
-            
+            lblTimeRemaining.text = [BlackoutUtils timeWithHours:diff.hour minutes:diff.minute+1];            
             
         } else {
             NSDateComponents* diff = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit)
