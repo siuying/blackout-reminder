@@ -22,7 +22,7 @@
 @synthesize locationService, blackoutService;
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
 @synthesize timeTitleView, progressView, timer;
-@synthesize groups, periods, lastUpdated;
+@synthesize groups, periods, lastUpdated, internetConnectionStatus, reachability;
 @synthesize alertOn = _alertOn;
 
 - (void)dealloc
@@ -38,6 +38,7 @@
     self.periods = nil;
     self.lastUpdated = nil;
     self.timer = nil;
+    self.reachability = nil;
     
     [super dealloc];
 }
@@ -86,28 +87,16 @@
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
     
-    // begin finding location
-    if (USE_MOCK_LOCATION) {
-        [self setLoading:YES animated:NO];
-        CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
-        [self.locationService findLocationName:location];
+    //Set a method to be called when a notification is sent.
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(reachabilityChanged:) 
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
 
-    } else {
-        if (!self.selectedPrefecture || !self.selectedCity || !self.selectedStreet) {
-            if ([CLLocationManager locationServicesEnabled]) {
-                [self setLoading:YES animated:NO];
-                [self promptGpsInputLocation];
-                
-            } else {
-                NSLog(@"location service is NOT enable");
-                [self promptManualInputLocation:NO];
-
-            }
-        } else {
-            [self setLoading:YES animated:NO];
-            [self refreshLocation];
-        }
-    }
+    //Set Reachability class to notifiy app when the network status changes.
+    self.reachability = [Reachability reachabilityForInternetConnection];
+    [self.reachability startNotifier];
+    [self updateNetworkStatus];
 }
 
 - (void)viewDidUnload
@@ -128,6 +117,8 @@
     self.buttonWarning = nil;
     self.buttonHomepage = nil;
     self.boNavigationBar = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -526,5 +517,67 @@
     }
     
 }
+
+#pragma mark - Reachabiliy
+
+- (void)reachabilityChanged:(NSNotification *)note {
+    [self updateNetworkStatus];
+}
+
+- (void)updateNetworkStatus {
+    self.internetConnectionStatus = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+    if (self.internetConnectionStatus == NotReachable) {
+        NSLog(@"network unreachable");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ネットワーク接続はありません" 
+                                                        message:@"本アプリのご使用にネットワーク接続が必要です。インタネットに接続してもう一回お試しください。" 
+                                                       delegate:self 
+                                              cancelButtonTitle:nil 
+                                              otherButtonTitles:@"はい", nil];
+        alert.tag = kAlertViewNetworkError;
+        [alert show];
+        [alert release];
+
+        self.btnPrefecture.enabled = NO;
+        self.btnCity.enabled = NO;
+        self.btnStreet.enabled = NO;
+        self.buttonHomepage.enabled = NO;
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+
+    }  else {
+        NSLog(@"find or restore location");
+        self.btnPrefecture.enabled = YES;
+        self.btnCity.enabled = YES;
+        self.btnStreet.enabled = YES;
+        self.buttonHomepage.enabled = YES;
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+        if (USE_MOCK_LOCATION) {
+            [self setLoading:YES animated:NO];
+            CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
+            [self.locationService findLocationName:location];
+            
+        } else {
+            if (self.groups && self.periods) {
+                // groups and periods ready
+                [self refreshTime];
+
+            } else if (!self.selectedPrefecture || !self.selectedCity || !self.selectedStreet) {
+                if ([CLLocationManager locationServicesEnabled]) {
+                    [self setLoading:YES animated:NO];
+                    [self promptGpsInputLocation];
+                    
+                } else {
+                    NSLog(@"location service is NOT enable");
+                    [self promptManualInputLocation:NO];
+                    
+                }
+            } else {
+                [self setLoading:YES animated:NO];
+                [self refreshLocation];
+            }
+        }
+    }
+}
+
 
 @end

@@ -25,10 +25,12 @@
 
 #import "RemaingTimeTitleView.h"
 #import "ProgressView.h"
+#import "Reachability.h"
 
 #define kAlertViewOpenURL   1
 #define kAlertViewNoLocationFound   2
 #define kAlertViewIgntSoftURL 3
+#define kAlertViewNetworkError  100
 
 @interface BlackoutViewController : UIViewController <LocationServiceDelegate, LocationTableViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
     // UI
@@ -61,6 +63,9 @@
     NSArray* groups;
     NSArray* periods;
     NSDate* lastUpdated;
+
+    NetworkStatus internetConnectionStatus;
+    Reachability* reachability;
 }
 
 
@@ -92,6 +97,9 @@
 @property (nonatomic, retain) NSArray* periods;
 @property (nonatomic, retain) NSDate* lastUpdated;
 
+@property NetworkStatus internetConnectionStatus;
+@property (nonatomic, retain) Reachability* reachability;
+
 // If isLoading = YES, disable UI and show a loading screen
 // Otherwise, remove the loading screen
 -(void) setLoading:(BOOL)isLoading;
@@ -109,6 +117,9 @@
 
 -(void) manualInputLocation;
 
+- (void)reachabilityChanged:(NSNotification *)note;
+- (void)updateNetworkStatus;
+
 @end
 
 @interface BlackoutViewController (UIActions)
@@ -122,4 +133,3 @@
 -(IBAction) openIgntSoftUrl:(id)sender;
 
 @end
-

@@ -162,10 +162,10 @@
     }
     
     if (self.error) {
-        cell.textLabel.text = @"Error downloading data!";        
+        cell.textLabel.text = @"データのダウンロードにエラーが発生しました";        
         cell.textLabel.textColor = [UIColor redColor];
     } else if (self.empty) {
-        cell.textLabel.text = @"No result found!";
+        cell.textLabel.text = @"検索エラー";
         cell.textLabel.textColor = [UIColor darkGrayColor];
     } else {
         cell.textLabel.text = [locations objectAtIndex:[indexPath indexAtPosition:1]];        
