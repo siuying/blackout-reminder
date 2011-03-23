@@ -553,8 +553,7 @@
 
         if (USE_MOCK_LOCATION) {
             [self setLoading:YES animated:NO];
-            CLLocationCoordinate2D location = CLLocationCoordinate2DMake(35.661236, 139.558103);
-            [self.locationService findLocationName:location];
+            [self.locationService findLocationName:MOCK_LOCATION];
             
         } else {
             if (self.groups && self.periods) {
