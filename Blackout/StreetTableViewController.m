@@ -55,7 +55,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     if (self.loaded && !self.empty && !self.error) {
-        self.street = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
+        NSString* selected = [self textForRow:indexPath];
+        self.street = selected;
+
         NSLog(@" selected: %@", street);    
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }

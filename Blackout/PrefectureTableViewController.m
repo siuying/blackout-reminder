@@ -36,7 +36,7 @@
 {
     if (self.loaded && !self.empty && !self.error) {
         // find selected index
-        NSString* selected = [self.locations objectAtIndex:[indexPath indexAtPosition:1]];
+        NSString* selected = [self textForRow:indexPath];
         NSLog(@" selected: %@", selected);
         
         CityTableViewController* cityController = [[CityTableViewController alloc] initWithBlackoutServices:self.blackoutServices prefecture:selected delegate:self.locationDelegate];

@@ -14,7 +14,7 @@
 -(void) locationDidCancelled;
 @end
 
-@interface LocationTableViewController : UITableViewController {
+@interface LocationTableViewController : UITableViewController <UISearchBarDelegate> {
     BOOL error;
     BOOL loaded;
     
@@ -23,12 +23,20 @@
     id<LocationTableViewControllerDelegate> locationDelegate;
     
     UIActivityIndicatorView* loadingView;
+    IBOutlet UISearchBar *searchBar;
+    
+    NSString* searchTerm;
+    NSMutableArray* filteredLocations;
 }
 
 @property (nonatomic, retain)    NSMutableArray* locations;
 @property (nonatomic, retain)    id<BlackoutService> blackoutServices;
 @property (nonatomic, assign)    id<LocationTableViewControllerDelegate> locationDelegate;
 @property (nonatomic, retain)    UIActivityIndicatorView* loadingView;
+@property (nonatomic, retain)    IBOutlet UISearchBar *searchBar;
+
+@property (nonatomic, retain)    NSString* searchTerm;
+@property (nonatomic, retain)    NSMutableArray* filteredLocations;
 
 @property (nonatomic, assign)    BOOL error;
 @property (nonatomic, assign)    BOOL loaded;
@@ -39,6 +47,7 @@
 -(void) loadTable;
 -(void) setLoading:(BOOL)loading;
 -(void) setError:(BOOL)isError message:(NSString*)message;
+-(NSString*) textForRow:(NSIndexPath *)indexPath;
 
 // If the table is loaded and empty
 -(BOOL) empty;

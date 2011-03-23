@@ -8,19 +8,27 @@
 
 #import "LocationTableViewController.h"
 
+@interface LocationTableViewController (Private)
+-(void) setSearchBarSelected:(BOOL)selected;
+@end
+
 @implementation LocationTableViewController
 
-@synthesize loadingView;
+@synthesize loadingView, searchBar;
 @synthesize locations, error, loaded;
 @synthesize blackoutServices;
 @synthesize locationDelegate;
+
+@synthesize searchTerm, filteredLocations;
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)theService locations:(NSArray*)theLocations delegate:(id<LocationTableViewControllerDelegate>) delegate{
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         self.locationDelegate = delegate;
         self.blackoutServices = theService;
+        
         self.locations = [NSMutableArray arrayWithArray:[theLocations sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+        self.filteredLocations = nil;
     }
     return self;
 }
@@ -28,6 +36,8 @@
 
 - (void)dealloc
 {
+    self.searchTerm = nil;
+    self.filteredLocations = nil;
     self.blackoutServices = nil;
     self.locations = nil;
     [super dealloc];
@@ -41,10 +51,31 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - Private
+
+// animate UI when user select search bar
+-(void) setSearchBarSelected:(BOOL)selected {
+    if (selected) {
+        [self.searchBar setShowsCancelButton:YES animated:YES];
+        
+    } else {
+        [self.searchBar setShowsCancelButton:NO animated:YES];
+        
+    }
+}
+
 #pragma mark - View lifecycle
 
 -(void) loadView {
     [super loadView];
+
+    self.searchBar = [[[UISearchBar alloc] init] autorelease];
+    self.searchBar.delegate = self;
+    self.tableView.tableHeaderView = self.searchBar;
+    
+    [self.searchBar sizeToFit];
+    [self.tableView sizeToFit];
+
     [self loadTable];
 }
 
@@ -57,6 +88,7 @@
 {
     [super viewDidUnload];
     self.loadingView = nil;
+    self.searchBar = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -72,6 +104,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self setSearchBarSelected:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -148,7 +181,11 @@
     } else if (self.empty) {
         return 1;
     } else {
-        return [locations count];        
+        if (self.filteredLocations) {
+            return [self.filteredLocations count];
+        } else {
+            return [locations count];        
+        }
     }
 }
 
@@ -168,11 +205,54 @@
         cell.textLabel.text = @"検索エラー";
         cell.textLabel.textColor = [UIColor darkGrayColor];
     } else {
-        cell.textLabel.text = [locations objectAtIndex:[indexPath indexAtPosition:1]];        
+        cell.textLabel.text = [self textForRow:indexPath];        
         cell.textLabel.textColor = [UIColor darkTextColor];
     }
 
     return cell;
+}
+
+-(NSString*) textForRow:(NSIndexPath *)indexPath {
+    if (self.filteredLocations) {
+        return [filteredLocations objectAtIndex:[indexPath indexAtPosition:1]];        
+    } else {
+        return [locations objectAtIndex:[indexPath indexAtPosition:1]];        
+    }
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self setSearchBarSelected:YES];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [self setSearchBarSelected:NO];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
+    NSLog(@" cancel clicked");
+    [self setSearchBarSelected:NO];
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)aSearchTerm {
+    if (![self.searchTerm isEqualToString:aSearchTerm] && self.loaded) {
+        NSLog(@"search term = %@", aSearchTerm);
+        self.searchTerm = aSearchTerm;
+
+        if (aSearchTerm != nil && ![aSearchTerm isEqualToString:@""]) {
+            self.filteredLocations = [NSMutableArray arrayWithArray:self.locations];
+            for (NSString* loc in self.locations) {
+                if (aSearchTerm && [loc rangeOfString:aSearchTerm options:NSLiteralSearch|NSCaseInsensitiveSearch].length == 0) {
+                    [self.filteredLocations removeObject:loc];
+                }                
+            }
+        } else {
+            self.filteredLocations = nil;
+        }
+        [self.tableView reloadData];
+    }
 }
 
 @end
