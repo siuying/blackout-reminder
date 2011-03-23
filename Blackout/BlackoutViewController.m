@@ -435,7 +435,7 @@
                                                   options:0];
 
             
-            lblTimeTitle.text = [NSString stringWithFormat:@"停電が終わるまで"];
+            lblTimeTitle.text = [NSString stringWithFormat:@"停電予定終了まで"];
             lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
                                     [periodStartComponent hour],[periodStartComponent minute], 
                                     [periodEndComponent hour], [periodEndComponent minute], 
