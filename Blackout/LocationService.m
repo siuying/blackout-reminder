@@ -57,18 +57,6 @@
 
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark {
     NSLog(@" placemark: %@, begin validation", placemark);    
-    if (placemark.administrativeArea == nil ||
-        placemark.locality == nil ||
-        placemark.subLocality == nil ||
-        placemark.thoroughfare == nil) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.locationDelegate findLocationDidFailedWithError:[NSError errorWithDomain:@"NoLocation" 
-                                                                                      code:0 
-                                                                                  userInfo:nil]];
-        });
-        return;
-    }
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSArray* locations = [self.blackoutService validatePrefecture:placemark.administrativeArea 
