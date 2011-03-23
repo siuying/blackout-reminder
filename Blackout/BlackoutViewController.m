@@ -84,6 +84,11 @@
                                                                    style:UIBarButtonItemStylePlain 
                                                                   target:self
                                                                   action:@selector(promptGpsInputLocation)] autorelease];
+    barItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"週間" 
+                                                                   style:UIBarButtonItemStylePlain 
+                                                                  target:self 
+                                                                  action:@selector(clickTime:)]autorelease];
+    
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
     
@@ -276,7 +281,7 @@
     NSLog(@" *** prompt manual input location");
 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" 
-                                                    message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" 
+                                                    message:@"位置情報サービスをオンにするか、マニュアルで位置情報を入力してください。" 
                                                    delegate:self 
                                           cancelButtonTitle:@"はい" 
                                           otherButtonTitles:nil];
@@ -430,7 +435,7 @@
                                                   options:0];
 
             
-            lblTimeTitle.text = [NSString stringWithFormat:@"停電が終わるまで"];
+            lblTimeTitle.text = [NSString stringWithFormat:@"停電予定終了まで"];
             lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
                                     [periodStartComponent hour],[periodStartComponent minute], 
                                     [periodEndComponent hour], [periodEndComponent minute], 
