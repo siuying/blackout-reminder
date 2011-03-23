@@ -9,6 +9,7 @@
 #import "BlackoutViewController.h"
 #import "BlackoutAppDelegate.h"
 #import "RemoteBlackoutService.h"
+#import "BlackoutTableViewController.h"
 
 @interface BlackoutViewController (Private)
 -(void) refreshReminderDidUpdatedWithGroups:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods;
@@ -16,7 +17,7 @@
 
 @implementation BlackoutViewController
 
-@synthesize btnPrefecture, btnCity, btnStreet;
+@synthesize btnPrefecture, btnCity, btnStreet, btnTime;
 @synthesize lblTimeTitle, lblTimeRemaining, lblTimeDetail;
 @synthesize buttonWarning, buttonHomepage, boNavigationBar;
 @synthesize locationService, blackoutService;
@@ -227,6 +228,16 @@
     [self manualInputLocationWithPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
 }
 
+-(IBAction) clickTime:(id)sender {
+    if (self.periods) {
+        BlackoutTableViewController* controller = [[BlackoutTableViewController alloc] initWithBlackoutPeriods:self.periods];
+        UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
+        [self presentModalViewController:navController animated:YES];
+        [controller release];
+        [navController release];
+    }
+}
+
 -(IBAction) openWarning:(id)sender {
     NSLog(@" clicked warning button");
     RemarksViewController *controller = [[RemarksViewController alloc] init];
@@ -234,6 +245,7 @@
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
     [self presentModalViewController:navController animated:YES];
     [controller release];
+    [navController release];
 }
 
 -(IBAction) openTepcoUrl:(id)sender{

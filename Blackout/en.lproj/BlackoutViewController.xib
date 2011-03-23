@@ -87,7 +87,7 @@
 						<string key="NSFrame">{{20, 192}, {286, 63}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="980507617"/>
+						<reference key="NSNextKeyView" ref="112194524"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -282,6 +282,29 @@
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="354927521"/>
 					</object>
+					<object class="IBUIButton" id="112194524">
+						<reference key="NSNextResponder" ref="774585933"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{20, 192}, {280, 117}}</string>
+						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="980507617"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">15</double>
+							<int key="NSfFlags">16</int>
+						</object>
+						<reference key="IBUIHighlightedTitleColor" ref="425320663"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="354927521"/>
+					</object>
 				</object>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
@@ -430,6 +453,23 @@
 					</object>
 					<int key="connectionID">51</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">btnTime</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="112194524"/>
+					</object>
+					<int key="connectionID">53</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">clickTime:</string>
+						<reference key="source" ref="112194524"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">54</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -467,6 +507,7 @@
 							<reference ref="478030911"/>
 							<reference ref="809208725"/>
 							<reference ref="1000464242"/>
+							<reference ref="112194524"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -534,6 +575,12 @@
 						<reference key="object" ref="714158035"/>
 						<reference key="parent" ref="774585933"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">52</int>
+						<reference key="object" ref="112194524"/>
+						<reference key="parent" ref="774585933"/>
+						<string key="objectName">Button Time</string>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -552,6 +599,7 @@
 					<string>37.IBPluginDependency</string>
 					<string>49.IBPluginDependency</string>
 					<string>50.IBPluginDependency</string>
+					<string>52.IBPluginDependency</string>
 					<string>6.IBEditorWindowLastContentRect</string>
 					<string>6.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
@@ -560,6 +608,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>BlackoutViewController</string>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -587,7 +636,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">51</int>
+			<int key="maxID">54</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -602,12 +651,14 @@
 							<string>clickCity:</string>
 							<string>clickPrefecture:</string>
 							<string>clickStreet:</string>
+							<string>clickTime:</string>
 							<string>openIgntSoftUrl:</string>
 							<string>openTepcoUrl:</string>
 							<string>openWarning:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -623,6 +674,7 @@
 							<string>clickCity:</string>
 							<string>clickPrefecture:</string>
 							<string>clickStreet:</string>
+							<string>clickTime:</string>
 							<string>openIgntSoftUrl:</string>
 							<string>openTepcoUrl:</string>
 							<string>openWarning:</string>
@@ -639,6 +691,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">clickStreet:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">clickTime:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -663,6 +719,7 @@
 							<string>btnCity</string>
 							<string>btnPrefecture</string>
 							<string>btnStreet</string>
+							<string>btnTime</string>
 							<string>buttonHomepage</string>
 							<string>buttonWarning</string>
 							<string>lblTimeDetail</string>
@@ -672,6 +729,7 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UINavigationBar</string>
+							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -690,6 +748,7 @@
 							<string>btnCity</string>
 							<string>btnPrefecture</string>
 							<string>btnStreet</string>
+							<string>btnTime</string>
 							<string>buttonHomepage</string>
 							<string>buttonWarning</string>
 							<string>lblTimeDetail</string>
@@ -712,6 +771,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">btnStreet</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">btnTime</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">

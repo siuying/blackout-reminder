@@ -40,7 +40,8 @@
     IBOutlet UIButton* btnPrefecture;
     IBOutlet UIButton* btnCity;
     IBOutlet UIButton* btnStreet;
-    
+    IBOutlet UIButton* btnTime;
+
     IBOutlet UILabel* lblTimeTitle;
     IBOutlet UILabel* lblTimeRemaining;
     IBOutlet UILabel* lblTimeDetail;
@@ -75,6 +76,7 @@
 @property (nonatomic, retain) IBOutlet UIButton* btnPrefecture;
 @property (nonatomic, retain) IBOutlet UIButton* btnCity;
 @property (nonatomic, retain) IBOutlet UIButton* btnStreet;
+@property (nonatomic, retain) IBOutlet UIButton* btnTime;
 
 @property (nonatomic, retain) IBOutlet UILabel* lblTimeTitle;
 @property (nonatomic, retain) IBOutlet UILabel* lblTimeRemaining;
@@ -131,6 +133,7 @@
 -(IBAction) clickPrefecture:(id)sender;
 -(IBAction) clickCity:(id)sender;
 -(IBAction) clickStreet:(id)sender;
+-(IBAction) clickTime:(id)sender;
 
 -(IBAction) openWarning:(id)sender;
 -(IBAction) openTepcoUrl:(id)sender;
