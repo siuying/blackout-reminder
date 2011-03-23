@@ -11,6 +11,7 @@
 
 @interface BlackoutTableViewController (Private)
 -(void) setup;
+-(NSString*) cellValueAsString:(BlackoutPeriod*)period;
 @end
 
 
@@ -61,12 +62,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     NSString* date = [self.dates objectAtIndex:[indexPath indexAtPosition:0]];
     NSArray* section = [self.dateTimes objectForKey:date];
-    NSString* period = [section objectAtIndex:[indexPath indexAtPosition:1]];
-    cell.textLabel.text = period;
+    BlackoutPeriod* period = [section objectAtIndex:[indexPath indexAtPosition:1]];
+    cell.textLabel.text = [self cellValueAsString:period];
     return cell;
 }
 
@@ -90,10 +92,6 @@
    
     for (BlackoutPeriod* period in self.blackoutPeriods) {
         NSString* date = [dateFormatterDate stringFromDate:period.fromTime];
-        NSString* time = [NSString stringWithFormat:@"%@ ～ %@", 
-                          [dateFormatterTime stringFromDate:period.fromTime], 
-                          [dateFormatterTime stringFromDate:period.toTime]];
-        
         NSMutableArray* timeArray;
         if ([self.dateTimes objectForKey:date] != nil) {
             timeArray = [self.dateTimes objectForKey:date];
@@ -102,8 +100,31 @@
             [self.dates addObject:date];
             [self.dateTimes setValue:timeArray forKey:date];
         }
-        [timeArray addObject:time];
+        [timeArray addObject:period];
     }
+    
+    [self.dates sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    for (NSMutableArray* sectionArr in [self.dateTimes objectEnumerator]) {
+        [sectionArr sortUsingComparator:(NSComparator)^(id obj1, id obj2){
+            BlackoutPeriod* p1 = obj1;
+            BlackoutPeriod* p2 = obj2;
+            NSDate* toDate1 = p1.toTime;
+            NSDate* toDate2 = p2.toTime;
+            return [toDate1 compare:toDate2]; 
+        }];    
+    }
+}
+
+-(NSString*) cellValueAsString:(BlackoutPeriod*)period {
+    NSDateFormatter *dateFormatterTime = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatterTime setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatterTime setDateStyle:NSDateFormatterNoStyle];
+
+    NSString* time = [NSString stringWithFormat:@"%@ ～ %@", 
+                      [dateFormatterTime stringFromDate:period.fromTime], 
+                      [dateFormatterTime stringFromDate:period.toTime]];
+    return time;
 }
 
 @end
