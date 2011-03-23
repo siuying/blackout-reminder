@@ -16,7 +16,6 @@ require 'digest/sha1'
 JSON_BLACKOUT_FILE  = "output/blackout.json"
 CONFIG              = YAML.parse_file("config/couch.yml").transform["config"].freeze
 
-
 desc "Run all spec"
 RSpec::Core::RakeTask.new do |t|
   t.pattern = 'spec/**/*_spec.rb'
