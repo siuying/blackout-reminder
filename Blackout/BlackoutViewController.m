@@ -85,6 +85,11 @@
                                                                    style:UIBarButtonItemStylePlain 
                                                                   target:self
                                                                   action:@selector(promptGpsInputLocation)] autorelease];
+    barItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"週間" 
+                                                                   style:UIBarButtonItemStylePlain 
+                                                                  target:self 
+                                                                  action:@selector(clickTime:)]autorelease];
+    
     [boNavigationBar pushNavigationItem:barItem animated:NO];
     [barItem release];
     
