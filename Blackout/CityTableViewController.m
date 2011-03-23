@@ -34,6 +34,12 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.searchBar.placeholder = @"市区郡";
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 

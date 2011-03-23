@@ -18,6 +18,7 @@
     self.prefecture = thePrefecture;
     self.city = theCity;
     self.title = [self title];
+
     return self;
 }
 
@@ -36,14 +37,13 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                           target:self 
-                                                                                           action:@selector(done)] autorelease];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    self.searchBar.placeholder = @"大字通称";
 }
 
 -(void) done {
@@ -57,9 +57,7 @@
     if (self.loaded && !self.empty && !self.error) {
         NSString* selected = [self textForRow:indexPath];
         self.street = selected;
-
-        NSLog(@" selected: %@", street);    
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        [self done];
     }
 }
 
