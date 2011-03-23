@@ -54,8 +54,6 @@
     ProgressView* progressView;
     NSTimer* timer;
     
-    BOOL _alertOn;
-    
     // Model
     NSString* selectedPrefecture;
     NSString* selectedCity;
@@ -88,8 +86,6 @@
 @property (nonatomic, retain) RemaingTimeTitleView* timeTitleView;
 @property (nonatomic, retain) ProgressView* progressView;
 @property (nonatomic, retain) NSTimer* timer;
-
-@property (nonatomic) BOOL alertOn; 
 
 @property (nonatomic, retain) NSString* selectedPrefecture;
 @property (nonatomic, retain) NSString* selectedCity;
