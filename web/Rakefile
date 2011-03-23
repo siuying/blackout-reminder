@@ -153,7 +153,6 @@ task :sync_time do
           :password => CONFIG["password"],
           :auth_method => :basic
         )
-    puts "result = #{JSON(response.body).inspect}"
   end
 
   puts "  uploading records to db"
