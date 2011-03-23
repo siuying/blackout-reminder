@@ -145,7 +145,6 @@ task :sync_time do
     row["value"]
   end
   if couchdb.count > 0
-    puts "req = #{couchdb.inspect}"
     response = Typhoeus::Request.post("#{url}/_bulk_docs", 
           :body => {"docs" => couchdb }.to_json,
           :headers => {:"Content-Type" => "application/json"},
