@@ -24,13 +24,7 @@
     self.dates = [NSMutableArray array];
     self.dateTimes = [NSMutableDictionary dictionary];
     [self setup];
-    
-    if ([periods count] > 0) {
-        BlackoutPeriod* period = [periods objectAtIndex:0];
-        self.title = [NSString stringWithFormat:@"第%@グループ", period.group.code];
-    } else {
-        self.title = @"計画停電";
-    }
+
     return self;
 }
 

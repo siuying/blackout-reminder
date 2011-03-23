@@ -231,6 +231,7 @@
 -(IBAction) clickTime:(id)sender {
     if (self.periods) {
         BlackoutTableViewController* controller = [[BlackoutTableViewController alloc] initWithBlackoutPeriods:self.periods];
+        controller.title = [BlackoutUtils groupsMessage:self.groups];
         UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:controller];
         [self presentModalViewController:navController animated:YES];
         [controller release];
