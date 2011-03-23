@@ -24,7 +24,6 @@
 @synthesize selectedPrefecture, selectedCity, selectedStreet;
 @synthesize timeTitleView, progressView, timer;
 @synthesize groups, periods, lastUpdated, internetConnectionStatus, reachability;
-@synthesize alertOn = _alertOn;
 
 - (void)dealloc
 {
@@ -148,6 +147,9 @@
 #pragma mark - LocationServiceDelegate
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFound:(NSArray*)names {
+    [self.locationService stop];
+    [self setLoading:NO];
+
     if (names && [names count] == 3) {       
         NSLog(@" location name found: %@", names);
         [self locationDidSelectedWithPrefecture:[names objectAtIndex:0]
@@ -169,26 +171,17 @@
                                          street:nil];
         
     } else {
-        NSLog(@" location not found: %@", names);
-        // no location found, show error message and ask user manual selection
-        [self locationDidSelectedWithPrefecture:nil
-                                           city:nil
-                                         street:nil];
-        if (!_alertOn) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" 
-                                                            message:@"マニュアルで位置情報を入力してください。" 
-                                                           delegate:self 
-                                                  cancelButtonTitle:@"はい" 
-                                                  otherButtonTitles:nil];
-            alert.tag = kAlertViewNoLocationFound;
-            [alert show];
-            _alertOn = YES;
-            [alert release];
-        }
-    }
+        NSLog(@" *** location not found: %@", names);
 
-    [self.locationService stop];
-    [self setLoading:NO];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" 
+                                                        message:@"マニュアルで位置情報を入力してください。" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"はい" 
+                                              otherButtonTitles:nil];
+        alert.tag = kAlertViewNoLocationFound;
+        [alert show];
+        [alert release];
+    }
 }
 
 -(void) findLocationName:(CLLocationCoordinate2D)location didFailedWithError:(NSError*)error {
@@ -280,6 +273,8 @@
 // show alert dialog to warn user about it and ask user manual select
 // if retry is YES, ask if user would like to retry
 -(void) promptManualInputLocation:(BOOL)retry {
+    NSLog(@" *** prompt manual input location");
+
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" 
                                                     message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" 
                                                    delegate:self 
@@ -511,7 +506,6 @@
     
     if (actionSheet.tag == kAlertViewOpenURL) {
         if (buttonIndex == 1) {
-            
             NSLog(@"Open url in Safari");
             NSString* launchUrl = @"http://www.tepco.co.jp";
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: launchUrl]];
@@ -519,11 +513,10 @@
         
     } else if (actionSheet.tag == kAlertViewNoLocationFound) {
         
-        if (buttonIndex == [actionSheet cancelButtonIndex]) {
-            
+        if (buttonIndex == [actionSheet cancelButtonIndex]) {            
             [self manualInputLocation];
-            _alertOn = NO;
         }
+
     } else if (actionSheet.tag == kAlertViewIgntSoftURL) {
         if (buttonIndex == 1) {
             
