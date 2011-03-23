@@ -15,8 +15,8 @@
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)thePrefecture delegate:(id<LocationTableViewControllerDelegate>) delegate{
     self = [super initWithBlackoutServices:service locations:[NSArray array] delegate:delegate];
-    self.title = [self title];
     self.prefecture = thePrefecture;
+    self.title = [self title];
     return self;
 }
 
@@ -71,7 +71,7 @@
 }
 
 -(NSString*) title {
-    return @"市区郡";
+    return self.prefecture == nil ? @"市区郡" : self.prefecture;
 }
 
 
