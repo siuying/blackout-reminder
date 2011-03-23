@@ -1,5 +1,5 @@
 config:
-  url: https://ignition.cloudant.com/
+  url:
   database:
   username: 
   password: 
