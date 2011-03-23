@@ -69,14 +69,14 @@
 -(void) loadView {
     [super loadView];
 
+    [self loadTable];
+    self.tableView.autoresizesSubviews = YES;
+    
     self.searchBar = [[[UISearchBar alloc] init] autorelease];
     self.searchBar.delegate = self;
-    self.tableView.tableHeaderView = self.searchBar;
-    
     [self.searchBar sizeToFit];
-    [self.tableView sizeToFit];
 
-    [self loadTable];
+    self.tableView.tableHeaderView = self.searchBar;
 }
 
 - (void)viewDidLoad
@@ -244,10 +244,13 @@
         if (aSearchTerm != nil && ![aSearchTerm isEqualToString:@""]) {
             self.filteredLocations = [NSMutableArray arrayWithArray:self.locations];
             for (NSString* loc in self.locations) {
-                if (aSearchTerm && [loc rangeOfString:aSearchTerm options:NSLiteralSearch|NSCaseInsensitiveSearch].length == 0) {
+                if ([loc rangeOfString:aSearchTerm options:NSLiteralSearch|NSCaseInsensitiveSearch].location == NSNotFound) {
                     [self.filteredLocations removeObject:loc];
-                }                
+                } else {
+                    NSLog(@" %@", loc);
+                }
             }
+            
         } else {
             self.filteredLocations = nil;
         }
