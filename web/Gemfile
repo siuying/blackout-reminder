@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem "rake"
 gem "rspec"
 
-gem "spreadsheet"
+gem "ruby-ole"
 gem "nokogiri"
 gem "json"
 gem "typhoeus"

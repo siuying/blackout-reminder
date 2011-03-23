@@ -50,6 +50,7 @@ module Blackout
     # download and parse excel, and return only relevant records
     def self.tepco_data_from_url(url)
       Spreadsheet.client_encoding = 'UTF-8'
+
       file          = Tempfile.new('blackout')
   
       begin
@@ -74,10 +75,10 @@ module Blackout
         data.each do |d|
           begin
             id = "#{d[0]}-#{d[1]}-#{d[2]}"
-            time = d[3].to_i.to_s
+            group = d[3].to_i.to_s
 
             if uploads[id]
-              uploads[id][:time] << time
+              uploads[id][:group] << group
             else
               type = "blackout"
               prefecture = d[0].strip
@@ -90,7 +91,7 @@ module Blackout
                 :prefecture => prefecture,
                 :city => city,
                 :street => street,
-                :time => [time],
+                :group => [group],
                 :company => "tepco"
               }
             end

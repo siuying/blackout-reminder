@@ -1,7 +1,9 @@
-require 'rubygems'
-
 require "bundler"
 Bundler.require(:default)
+
+path = "#{Dir.pwd}/vendor/spreadsheet-0.6.5.2/lib"
+$:.unshift(path) unless $:.include?(path)
+require 'spreadsheet'
 
 require 'lib/blackout'
 require 'rspec/core/rake_task'
