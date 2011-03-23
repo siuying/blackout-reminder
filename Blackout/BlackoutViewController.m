@@ -281,7 +281,7 @@
     NSLog(@" *** prompt manual input location");
 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"位置情報" 
-                                                    message:@"位置情報機能を起動するか、マニュアルで位置情報を入力してください。" 
+                                                    message:@"位置情報サービスをオンにするか、マニュアルで位置情報を入力してください。" 
                                                    delegate:self 
                                           cancelButtonTitle:@"はい" 
                                           otherButtonTitles:nil];
