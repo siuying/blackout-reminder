@@ -68,8 +68,7 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
         NSArray* streets = [self.blackoutServices streetsWithPrefecture:self.prefecture city:self.city];
-        [self.locations removeAllObjects];
-        [self.locations addObjectsFromArray:streets];
+        self.locations = [NSMutableArray arrayWithArray:[streets sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setLoading:NO];

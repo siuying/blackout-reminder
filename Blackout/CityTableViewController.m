@@ -60,9 +60,8 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
         NSArray* theCities = [self.blackoutServices cities:self.prefecture];
-        [self.locations removeAllObjects];
-        [self.locations addObjectsFromArray:theCities];
-
+        self.locations = [NSMutableArray arrayWithArray:[theCities sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setLoading:NO];
             [self.tableView reloadData];

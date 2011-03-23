@@ -20,7 +20,7 @@
     if (self) {
         self.locationDelegate = delegate;
         self.blackoutServices = theService;
-        self.locations = [NSMutableArray arrayWithArray:theLocations];
+        self.locations = [NSMutableArray arrayWithArray:[theLocations sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
     }
     return self;
 }
