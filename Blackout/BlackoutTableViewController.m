@@ -11,6 +11,8 @@
 
 @interface BlackoutTableViewController (Private)
 -(void) setup;
+
+-(NSString*) headerValueAsString:(NSDate*)date;
 -(NSString*) cellValueAsString:(BlackoutPeriod*)period;
 @end
 
@@ -51,8 +53,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSString* date = [self.dates objectAtIndex:section];
-    NSArray* dateArray = [dateTimes objectForKey:date];
+    NSDate* date = [self.dates objectAtIndex:section];
+    NSString* key = [self headerValueAsString:date];
+    NSArray* dateArray = [self.dateTimes objectForKey:key];
     return [dateArray count];
 }
 
@@ -65,45 +68,41 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    NSString* date = [self.dates objectAtIndex:[indexPath indexAtPosition:0]];
-    NSArray* section = [self.dateTimes objectForKey:date];
+    NSDate* date = [self.dates objectAtIndex:[indexPath indexAtPosition:0]];
+    NSString* key = [self headerValueAsString:date];
+    NSArray* section = [self.dateTimes objectForKey:key];
     BlackoutPeriod* period = [section objectAtIndex:[indexPath indexAtPosition:1]];
     cell.textLabel.text = [self cellValueAsString:period];
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString* date = [self.dates objectAtIndex:section];
-    return date;
+    NSDate* date = [self.dates objectAtIndex:section];
+    return [self headerValueAsString:date];
 }
 
 -(void) cancel {
     [self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
--(void) setup {
-    NSDateFormatter *dateFormatterDate = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatterDate setTimeStyle:NSDateFormatterNoStyle];
-    [dateFormatterDate setDateStyle:NSDateFormatterShortStyle];
-    
-    NSDateFormatter *dateFormatterTime = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatterTime setTimeStyle:NSDateFormatterShortStyle];
-    [dateFormatterTime setDateStyle:NSDateFormatterNoStyle];
-   
-    for (BlackoutPeriod* period in self.blackoutPeriods) {
-        NSString* date = [dateFormatterDate stringFromDate:period.fromTime];
-        NSMutableArray* timeArray;
-        if ([self.dateTimes objectForKey:date] != nil) {
-            timeArray = [self.dateTimes objectForKey:date];
-        } else {
-            timeArray = [NSMutableArray array];
-            [self.dates addObject:date];
-            [self.dateTimes setValue:timeArray forKey:date];
+-(void) setup {   
+    NSDate* now = [NSDate date];
+    for (BlackoutPeriod* period in self.blackoutPeriods) {        
+        if ([period.toTime compare:now] == NSOrderedDescending) {
+            NSMutableArray* timeArray;
+            NSString* key = [self headerValueAsString:period.fromTime];
+            if ([self.dateTimes objectForKey:key] != nil) {
+                timeArray = [self.dateTimes objectForKey:key];
+            } else {
+                [self.dates addObject:period.fromTime];
+                timeArray = [NSMutableArray array];
+                [self.dateTimes setValue:timeArray forKey:key];
+            }
+            [timeArray addObject:period];
         }
-        [timeArray addObject:period];
     }
     
-    [self.dates sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    [self.dates sortUsingSelector:@selector(compare:)];
     
     for (NSMutableArray* sectionArr in [self.dateTimes objectEnumerator]) {
         [sectionArr sortUsingComparator:(NSComparator)^(id obj1, id obj2){
@@ -112,8 +111,15 @@
             NSDate* toDate1 = p1.toTime;
             NSDate* toDate2 = p2.toTime;
             return [toDate1 compare:toDate2]; 
-        }];    
+        }];
     }
+}
+
+-(NSString*) headerValueAsString:(NSDate*)date {
+    NSDateFormatter *dateFormatterDate = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatterDate setTimeStyle:NSDateFormatterNoStyle];
+    [dateFormatterDate setDateStyle:NSDateFormatterShortStyle];
+    return [dateFormatterDate stringFromDate:date];
 }
 
 -(NSString*) cellValueAsString:(BlackoutPeriod*)period {
