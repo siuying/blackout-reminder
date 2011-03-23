@@ -24,6 +24,6 @@
 // provided array of BlackoutGroup, return string to describe the groups
 +(NSString*) groupsMessage:(NSArray*)groups;
 
-+(NSString*) timeWithHours:(NSUInteger)hour minutes:(NSUInteger)min;
++(NSString*) timeWithDateComponents:(NSDateComponents*)component;
 
 @end

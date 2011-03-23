@@ -427,7 +427,7 @@
                                     [periodStartComponent hour],[periodStartComponent minute], 
                                     [periodEndComponent hour], [periodEndComponent minute], 
                                     [BlackoutUtils groupsMessage:self.groups]];
-            lblTimeRemaining.text = [BlackoutUtils timeWithHours:diff.hour minutes:diff.minute+1];            
+            lblTimeRemaining.text = [BlackoutUtils timeWithDateComponents:diff];
             
         } else {
             NSDateComponents* diff = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit)
@@ -440,7 +440,7 @@
                                   [periodStartComponent hour],[periodStartComponent minute], 
                                   [periodEndComponent hour], [periodEndComponent minute], 
                                   [BlackoutUtils groupsMessage:self.groups]];
-            lblTimeRemaining.text = [BlackoutUtils timeWithHours:diff.hour minutes:diff.minute+1];
+            lblTimeRemaining.text = [BlackoutUtils timeWithDateComponents:diff];
         }
     }
 

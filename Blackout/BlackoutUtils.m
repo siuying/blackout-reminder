@@ -50,15 +50,30 @@
     return [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-+(NSString*) timeWithHours:(NSUInteger)hour minutes:(NSUInteger)min {
++(NSString*) timeWithDateComponents:(NSDateComponents*)component{
     NSMutableString* message = [NSMutableString string];
+
+    NSInteger month = component.month;
+    NSInteger day = component.day;
+    NSInteger hour = component.hour + 1;
+    NSInteger minute = component.minute + 1;
+
+    if (month != 0) {
+        [message appendFormat:@"%d月", month];    
+    }
+
+    if (day != 0) {
+        [message appendFormat:@"%d日", day];    
+    }
+
     if (hour != 0) {
         [message appendFormat:@"%d時間", hour];
     }
     
-    if (min != 0) {
-        [message appendFormat:@"%d分", min];
+    if (minute != 0) {
+        [message appendFormat:@"%d分", minute];
     }
+
     return message;
 }
 
