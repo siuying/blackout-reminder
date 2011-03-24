@@ -26,10 +26,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.searchBar.placeholder = @"都県";
+    self.searchBar.placeholder = @"検索：都県";
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                            target:self 
                                                                                            action:@selector(cancel)] autorelease];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.tableView flashScrollIndicators];
 }
 
 #pragma mark - Table view delegate
