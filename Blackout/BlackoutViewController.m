@@ -359,8 +359,9 @@
         NSDateComponents* nowComponents = [gregorian components:unitFlags fromDate:now];
         NSDateComponents* lastUpdateComponents = [gregorian components:unitFlags fromDate:self.lastUpdated];        
 
-        if (nowComponents.month != lastUpdateComponents.month || nowComponents.day != lastUpdateComponents.day) {
-            NSLog(@"date changed! refresh location & time again");
+        if ((nowComponents.month != lastUpdateComponents.month || nowComponents.day != lastUpdateComponents.day) || 
+            [self shouldRenewServerData]) {
+
             [self refreshLocation];
 
         } else {
@@ -458,6 +459,17 @@
     }
 
     [self.timeTitleView setLastUpdatedTime:self.lastUpdated];
+}
+
+-(BOOL)shouldRenewServerData {
+    if (!self.lastUpdated) {
+        return NO;
+    } else {
+        NSDate* expiryTime = [self.lastUpdated dateByAddingTimeInterval:FETCH_DATA_EXPIRY];
+        NSDate* now = [NSDate date];
+        NSDate* laterDate = [now laterDate:expiryTime];
+        return laterDate == now;
+    }
 }
 
 #pragma mark LocationTableViewControllerDelegate
@@ -567,7 +579,7 @@
             [self.locationService findLocationName:MOCK_LOCATION];
             
         } else {
-            if (self.groups && self.periods) {
+            if (self.groups && self.periods && ![self shouldRenewServerData]) {
                 // groups and periods ready
                 [self refreshTime];
 
