@@ -10,5 +10,7 @@
 #define USE_MOCK_TIME       NO
 #define MOCK_LOCATION       CLLocationCoordinate2DMake(35.661236, 139.558103)
 
+#define FETCH_DATA_EXPIRY   60.0
+
 #define TEPCO_URL           @"http://www.tepco.co.jp/index-j.html"
 

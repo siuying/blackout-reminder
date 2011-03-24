@@ -100,27 +100,30 @@
 
 // If isLoading = YES, disable UI and show a loading screen
 // Otherwise, remove the loading screen
--(void) setLoading:(BOOL)isLoading;
+-(void)setLoading:(BOOL)isLoading;
 
--(void) setLoading:(BOOL)isLoading animated:(BOOL)animated;
+-(void)setLoading:(BOOL)isLoading animated:(BOOL)animated;
 
 // update reminder time based on next currently input prefecture, city and street
--(void) refreshLocation;
+-(void)refreshLocation;
 
--(void) refreshTime;
+-(void)refreshTime;
 
--(void) promptGpsInputLocation;
+-(void)promptGpsInputLocation;
 
--(void) promptManualInputLocation:(BOOL)retry;
+-(void)promptManualInputLocation:(BOOL)retry;
 
 // popup manual selection of prefecture, city and street
--(void) manualInputLocationWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
+-(void)manualInputLocationWithPrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
 
 // popup manual selection of prefecture, city and street, with what already entered filled in
--(void) manualInputLocation;
+-(void)manualInputLocation;
 
-- (void)reachabilityChanged:(NSNotification *)note;
-- (void)updateNetworkStatus;
+-(void)reachabilityChanged:(NSNotification *)note;
+
+-(void)updateNetworkStatus;
+
+-(BOOL)shouldRenewServerData;
 
 @end
 
