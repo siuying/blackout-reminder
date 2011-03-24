@@ -73,7 +73,7 @@
                                        [[NSString stringWithFormat:@"[\"%@\", {}]", prefecture] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setSecondsToCache:60*60];
+    [request setSecondsToCache:60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
     
@@ -113,7 +113,7 @@
                                        [[NSString stringWithFormat:@"[\"%@\",\"%@\", {}]", prefecture, city] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setSecondsToCache:60*60];
+    [request setSecondsToCache:60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
     
@@ -152,7 +152,7 @@
                                        [[NSString stringWithFormat:@"\"%@-%@-%@\"", prefecture, city, street] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setSecondsToCache:60*60];
+    [request setSecondsToCache:60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
     
