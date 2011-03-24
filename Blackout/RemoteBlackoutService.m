@@ -17,8 +17,6 @@
 
 #define kBlackoutUrlBase    @"https://ignition.cloudant.com"
 #define kBlackoutDb         @"blackout"
-#define kBlackoutUsername   @"pecanglendereageneelould"
-#define kBlackoutPassword   @"qtBPrExEWHplvRNqwNjgMw0W"
 
 #define kBlackoutMethodPrefectures      @"_design/api/_view/prefectures?group=true"
 #define kBlackoutMethodCities           @"_design/api/_view/cities"
@@ -38,8 +36,6 @@
 -(NSArray*) prefectures {
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@", kBlackoutUrlBase, kBlackoutDb, kBlackoutMethodPrefectures]];
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setUsername:kBlackoutUsername];
-    [request setPassword:kBlackoutPassword];
     [request setSecondsToCache:60*60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
@@ -77,8 +73,6 @@
                                        [[NSString stringWithFormat:@"[\"%@\", {}]", prefecture] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setUsername:kBlackoutUsername];
-    [request setPassword:kBlackoutPassword];
     [request setSecondsToCache:60*60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
@@ -119,8 +113,6 @@
                                        [[NSString stringWithFormat:@"[\"%@\",\"%@\", {}]", prefecture, city] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setUsername:kBlackoutUsername];
-    [request setPassword:kBlackoutPassword];
     [request setSecondsToCache:60*60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
@@ -160,8 +152,6 @@
                                        [[NSString stringWithFormat:@"\"%@-%@-%@\"", prefecture, city, street] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setUsername:kBlackoutUsername];
-    [request setPassword:kBlackoutPassword];
     [request setSecondsToCache:60*60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
@@ -248,8 +238,6 @@
     NSLog(@" url = %@", url);
     
     ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
-    [request setUsername:kBlackoutUsername];
-    [request setPassword:kBlackoutPassword];
     [request setSecondsToCache:60];
     [request setNumberOfTimesToRetryOnTimeout:3];
     [request startSynchronous];
