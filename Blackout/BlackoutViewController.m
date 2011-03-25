@@ -383,8 +383,6 @@
 
 -(void) refreshReminderDidUpdatedWithGroups:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods {
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
-        // TODO show alert dialog for error finding period, ask user to select another prefecture
-        
         lblTimeTitle.text = @"";
         lblTimeRemaining.text = @"";
         lblTimeDetail.text = [NSString stringWithFormat:@"停電データは見つかりません。もう一度お試しください。"];
