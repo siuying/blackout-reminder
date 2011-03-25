@@ -385,20 +385,9 @@
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
         // TODO show alert dialog for error finding period, ask user to select another prefecture
         
-        NSDateFormatter *mthFormatter = [[NSDateFormatter alloc] init];
-        [mthFormatter setDateFormat:@"MM"];
-        NSString *mthString = [mthFormatter stringFromDate:[NSDate date]];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd"];
-        NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-        
         lblTimeTitle.text = @"";
         lblTimeRemaining.text = @"";
-        lblTimeDetail.text = [NSString stringWithFormat:@"%@月%@日に計画停電は実施しません", mthString,dateString];
-        
-        [mthFormatter release];
-        [dateFormatter release];
+        lblTimeDetail.text = [NSString stringWithFormat:@"停電データは見つかりません。もう一度お試しください。"];
         
     } else {
         
