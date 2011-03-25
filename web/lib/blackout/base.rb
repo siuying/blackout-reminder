@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'spreadsheet'
 require 'open-uri'
 require 'json'
-
+require 'fastercsv'
 $KCODE = "u"
 
 module Blackout
@@ -13,9 +13,24 @@ module Blackout
     # iterate through all the excel links, download excel file and extract data
     def self.tepco_data
       result = []
-      file_urls.each do |url| 
-        result.concat(tepco_data_from_url(url))
+
+      FasterCSV.foreach("config/groups.csv") do |row|
+        group, prefecture, all_cities = row
+        type = "blackout"
+        if group && prefecture && all_cities
+          all_cities.split("、").each do |city|
+            result << {
+              :"_id" => "#{prefecture}-#{city}",
+              :type => type,
+              :prefecture => prefecture,
+              :city => city,
+              :group => [group],
+              :company => "tepco"
+            }
+          end
+        end
       end
+
       return result
     end
 
