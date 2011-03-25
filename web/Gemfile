@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem "rake"
 gem "rspec"
+gem "fastercsv"
 
 gem "ruby-ole"
 gem "nokogiri"
