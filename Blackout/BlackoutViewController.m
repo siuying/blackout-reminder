@@ -69,7 +69,7 @@
     //Load persisted Prefecture, City and Street
     self.selectedPrefecture = [BlackoutAppDelegate prefectureName];
 	self.selectedCity = [BlackoutAppDelegate cityName];
-	self.selectedStreet = [BlackoutAppDelegate streetName];
+	self.selectedStreet = nil;
     
     [self.btnPrefecture setTitle:self.selectedPrefecture forState:UIControlStateNormal];
     [self.btnStreet setTitle:self.selectedStreet forState:UIControlStateNormal];
@@ -304,17 +304,7 @@
                                                                                                  delegate:self] autorelease];
         [navController pushViewController:cController animated:NO];
     }
-    
-    // build street controller if needed
-    if (prefecture != nil && city != nil) {
-        StreetTableViewController* sController = [[[StreetTableViewController alloc] initWithBlackoutServices:self.blackoutService 
-                                                                                                   prefecture:prefecture 
-                                                                                                         city:city 
-                                                                                                     delegate:self] autorelease];
-        sController.street = street;
-        [navController pushViewController:sController animated:NO];
-    }
-    
+
     [self presentModalViewController:navController animated:YES];
     [pController release];
     [navController release];
@@ -326,8 +316,7 @@
 -(void) manualInputLocation {
     NSString* prefecture = self.selectedPrefecture;
     NSString* city = self.selectedCity;
-    NSString* street = self.selectedStreet;
-    [self manualInputLocationWithPrefecture:prefecture city:city street:street];
+    [self manualInputLocationWithPrefecture:prefecture city:city street:nil];
 }
 
 -(void) setLoading:(BOOL)isLoading {
