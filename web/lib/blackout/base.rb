@@ -20,10 +20,10 @@ module Blackout
         if group && prefecture && all_cities
           all_cities.split("、").each do |city|
             result << {
-              :"_id" => "#{prefecture}-#{city}",
+              :"_id" => "#{prefecture.strip}-#{city.strip}",
               :type => type,
-              :prefecture => prefecture,
-              :city => city,
+              :prefecture => prefecture.strip,
+              :city => city.strip,
               :group => [group],
               :company => "tepco"
             }
