@@ -55,7 +55,7 @@
 
     NSInteger month = component.month;
     NSInteger day = component.day;
-    NSInteger hour = component.hour + 1;
+    NSInteger hour = component.hour;
     NSInteger minute = component.minute + 1;
     
     if (minute == 60) {
