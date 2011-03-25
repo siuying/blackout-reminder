@@ -34,4 +34,5 @@
 
 -(NSArray*) validatePrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street;
 
+-(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city;
 @end

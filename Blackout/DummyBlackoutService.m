@@ -100,6 +100,9 @@
 -(NSArray*) validatePrefecture:(NSString*)prefecture city:(NSString*)city street:(NSString*)street {
     return [NSArray arrayWithObjects:prefecture, city, street, nil];
 }
+-(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city {
+    return [NSArray array];
+}
 
 
 @end
