@@ -1,4 +1,4 @@
-{
+300{
 	"tepco": {
 		"20110324": {
 			"2": [],
@@ -97,9 +97,9 @@
 
 	/* for API 2.0 */
 	/* Mark:● ◑ ○ */
-	// ◑
-	// ● 
-	// ○ 
+	// ◑ 実施可能
+	// ● 実施予定 
+	// ○ 実施しない 
 	"2.0": {
 		"20110325": {
 			"tepco-3": {"period": []},
@@ -109,11 +109,59 @@
 			"tepco-2": {"period": [{"time": ["1820", "2200"], "message": "◑"}]}
 		},
 		"20110326": {
-			"tepco-4": {"period": [{"time": ["0620", "1000"], "message": "◑"}, {"time": ["1350", "1730"], "message": "◑"}]},
-			"tepco-5": {"period": [{"time": ["0920", "1300"], "message": "◑"}, {"time": ["1650", "2030"], "message": "◑"}]},
-			"tepco-1": {"period": [{"time": ["1220", "1600"], "message": "◑"}]},
-			"tepco-2": {"period": [{"time": ["1520", "1900"], "message": "◑"}]},
-			"tepco-3": {"period": [{"time": ["1820", "2200"], "message": "◑"}]}
+			"tepco-4A": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+            "tepco-4B": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+            "tepco-4C": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+            "tepco-4D": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+            "tepco-4E": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+			"tepco-5A": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+            "tepco-5B": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+            "tepco-5C": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+            "tepco-5D": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+            "tepco-5E": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+			"tepco-1A": {"period": [{"time": ["1220", "1600"], "message": "● 実施予定"}]},
+            "tepco-1B": {"period": [{"time": ["1220", "1600"], "message": "● 実施予定"}]},
+            "tepco-1C": {"period": [{"time": ["1220", "1600"], "message": "● 実施予定"}]},
+            "tepco-1D": {"period": [{"time": ["1220", "1600"], "message": "● 実施予定"}]},
+            "tepco-1E": {"period": [{"time": ["1220", "1600"], "message": "● 実施予定"}]},
+			"tepco-2A": {"period": [{"time": ["1520", "1900"], "message": "● 実施予定"}]},
+            "tepco-2B": {"period": [{"time": ["1520", "1900"], "message": "● 実施予定"}]},
+            "tepco-2C": {"period": [{"time": ["1520", "1900"], "message": "● 実施予定"}]},
+            "tepco-2D": {"period": [{"time": ["1520", "1900"], "message": "● 実施予定"}]},
+            "tepco-2E": {"period": [{"time": ["1520", "1900"], "message": "● 実施予定"}]},
+			"tepco-3A": {"period": [{"time": ["1820", "2200"], "message": "● 実施予定"}]}
+            "tepco-3B": {"period": [{"time": ["1820", "2200"], "message": "● 実施予定"}]}
+            "tepco-3C": {"period": [{"time": ["1820", "2200"], "message": "● 実施予定"}]}
+            "tepco-3D": {"period": [{"time": ["1820", "2200"], "message": "● 実施予定"}]}
+            "tepco-3E": {"period": [{"time": ["1820", "2200"], "message": "○ 実施しない"}]}
+		},
+        "20110327": {
+			"tepco-5A": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+            "tepco-5B": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+            "tepco-5C": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+            "tepco-5D": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+            "tepco-5E": {"period": [{"time": ["0620", "1000"], "message": "◑ 実施可能"}, {"time": ["1350", "1730"], "message": "◑ 実施可能"}]},
+			"tepco-1A": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+            "tepco-1B": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+            "tepco-1C": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+            "tepco-1D": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+            "tepco-1E": {"period": [{"time": ["0920", "1300"], "message": "◑ 実施可能"}, {"time": ["1650", "2030"], "message": "◑ 実施可能"}]},
+			"tepco-2A": {"period": [{"time": ["1220", "1600"], "message": "◑ 実施可能"}]},
+            "tepco-2B": {"period": [{"time": ["1220", "1600"], "message": "◑ 実施可能"}]},
+            "tepco-2C": {"period": [{"time": ["1220", "1600"], "message": "◑ 実施可能"}]},
+            "tepco-2D": {"period": [{"time": ["1220", "1600"], "message": "◑ 実施可能"}]},
+            "tepco-2E": {"period": [{"time": ["1220", "1600"], "message": "◑ 実施可能"}]},
+			"tepco-3A": {"period": [{"time": ["1520", "1900"], "message": "◑ 実施可能"}]},
+            "tepco-3B": {"period": [{"time": ["1520", "1900"], "message": "◑ 実施可能"}]},
+            "tepco-3C": {"period": [{"time": ["1520", "1900"], "message": "◑ 実施可能"}]},
+            "tepco-3D": {"period": [{"time": ["1520", "1900"], "message": "◑ 実施可能"}]},
+            "tepco-3E": {"period": [{"time": ["1520", "1900"], "message": "◑ 実施可能"}]},
+			"tepco-4A": {"period": [{"time": ["1820", "2200"], "message": "◑ 実施可能"}]}
+            "tepco-4B": {"period": [{"time": ["1820", "2200"], "message": "◑ 実施可能"}]}
+            "tepco-4C": {"period": [{"time": ["1820", "2200"], "message": "◑ 実施可能"}]}
+            "tepco-4D": {"period": [{"time": ["1820", "2200"], "message": "◑ 実施可能"}]}
+            "tepco-4E": {"period": [{"time": ["1820", "2200"], "message": "◑ 実施可能"}]}
 		}
+
 	}
 }
