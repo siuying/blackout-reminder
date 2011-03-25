@@ -405,7 +405,6 @@
         // more than one period, should find the next period
         NSDate* currentTime = [NSDate date];
         NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"JST"]];
         
         BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
                                                                     periods:blackoutPeriods];
