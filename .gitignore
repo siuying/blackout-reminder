@@ -3,3 +3,4 @@
 blackout.json
 .DS_Store
 /web/config/couch.yml
+/web/logs/export.log
