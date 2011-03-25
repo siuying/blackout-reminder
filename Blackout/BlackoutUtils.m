@@ -57,6 +57,11 @@
     NSInteger day = component.day;
     NSInteger hour = component.hour + 1;
     NSInteger minute = component.minute + 1;
+    
+    if (minute == 60) {
+        hour = hour + 1;
+        minute = 0;
+    }
 
     if (month != 0) {
         [message appendFormat:@"%d月", month];    
