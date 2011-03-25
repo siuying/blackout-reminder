@@ -232,8 +232,8 @@
                                        kBlackoutUrlBase, 
                                        kBlackoutDb, 
                                        kBlackoutMethodSchedules, 
-                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"99999999\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@-%@\"]", @"2.0", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@-%@\", \"99999999\"]", @"2.0", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
     NSLog(@" url = %@", url);
     
@@ -254,18 +254,24 @@
             
             NSMutableArray* periods = [NSMutableArray array];
             for (NSDictionary* entry in rows) {
-                NSArray* time = [entry objectForKey:@"time"];
+                NSArray* schedule = [entry objectForKey:@"schedule"];
                 NSString* dateStr = [entry objectForKey:@"date"];
 
-                if (time) {
-                    for (NSArray* timeEntry in time) {
+                if (schedule) {
+                    for (NSDictionary* scheduleEntry in schedule) {
+                        NSArray* timeEntry = [scheduleEntry objectForKey:@"time"];
+                        NSString* message = [scheduleEntry objectForKey:@"message"];
+                        if (!message) {
+                            message = @"";
+                        }                        
                         if ([timeEntry count] >= 2) {
                             NSString* fromTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:0]];
                             NSString* toTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:1]];
-                        
+
                             BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
                                                                                   fromTime:[formatter dateFromString:fromTimeStr]
-                                                                                    toTime:[formatter dateFromString:toTimeStr]];
+                                                                                    toTime:[formatter dateFromString:toTimeStr]
+                                                                                   message:message];
                             [periods addObject:period];
                             [period release];
                         }                        

@@ -424,9 +424,9 @@
 
         BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
         
-        NSDateComponents *periodStartComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) 
+        NSDateComponents *periodStartComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit) 
                                                              fromDate:period.fromTime];
-        NSDateComponents *periodEndComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) 
+        NSDateComponents *periodEndComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit) 
                                                            fromDate:period.toTime];
         
         if (isBlackout) {            
@@ -437,10 +437,10 @@
 
             
             lblTimeTitle.text = [NSString stringWithFormat:@"停電予定終了まで"];
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
-                                    [periodStartComponent hour],[periodStartComponent minute], 
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%d/%d %02d:%02d～%02d:%02d\n停電グループ：%@\n予報マーク：%@", 
+                                    [periodStartComponent day],[periodStartComponent month], [periodStartComponent hour],[periodStartComponent minute], 
                                     [periodEndComponent hour], [periodEndComponent minute], 
-                                    [BlackoutUtils groupsMessage:self.groups]];
+                                    [BlackoutUtils groupsMessage:self.groups], period.message];
             lblTimeRemaining.text = [BlackoutUtils timeWithDateComponents:diff];
             
         } else {
@@ -450,10 +450,10 @@
                                                   options:0];
             
             lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
-            lblTimeDetail.text = [NSString stringWithFormat:@"次の計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
-                                  [periodStartComponent hour],[periodStartComponent minute], 
+            lblTimeDetail.text = [NSString stringWithFormat:@"次の計画停電時間：%d/%d %02d:%02d～%02d:%02d\n停電グループ：%@\n予報マーク：%@", 
+                                  [periodStartComponent day],[periodStartComponent month], [periodStartComponent hour],[periodStartComponent minute], 
                                   [periodEndComponent hour], [periodEndComponent minute], 
-                                  [BlackoutUtils groupsMessage:self.groups]];
+                                  [BlackoutUtils groupsMessage:self.groups], period.message];
             lblTimeRemaining.text = [BlackoutUtils timeWithDateComponents:diff];
         }
     }
