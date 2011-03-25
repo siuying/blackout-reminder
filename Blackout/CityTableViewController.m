@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.searchBar.placeholder = @"市区郡";
+    self.searchBar.placeholder = @"検索：市区郡";
 }
 
 #pragma mark - Table view delegate
