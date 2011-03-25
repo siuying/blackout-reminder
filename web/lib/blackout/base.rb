@@ -22,8 +22,8 @@ module Blackout
             result << {
               :"_id" => "#{prefecture.strip}-#{city.strip}",
               :type => type,
-              :prefecture => prefecture.strip,
-              :city => city.strip,
+              :prefecture => prefecture.tr(" ", ""),
+              :city => city.tr(" ", ""),
               :group => [group],
               :company => "tepco"
             }
