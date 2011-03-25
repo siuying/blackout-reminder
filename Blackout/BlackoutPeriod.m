@@ -10,15 +10,15 @@
 
 @implementation BlackoutPeriod
 
-@synthesize group, fromTime, toTime;
+@synthesize group, fromTime, toTime, message;
 
--(id) initWithGroup:(BlackoutGroup*)aGroup fromTime:(NSDate*)aFromTime toTime:(NSDate*)aToTime {
+-(id) initWithGroup:(BlackoutGroup*)aGroup fromTime:(NSDate*)aFromTime toTime:(NSDate*)aToTime message:(NSString*)amessage {
     self = [super init];
 
     self.group = aGroup;    
     self.fromTime = aFromTime;
     self.toTime = aToTime;
-
+    self.message = amessage;
     return self;
 }
 
@@ -26,6 +26,7 @@
     self.group = nil;
     self.fromTime = nil;
     self.toTime = nil;
+    self.message = nil;
     [super dealloc];
 }
 

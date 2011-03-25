@@ -222,8 +222,8 @@
 }
 
 -(IBAction) clickStreet:(id)sender {
-    NSLog(@" clicked street:%@, %@", self.selectedPrefecture, self.selectedCity);
-    [self manualInputLocationWithPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
+//    NSLog(@" clicked street:%@, %@", self.selectedPrefecture, self.selectedCity);
+//    [self manualInputLocationWithPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
 }
 
 -(IBAction) clickTime:(id)sender {
@@ -379,8 +379,7 @@
     [self setLoading:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.groups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture
-                                                            city:self.selectedCity
-                                                          street:self.selectedStreet];
+                                                            city:self.selectedCity];
         
         self.periods = [self.blackoutService periodsWithGroups:self.groups];
 
@@ -424,9 +423,9 @@
 
         BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
         
-        NSDateComponents *periodStartComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) 
+        NSDateComponents *periodStartComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit) 
                                                              fromDate:period.fromTime];
-        NSDateComponents *periodEndComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) 
+        NSDateComponents *periodEndComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit) 
                                                            fromDate:period.toTime];
         
         if (isBlackout) {            
@@ -437,10 +436,10 @@
 
             
             lblTimeTitle.text = [NSString stringWithFormat:@"停電予定終了まで"];
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
-                                    [periodStartComponent hour],[periodStartComponent minute], 
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%d/%d %02d:%02d～%02d:%02d\n停電グループ：%@\n予報マーク：%@", 
+                                    [periodStartComponent day],[periodStartComponent month], [periodStartComponent hour],[periodStartComponent minute], 
                                     [periodEndComponent hour], [periodEndComponent minute], 
-                                    [BlackoutUtils groupsMessage:self.groups]];
+                                    [BlackoutUtils groupsMessage:self.groups], period.message];
             lblTimeRemaining.text = [BlackoutUtils timeWithDateComponents:diff];
             
         } else {
@@ -450,10 +449,10 @@
                                                   options:0];
             
             lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
-            lblTimeDetail.text = [NSString stringWithFormat:@"次の計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
-                                  [periodStartComponent hour],[periodStartComponent minute], 
+            lblTimeDetail.text = [NSString stringWithFormat:@"次の計画停電時間：%d/%d %02d:%02d～%02d:%02d\n停電グループ：%@\n予報マーク：%@", 
+                                  [periodStartComponent day],[periodStartComponent month], [periodStartComponent hour],[periodStartComponent minute], 
                                   [periodEndComponent hour], [periodEndComponent minute], 
-                                  [BlackoutUtils groupsMessage:self.groups]];
+                                  [BlackoutUtils groupsMessage:self.groups], period.message];
             lblTimeRemaining.text = [BlackoutUtils timeWithDateComponents:diff];
         }
     }
@@ -496,11 +495,12 @@
     if (street) {
         [self.btnStreet setTitle:street forState:UIControlStateNormal];
     } else {
-        [self.btnStreet setTitle:@"大字通称" forState:UIControlStateNormal];
+        [self.btnStreet setTitle:@"" forState:UIControlStateNormal];
     }
+    
     [self dismissModalViewControllerAnimated:YES];
     
-    if (prefecture && city && street) {
+    if (prefecture && city) {
         NSLog(@" refresh location");
         [self refreshLocation];
     } else {
@@ -512,7 +512,7 @@
 -(void) locationDidCancelled {
     [self dismissModalViewControllerAnimated:YES];
     
-    if (!self.selectedStreet) {
+    if (!self.selectedCity) {
         [self promptManualInputLocation:NO];
     }
 }
@@ -583,7 +583,7 @@
                 // groups and periods ready
                 [self refreshTime];
 
-            } else if (!self.selectedPrefecture || !self.selectedCity || !self.selectedStreet) {
+            } else if (!self.selectedPrefecture || !self.selectedCity) {
                 if ([CLLocationManager locationServicesEnabled]) {
                     [self setLoading:YES animated:NO];
                     [self promptGpsInputLocation];
