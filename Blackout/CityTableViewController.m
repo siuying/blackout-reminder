@@ -12,6 +12,7 @@
 @implementation CityTableViewController
 
 @synthesize prefecture;
+@synthesize city;
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)thePrefecture delegate:(id<LocationTableViewControllerDelegate>) delegate{
     self = [super initWithBlackoutServices:service locations:[NSArray array] delegate:delegate];
@@ -22,6 +23,7 @@
 
 - (void)dealloc
 {
+    self.city = nil;
     self.prefecture = nil;
     [super dealloc];
 }
@@ -37,7 +39,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.searchBar.placeholder = @"市区郡";
+    self.searchBar.placeholder = @"検索：市区郡";
+}
+
+-(void) done {
+    [self.locationDelegate locationDidSelectedWithPrefecture:self.prefecture city:self.city street:nil];
 }
 
 #pragma mark - Table view delegate
@@ -45,16 +51,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     if (self.loaded && !self.empty && !self.error) {
-        // find selected index
         NSString* selected = [self textForRow:indexPath];
-        NSLog(@" selected: %@", selected);
-
-        StreetTableViewController* cityController = [[StreetTableViewController alloc] initWithBlackoutServices:self.blackoutServices
-                                                                                                     prefecture:self.prefecture
-                                                                                                           city:selected
-                                                                                                       delegate:self.locationDelegate];
-        [self.navigationController pushViewController:cityController animated:YES];
-        [cityController release];
+        self.city = selected;
+        [self done];
     }
 }
 

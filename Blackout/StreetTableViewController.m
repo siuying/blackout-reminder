@@ -43,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.searchBar.placeholder = @"大字通称";
+    self.searchBar.placeholder = @"検索：大字通称";
 }
 
 -(void) done {

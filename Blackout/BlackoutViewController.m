@@ -69,7 +69,7 @@
     //Load persisted Prefecture, City and Street
     self.selectedPrefecture = [BlackoutAppDelegate prefectureName];
 	self.selectedCity = [BlackoutAppDelegate cityName];
-	self.selectedStreet = [BlackoutAppDelegate streetName];
+	self.selectedStreet = nil;
     
     [self.btnPrefecture setTitle:self.selectedPrefecture forState:UIControlStateNormal];
     [self.btnStreet setTitle:self.selectedStreet forState:UIControlStateNormal];
@@ -222,8 +222,8 @@
 }
 
 -(IBAction) clickStreet:(id)sender {
-    NSLog(@" clicked street:%@, %@", self.selectedPrefecture, self.selectedCity);
-    [self manualInputLocationWithPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
+//    NSLog(@" clicked street:%@, %@", self.selectedPrefecture, self.selectedCity);
+//    [self manualInputLocationWithPrefecture:self.selectedPrefecture city:self.selectedCity street:nil];
 }
 
 -(IBAction) clickTime:(id)sender {
@@ -304,17 +304,7 @@
                                                                                                  delegate:self] autorelease];
         [navController pushViewController:cController animated:NO];
     }
-    
-    // build street controller if needed
-    if (prefecture != nil && city != nil) {
-        StreetTableViewController* sController = [[[StreetTableViewController alloc] initWithBlackoutServices:self.blackoutService 
-                                                                                                   prefecture:prefecture 
-                                                                                                         city:city 
-                                                                                                     delegate:self] autorelease];
-        sController.street = street;
-        [navController pushViewController:sController animated:NO];
-    }
-    
+
     [self presentModalViewController:navController animated:YES];
     [pController release];
     [navController release];
@@ -326,8 +316,7 @@
 -(void) manualInputLocation {
     NSString* prefecture = self.selectedPrefecture;
     NSString* city = self.selectedCity;
-    NSString* street = self.selectedStreet;
-    [self manualInputLocationWithPrefecture:prefecture city:city street:street];
+    [self manualInputLocationWithPrefecture:prefecture city:city street:nil];
 }
 
 -(void) setLoading:(BOOL)isLoading {
@@ -379,8 +368,7 @@
     [self setLoading:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.groups = [self.blackoutService groupsWithPrefecture:self.selectedPrefecture
-                                                            city:self.selectedCity
-                                                          street:self.selectedStreet];
+                                                            city:self.selectedCity];
         
         self.periods = [self.blackoutService periodsWithGroups:self.groups];
 
@@ -395,38 +383,24 @@
 
 -(void) refreshReminderDidUpdatedWithGroups:(NSArray*)blackoutGroups periods:(NSArray*)blackoutPeriods {
     if (!blackoutPeriods || [blackoutPeriods count] == 0) {
-        // TODO show alert dialog for error finding period, ask user to select another prefecture
-        
-        NSDateFormatter *mthFormatter = [[NSDateFormatter alloc] init];
-        [mthFormatter setDateFormat:@"MM"];
-        NSString *mthString = [mthFormatter stringFromDate:[NSDate date]];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd"];
-        NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-        
         lblTimeTitle.text = @"";
         lblTimeRemaining.text = @"";
-        lblTimeDetail.text = [NSString stringWithFormat:@"%@月%@日に計画停電は実施しません", mthString,dateString];
-        
-        [mthFormatter release];
-        [dateFormatter release];
+        lblTimeDetail.text = [NSString stringWithFormat:@"停電データは見つかりません。もう一度お試しください。"];
         
     } else {
         
         // more than one period, should find the next period
         NSDate* currentTime = [NSDate date];
         NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"JST"]];
         
         BlackoutPeriod* period = [BlackoutUtils nextBlackoutWithCurrentTime:currentTime
                                                                     periods:blackoutPeriods];
 
         BOOL isBlackout = [BlackoutUtils isBlackout:currentTime period:period];
         
-        NSDateComponents *periodStartComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) 
+        NSDateComponents *periodStartComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit) 
                                                              fromDate:period.fromTime];
-        NSDateComponents *periodEndComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit) 
+        NSDateComponents *periodEndComponent = [calendar components:(NSHourCalendarUnit|NSMinuteCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit) 
                                                            fromDate:period.toTime];
         
         if (isBlackout) {            
@@ -437,10 +411,10 @@
 
             
             lblTimeTitle.text = [NSString stringWithFormat:@"停電予定終了まで"];
-            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
-                                    [periodStartComponent hour],[periodStartComponent minute], 
+            lblTimeDetail.text = [NSString stringWithFormat:@"計画停電時間：%d/%d %02d:%02d～%02d:%02d\n停電グループ：%@\n予報マーク：%@", 
+                                    [periodStartComponent day],[periodStartComponent month], [periodStartComponent hour],[periodStartComponent minute], 
                                     [periodEndComponent hour], [periodEndComponent minute], 
-                                    [BlackoutUtils groupsMessage:self.groups]];
+                                    [BlackoutUtils groupsMessage:self.groups], period.message];
             lblTimeRemaining.text = [BlackoutUtils timeWithDateComponents:diff];
             
         } else {
@@ -450,10 +424,10 @@
                                                   options:0];
             
             lblTimeTitle.text = [NSString stringWithFormat:@"計画停電まで"];
-            lblTimeDetail.text = [NSString stringWithFormat:@"次の計画停電時間：%02d:%02d～%02d:%02d\n停電グループ：%@", 
-                                  [periodStartComponent hour],[periodStartComponent minute], 
+            lblTimeDetail.text = [NSString stringWithFormat:@"次の計画停電時間：%d/%d %02d:%02d～%02d:%02d\n停電グループ：%@\n予報マーク：%@", 
+                                  [periodStartComponent day],[periodStartComponent month], [periodStartComponent hour],[periodStartComponent minute], 
                                   [periodEndComponent hour], [periodEndComponent minute], 
-                                  [BlackoutUtils groupsMessage:self.groups]];
+                                  [BlackoutUtils groupsMessage:self.groups], period.message];
             lblTimeRemaining.text = [BlackoutUtils timeWithDateComponents:diff];
         }
     }
@@ -496,11 +470,12 @@
     if (street) {
         [self.btnStreet setTitle:street forState:UIControlStateNormal];
     } else {
-        [self.btnStreet setTitle:@"大字通称" forState:UIControlStateNormal];
+        [self.btnStreet setTitle:@"" forState:UIControlStateNormal];
     }
+    
     [self dismissModalViewControllerAnimated:YES];
     
-    if (prefecture && city && street) {
+    if (prefecture && city) {
         NSLog(@" refresh location");
         [self refreshLocation];
     } else {
@@ -512,7 +487,7 @@
 -(void) locationDidCancelled {
     [self dismissModalViewControllerAnimated:YES];
     
-    if (!self.selectedStreet) {
+    if (!self.selectedCity) {
         [self promptManualInputLocation:NO];
     }
 }
@@ -583,7 +558,7 @@
                 // groups and periods ready
                 [self refreshTime];
 
-            } else if (!self.selectedPrefecture || !self.selectedCity || !self.selectedStreet) {
+            } else if (!self.selectedPrefecture || !self.selectedCity) {
                 if ([CLLocationManager locationServicesEnabled]) {
                     [self setLoading:YES animated:NO];
                     [self promptGpsInputLocation];

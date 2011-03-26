@@ -13,8 +13,11 @@
 
 @interface CityTableViewController : LocationTableViewController {
     NSString* prefecture;
+    NSString* city;
 }
+
 @property (nonatomic, retain)     NSString* prefecture;
+@property (nonatomic, retain)     NSString* city;
 
 - (id)initWithBlackoutServices:(id<BlackoutService>)service prefecture:(NSString*)prefecture delegate:(id<LocationTableViewControllerDelegate>) delegate;
 

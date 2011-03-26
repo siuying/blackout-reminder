@@ -186,6 +186,50 @@
     return [NSArray array];
 }
 
+-(NSArray*) groupsWithPrefecture:(NSString*)prefecture city:(NSString*)city {
+    NSLog(@"  find groups with with (%@, %@)", prefecture, city);
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@?startkey=%@&endkey=%@&limit=1", 
+                                       kBlackoutUrlBase, 
+                                       kBlackoutDb, 
+                                       kBlackoutMethodGroup, 
+                                       [[NSString stringWithFormat:@"\"%@-%@\"", prefecture, city] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                       [[NSString stringWithFormat:@"\"%@-%@𧻓\"", prefecture, city] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                       ]];
+    ASIHTTPRequest* request = [ASIHTTPRequest requestWithURL:url];
+    [request setSecondsToCache:60];
+    [request setNumberOfTimesToRetryOnTimeout:3];
+    [request startSynchronous];
+    
+    NSError *error = [request error];
+    if (!error) {
+        NSData *response = [request responseData];
+        NSDictionary* data = [[CJSONDeserializer deserializer] deserializeAsDictionary:response 
+                                                                                 error:&error];
+        
+        if (!error) {
+            NSArray* rows = [data objectForKey:@"rows"];
+            for (NSDictionary* entry in rows) {
+                NSDictionary* value = [entry objectForKey:@"value"];                
+                
+                NSMutableArray* groups = [NSMutableArray array];
+                NSString* company = [value objectForKey:@"company"];
+                NSArray* groupCodes = [value objectForKey:@"group"];
+                
+                for (NSString* groupId in groupCodes) {
+                    [groups addObject:[[BlackoutGroup alloc] initWithCompany:company code:groupId]];
+                }
+                return groups;
+            }
+        } else {
+            NSLog(@"error parsing groups: %@", error);            
+        }
+    } else {
+        NSLog(@"error reading groups: %@", error);
+    }
+    
+    return [NSArray array];
+}
+
 -(NSArray*) periodsWithGroups:(NSArray*)groups  {
     NSLog(@"find periods with groups:%@ ", groups);
 
@@ -232,8 +276,8 @@
                                        kBlackoutUrlBase, 
                                        kBlackoutDb, 
                                        kBlackoutMethodSchedules, 
-                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-                                       [[NSString stringWithFormat:@"[\"%@\",\"%@\", \"99999999\"]", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@-%@\"]", @"2.0", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                       [[NSString stringWithFormat:@"[\"%@\",\"%@-%@\", \"99999999\"]", @"2.0", group.company, group.code] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                        ]];
     NSLog(@" url = %@", url);
     
@@ -254,18 +298,24 @@
             
             NSMutableArray* periods = [NSMutableArray array];
             for (NSDictionary* entry in rows) {
-                NSArray* time = [entry objectForKey:@"time"];
+                NSArray* schedule = [entry objectForKey:@"schedule"];
                 NSString* dateStr = [entry objectForKey:@"date"];
 
-                if (time) {
-                    for (NSArray* timeEntry in time) {
+                if (schedule) {
+                    for (NSDictionary* scheduleEntry in schedule) {
+                        NSArray* timeEntry = [scheduleEntry objectForKey:@"time"];
+                        NSString* message = [scheduleEntry objectForKey:@"message"];
+                        if (!message) {
+                            message = @"";
+                        }                        
                         if ([timeEntry count] >= 2) {
                             NSString* fromTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:0]];
                             NSString* toTimeStr = [dateStr stringByAppendingString:[timeEntry objectAtIndex:1]];
-                        
+
                             BlackoutPeriod* period = [[BlackoutPeriod alloc] initWithGroup:group 
                                                                                   fromTime:[formatter dateFromString:fromTimeStr]
-                                                                                    toTime:[formatter dateFromString:toTimeStr]];
+                                                                                    toTime:[formatter dateFromString:toTimeStr]
+                                                                                   message:message];
                             [periods addObject:period];
                             [period release];
                         }                        

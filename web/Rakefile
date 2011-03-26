@@ -27,82 +27,36 @@ task :import do
   File.open(JSON_BLACKOUT_FILE, 'w') {|f| f.write(blackout_data.to_json) }
 end
 
-# initial export data from tepco to couchdb
-task :export do
-  source_urls   = Blackout::Utils.file_urls
-  url           = "#{CONFIG["url"]}#{CONFIG["database"]}"
-
-  source_urls.each do |source|
-    uploads       = {}
-
-    puts "downloading from #{source}"
-    data =     Blackout::Utils.tepco_data_from_url(source)
-
-    # upload data to CouchDB    
-    puts "  uploading records to db"
-    response = Typhoeus::Request.post("#{url}/_bulk_docs", 
-          :body => {"docs" => data }.to_json,
-          :headers => {:"Content-Type" => "application/json"},
-          :username => CONFIG["username"],
-          :password => CONFIG["password"],
-          :auth_method => :basic
-        )
-
-    if response
-      result = JSON(response.body)
-      result.each do |r|
-        if r["error"]
-          puts "ERROR,#{r["id"]},#{r["error"]},#{r["reason"]}"
-        else
-          puts "OK,#{r["id"]},#{r["rev"]}"
-        end
-      end
-    end
-
-  end
-end
-
 # update tepco couch db data
 task :sync do
   url           = "#{CONFIG["url"]}#{CONFIG["database"]}"
 
-  # download keys from DB
+  # delete all old records
   puts "Fetch CouchDB data"
   response = Typhoeus::Request.get("#{url}/_design/api/_view/blackout", 
     :headers => {:"Content-Type" => "application/json"},
     :username => CONFIG["username"],
     :password => CONFIG["password"],
     :auth_method => :basic
-  )
-  
-  raw_data = JSON(response.body)  
-  couchdb = raw_data["rows"].inject({}) do |result, row|
-    result[row["id"]] = row["value"]["_rev"]
-    result
+  )  
+  raw_data = JSON(response.body)
+  couchdb = raw_data["rows"].collect do |row|
+    row["value"]["_deleted"]  = true
+    row["value"]
   end
-  puts "  #{couchdb.count} records found"
+  if couchdb.count > 0
+    response = Typhoeus::Request.post("#{url}/_bulk_docs", 
+          :body => {"docs" => couchdb }.to_json,
+          :headers => {:"Content-Type" => "application/json"},
+          :username => CONFIG["username"],
+          :password => CONFIG["password"],
+          :auth_method => :basic
+        )
+  end
   
+  # upload data to CouchDB      
   puts "Update blackout data"
   data = Blackout::Utils.tepco_data
-  updated = 0
-  data.each do |row|
-    if couchdb[row[:"_id"]] 
-      row[:"_rev"] = couchdb[row[:"_id"]]
-      updated += 1
-    end
-  end
-  puts "  #{data.count} records found"
-
-  puts "Find data that should be removed from server"
-  keys = data.collect() { |row| row[:"_id"] }
-  deleted = couchdb.keys.select() { |key| keys.index(key).nil? } # keys exists on server but NOT on downloaded data
-  puts "  #{deleted.count} records to be deleted"
-  deleted.each do |key|
-    data << {:"_id" => key, :"_rev" => couchdb[key], :"_deleted" => true}
-  end
-  
-  # upload data to CouchDB    
-  puts "  uploading records to db"
   response = Typhoeus::Request.post("#{url}/_bulk_docs", 
         :body => {"docs" => data }.to_json,
         :headers => {:"Content-Type" => "application/json"},
@@ -125,7 +79,6 @@ task :sync do
       puts "result = #{result.inspect}"
     end
   end
-  
 end
 
 task :sync_time do
