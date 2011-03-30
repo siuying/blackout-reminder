@@ -18,6 +18,8 @@ GEM
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
     ruby-ole (1.2.11.1)
+    spreadsheet (0.6.5.2)
+      ruby-ole (>= 1.0)
     typhoeus (0.2.4)
       mime-types
       mime-types
@@ -32,4 +34,5 @@ DEPENDENCIES
   rake
   rspec
   ruby-ole
+  spreadsheet
   typhoeus

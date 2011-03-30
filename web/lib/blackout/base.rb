@@ -13,24 +13,9 @@ module Blackout
     # iterate through all the excel links, download excel file and extract data
     def self.tepco_data
       result = []
-
-      FasterCSV.foreach("config/groups.csv") do |row|
-        group, prefecture, all_cities = row
-        type = "blackout"
-        if group && prefecture && all_cities
-          all_cities.split("、").each do |city|
-            result << {
-              :"_id" => "#{prefecture.strip}-#{city.strip}",
-              :type => type,
-              :prefecture => prefecture.tr(" ", ""),
-              :city => city.tr(" ", ""),
-              :group => [group],
-              :company => "tepco"
-            }
-          end
-        end
+      file_urls.each do |url| 
+        result.concat(tepco_data_from_url(url))
       end
-
       return result
     end
 
@@ -90,7 +75,7 @@ module Blackout
         data.each do |d|
           begin
             id = "#{d[0]}-#{d[1]}-#{d[2]}"
-            group = d[3].to_i.to_s
+            group = "#{d[3].to_i.to_s}#{d[4]}"
 
             if uploads[id]
               uploads[id][:group] << group
